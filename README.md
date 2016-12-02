@@ -10,9 +10,9 @@ Bresson, [EPFL LTS2](http://lts2.epfl.ch).
 
 This repository features the following notebooks:
 
-1. [Generation](generation.ipynb): generation of the three datasets.
-2. [Analysis](analysis.ipynb): loading and basic analysis of the data.
-3. [Baseline](baseline.ipynb): baseline models for various tasks.
+1. [Generation](fma_generation.ipynb): generation of the three datasets.
+2. [Analysis](fma_analysis.ipynb): loading and basic analysis of the data.
+3. [Baseline](fma_baseline.ipynb): baseline models for various tasks.
 
 Please cite our paper if you use our code or data.
 The code is released under the terms of the [MIT license](LICENSE.txt).
