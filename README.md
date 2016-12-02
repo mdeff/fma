@@ -8,6 +8,7 @@ Bresson, [EPFL LTS2](http://lts2.epfl.ch).
 * Code: <https://github.com/mdeff/fma/>
 * Datasets: <https://lts2.epfl.ch/datasets/fma/>
 
+The dataset is a dump of the [Free Music Archive](http://freemusicarchive.org/).
 This repository features the following notebooks:
 
 1. [Generation](fma_generation.ipynb): generation of the three datasets.
