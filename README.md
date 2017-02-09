@@ -1,23 +1,52 @@
-# FMA: A Dataset For Music Analysis
+# [FMA: A Dataset For Music Analysis][paper]
 
 [Kirell Benzi](http://kirellbenzi.com/), [Michaël Defferrard](http://deff.ch),
 [Pierre Vandergheynst](https://people.epfl.ch/pierre.vandergheynst), Xavier
 Bresson, [EPFL LTS2](http://lts2.epfl.ch).
 
-* Paper: <https://arxiv.org/abs/1612.01840>
-* Code: <https://github.com/mdeff/fma/>
-* Datasets: <https://lts2.epfl.ch/datasets/fma/>
+[paper]: https://arxiv.org/abs/1612.01840>
+
+Note that this is a **beta release** and that this repository as well as the
+paper and data are subject to change. Stay tuned!
+
+## Data
 
 The dataset is a dump of the [Free Music Archive](http://freemusicarchive.org/).
+You got various sizes:
+
+1. [Small](https://os.unil.cloud.switch.ch/fma/fma_small.zip): 4,000 clips of
+   30 seconds, 10 balanced genres (GTZAN-like) (~3.4 GiB)
+2. [Medium](https://os.unil.cloud.switch.ch/fma/fma_medium.zip): 14,511 clips
+   of 30 seconds, 20 unbalanced genres (~12.2 GiB)
+3. Large (available soon): 77,643 clips of 30 seconds, 68 unbalanced genres
+   (~90 GiB)
+4. Huge (subject to distribution constraints): 77,643 untrimmed clips, 68
+   unbalanced genres (~900 GiB)
+
+Notes:
+
+* All datasets come with MP3 audio (128 kbps, 44.1 kHz, stereo) of all clips.
+* All datasets come with the following meta-data about each clip: artist,
+  title, list of genres (and top genre), play count.
+* Meta-data about all clips are stored in a JSON file to be loaded as a
+  [pandas dataframe](http://pandas.pydata.org/).
+* As additional audio meta-data, each clip of datasets 1 and 2 come with all
+  [Echonest features](http://the.echonest.com/).
+* Please see the [paper] for a description of how the data was collected and
+  cleaned.
+
+## Code
+
 This repository features the following notebooks:
 
 1. [Generation](fma_generation.ipynb): generation of the three datasets.
 2. [Analysis](fma_analysis.ipynb): loading and basic analysis of the data.
 3. [Baseline](fma_baseline.ipynb): baseline models for various tasks.
+4. [Usage](fma_usage.ipynb): how to load the datasets and train your own models.
 
-To use the dataset, see the [usage](fma_usage.ipynb) notebook.
+## License
 
-Please cite our paper if you use our code or data.
+Please cite our [paper] if you use our code or data.
 The code is released under the terms of the [MIT license](LICENSE.txt).
 The dataset is meant for research only.
 
