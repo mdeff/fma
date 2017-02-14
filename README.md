@@ -1,8 +1,9 @@
 # [FMA: A Dataset For Music Analysis][paper]
 
 [Kirell Benzi](http://kirellbenzi.com/), [Michaël Defferrard](http://deff.ch),
-[Pierre Vandergheynst](https://people.epfl.ch/pierre.vandergheynst), Xavier
-Bresson, [EPFL LTS2](http://lts2.epfl.ch).
+[Pierre Vandergheynst](https://people.epfl.ch/pierre.vandergheynst),
+[Xavier Bresson](http://research.ntu.edu.sg/expertise/academicprofile/Pages/StaffProfile.aspx?ST_EMAILID=XBRESSON),
+[EPFL LTS2](http://lts2.epfl.ch).
 
 [paper]: https://arxiv.org/abs/1612.01840>
 
