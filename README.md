@@ -40,18 +40,17 @@ Notes:
 
 This repository features the following notebooks:
 
-1. [Generation](fma_generation.ipynb): generation of the three datasets.
+1. [Generation](fma_generation.ipynb): generation of the datasets.
 2. [Analysis](fma_analysis.ipynb): loading and basic analysis of the data.
 3. [Baseline](fma_baseline.ipynb): baseline models for various tasks.
 4. [Usage](fma_usage.ipynb): how to load the datasets and train your own models.
 
 ## License
 
-Please cite our [paper] if you use our code or data.
-The code is released under the terms of the [MIT license](LICENSE.txt).
-The dataset is meant for research only.
-
-We are grateful to SWITCH and EPFL for hosting the dataset within the context
-of the [SCALE-UP](https://projects.switch.ch/scale-up/) project, funded in part
-by the swissuniversities
-[SUC P-2 program](http://www.swissuniversities.ch/isci).
+* Please cite our [paper] if you use our code or data.
+* The code is released under the terms of the [MIT license](LICENSE.txt).
+* The dataset is meant for research only.
+* We are grateful to SWITCH and EPFL for hosting the dataset within the context
+  of the [SCALE-UP](https://projects.switch.ch/scale-up/) project, funded in
+  part by the swissuniversities
+  [SUC P-2 program](http://www.swissuniversities.ch/isci).
