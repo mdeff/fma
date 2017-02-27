@@ -40,10 +40,15 @@ Notes:
 
 This repository features the following notebooks:
 
-1. [Generation](fma_generation.ipynb): generation of the datasets.
-2. [Analysis](fma_analysis.ipynb): loading and basic analysis of the data.
-3. [Baseline](fma_baseline.ipynb): baseline models for various tasks.
-4. [Usage](fma_usage.ipynb): how to load the datasets and train your own models.
+1. [Generation]: generation of the datasets.
+2. [Analysis]: loading and basic analysis of the data.
+3. [Baselines]: baseline models for various tasks.
+4. [Usage]: how to load the datasets and train your own models.
+
+[generation]: https://nbviewer.jupyter.org/github/mdeff/fma/blob/outputs/fma_generation.ipynb
+[analysis]: https://nbviewer.jupyter.org/github/mdeff/fma/blob/outputs/fma_analysis.ipynb
+[baselines]: https://nbviewer.jupyter.org/github/mdeff/fma/blob/outputs/fma_baselines.ipynb
+[usage]: https://nbviewer.jupyter.org/github/mdeff/fma/blob/outputs/fma_usage.ipynb
 
 ## License
 
