@@ -3,7 +3,7 @@
 [Kirell Benzi](http://kirellbenzi.com/), [Michaël Defferrard](http://deff.ch),
 [Pierre Vandergheynst](https://people.epfl.ch/pierre.vandergheynst),
 [Xavier Bresson](http://research.ntu.edu.sg/expertise/academicprofile/Pages/StaffProfile.aspx?ST_EMAILID=XBRESSON),
-[EPFL LTS2](http://lts2.epfl.ch).
+[EPFL LTS2](https://lts2.epfl.ch).
 
 [paper]: https://arxiv.org/abs/1612.01840>
 
@@ -12,7 +12,7 @@ paper and data are subject to change. Stay tuned!
 
 ## Data
 
-The dataset is a dump of the [Free Music Archive](http://freemusicarchive.org/).
+The dataset is a dump of the [Free Music Archive](https://freemusicarchive.org/).
 You got various sizes:
 
 1. [Small](https://os.unil.cloud.switch.ch/fma/fma_small.zip): 4,000 clips of
@@ -58,4 +58,4 @@ This repository features the following notebooks:
 * We are grateful to SWITCH and EPFL for hosting the dataset within the context
   of the [SCALE-UP](https://projects.switch.ch/scale-up/) project, funded in
   part by the swissuniversities
-  [SUC P-2 program](http://www.swissuniversities.ch/isci).
+  [SUC P-2 program](https://www.swissuniversities.ch/isci).
