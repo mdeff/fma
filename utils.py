@@ -20,7 +20,10 @@ ECHONEST_RANKS = ['artist_discovery_rank', 'artist_familiarity_rank',
                   'song_hotttnesss_rank']
 
 
-def path(df, index):
-    genre = df.iloc[index]['top_genre']
-    tid = df.iloc[index].name
-    return os.path.join(genre, str(tid) + '.mp3')
+
+def build_path(df, data_dir):
+    def path(index):
+        genre = df.iloc[index]['top_genre']
+        tid = df.iloc[index].name
+        return os.path.join(data_dir, genre, str(tid) + '.mp3')
+    return path
