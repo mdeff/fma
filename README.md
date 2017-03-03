@@ -50,6 +50,29 @@ This repository features the following notebooks:
 [baselines]: https://nbviewer.jupyter.org/github/mdeff/fma/blob/outputs/fma_baselines.ipynb
 [usage]: https://nbviewer.jupyter.org/github/mdeff/fma/blob/outputs/fma_usage.ipynb
 
+### Installation
+
+```sh
+# Install Python 3.6 and create a virtual environment.
+pyenv install 3.6.0
+pyenv virtualenv 3.6.0 fma
+
+# Clone the repository.
+git clone https://github.com/mdeff/fma.git
+cd fma
+
+# Install the dependencies.
+make install
+
+# Open the Jupyter notebook.
+jupyter-notebook
+
+# Or run a notebook.
+make fma_baselines.ipynb
+```
+
+External depencies: [ffmpeg](https://ffmpeg.org/download.html)
+
 ## License
 
 * Please cite our [paper] if you use our code or data.
