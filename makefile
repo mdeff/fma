@@ -10,9 +10,10 @@ clean:
 
 install:
 	pip install --upgrade pip
+	pip install --upgrade numpy
 	pip install --upgrade -r requirements.txt
 
 readme:
 	grip README.md
 
-.PHONY: run $(NB) clean readme
+.PHONY: run $(NB) clean install readme
