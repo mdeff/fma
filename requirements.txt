@@ -3,6 +3,9 @@ pandas
 matplotlib
 
 scikit-learn
+#tensorflow
+tensorflow-gpu
+keras
 
 librosa
 
