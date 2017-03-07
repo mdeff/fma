@@ -56,6 +56,7 @@ This repository features the following notebooks:
 # Install Python 3.6 and create a virtual environment.
 pyenv install 3.6.0
 pyenv virtualenv 3.6.0 fma
+pyenv activate fma
 
 # Clone the repository.
 git clone https://github.com/mdeff/fma.git
@@ -71,7 +72,9 @@ jupyter-notebook
 make fma_baselines.ipynb
 ```
 
-External depencies: [ffmpeg](https://ffmpeg.org/download.html)
+* External dependencies: [ffmpeg](https://ffmpeg.org/download.html).
+* Install [CUDA](https://en.wikipedia.org/wiki/CUDA) to train on GPU.
+  See [Tensorflow's instructions](https://www.tensorflow.org/install/).
 
 ## License
 
