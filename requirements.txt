@@ -10,3 +10,5 @@ keras
 librosa
 
 jupyter
+
+python-dotenv

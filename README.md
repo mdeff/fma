@@ -65,6 +65,10 @@ cd fma
 # Install the dependencies.
 make install
 
+# Fill in the configuration.
+cat .env
+DATA_DIR=/path/to/fma_small
+
 # Open the Jupyter notebook.
 jupyter-notebook
 
