@@ -26,6 +26,7 @@ ECHONEST_RANKS = ['artist_discovery_rank', 'artist_familiarity_rank',
 # Number of samples per 30s audio clip.
 # TODO: fix dataset to be constant.
 NB_AUDIO_SAMPLES = 1321967
+SAMPLING_RATE = 44100
 
 
 def build_path(df, data_dir):
@@ -36,7 +37,7 @@ def build_path(df, data_dir):
     return path
 
 
-def build_sample_loader(path, Y):
+def build_sample_loader(path, Y, sampling_rate=SAMPLING_RATE):
 
     class SampleLoader:
 
@@ -52,7 +53,8 @@ def build_sample_loader(path, Y):
 
             self.batch_size = batch_size
 
-            self.X = np.empty((self.batch_size, NB_AUDIO_SAMPLES))
+            self.nb_audio_samples = NB_AUDIO_SAMPLES * sampling_rate // SAMPLING_RATE
+            self.X = np.empty((self.batch_size, self.nb_audio_samples))
             self.Y = np.empty((self.batch_size, Y.shape[1]))
 
         def __iter__(self):
@@ -78,7 +80,7 @@ def build_sample_loader(path, Y):
 
             for i, idx in enumerate(indices):
                 x = self._load_ffmpeg(path(idx))
-                self.X[i] = x[:NB_AUDIO_SAMPLES]
+                self.X[i] = x[:self.nb_audio_samples]
                 self.Y[i] = Y[idx]
 
             with self.lock2:
@@ -116,7 +118,7 @@ def build_sample_loader(path, Y):
                        '-i', filename,
                        '-f', 's16le',
                        '-acodec', 'pcm_s16le',
-                       # '-ar', '44100', # sampling rate
+                       '-ar', str(sampling_rate),
                        '-ac', '1',  # channels: 2 for stereo, 1 for mono
                        '-']
             # 30s at 44.1 kHz ~= 1.3e6
