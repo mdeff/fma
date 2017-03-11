@@ -37,7 +37,62 @@ def build_path(df, data_dir):
     return path
 
 
-def build_sample_loader(path, Y, sampling_rate=SAMPLING_RATE):
+class Loader:
+    def load(path):
+        raise NotImplemented()
+
+
+class RawAudioLoader(Loader):
+    def __init__(self, sampling_rate=SAMPLING_RATE):
+        self.sampling_rate = sampling_rate
+        self.shape = (NB_AUDIO_SAMPLES * sampling_rate // SAMPLING_RATE, )
+    def load(self, filename):
+        return self._load(filename)[:self.shape[0]]
+
+
+class LibrosaLoader(RawAudioLoader):
+    def _load(self, filename):
+        import librosa
+        sr = self.sampling_rate if self.sampling_rate != SAMPLING_RATE else None
+        x, sr = librosa.load(filename, sr=sr)
+        return x
+
+
+class AudioreadLoader(RawAudioLoader):
+    def _load(self, filename):
+        import audioread
+        a = audioread.audio_open(filename)
+        a.read_data()
+
+
+class PydubLoader(RawAudioLoader):
+    def _load(self, filename):
+        from pydub import AudioSegment
+        song = AudioSegment.from_file(filename)
+        song = song.set_channels(1)
+        x = song.get_array_of_samples()
+        # print(filename) if song.channels != 2 else None
+        return np.array(x)
+
+
+class FfmpegLoader(RawAudioLoader):
+    def _load(self, filename):
+        """Fastest and less CPU intensive loading method."""
+        import subprocess as sp
+        command = ['ffmpeg',
+                   '-i', filename,
+                   '-f', 's16le',
+                   '-acodec', 'pcm_s16le',
+                   '-ac', '1']  # channels: 2 for stereo, 1 for mono
+        if self.sampling_rate != SAMPLING_RATE:
+            command.extend(['-ar', str(self.sampling_rate)])
+        command.append('-')
+        # 30s at 44.1 kHz ~= 1.3e6
+        proc = sp.run(command, stdout=sp.PIPE, bufsize=10**7)
+        return np.fromstring(proc.stdout, dtype="int16")
+
+
+def build_sample_loader(path, Y, loader):
 
     class SampleLoader:
 
@@ -52,10 +107,9 @@ def build_sample_loader(path, Y, sampling_rate=SAMPLING_RATE):
             self.ids = np.ctypeslib.as_array(data)
 
             self.batch_size = batch_size
-
-            self.nb_audio_samples = NB_AUDIO_SAMPLES * sampling_rate // SAMPLING_RATE
-            self.X = np.empty((self.batch_size, self.nb_audio_samples))
-            self.Y = np.empty((self.batch_size, Y.shape[1]))
+            self.loader = loader
+            self.X = np.empty((self.batch_size, *loader.shape))
+            self.Y = np.empty((self.batch_size, Y.shape[1]), dtype=np.int)
 
         def __iter__(self):
             return self
@@ -79,8 +133,7 @@ def build_sample_loader(path, Y, sampling_rate=SAMPLING_RATE):
                 indices = np.array(self.ids[batch_current:batch_current+batch_size])
 
             for i, idx in enumerate(indices):
-                x = self._load_ffmpeg(path(idx))
-                self.X[i] = x[:self.nb_audio_samples]
+                self.X[i] = self.loader.load(path(idx))
                 self.Y[i] = Y[idx]
 
             with self.lock2:
@@ -92,37 +145,5 @@ def build_sample_loader(path, Y, sampling_rate=SAMPLING_RATE):
                 self.batch_rearmost.value = batch_current
 
                 return self.X[:batch_size], self.Y[:batch_size]
-
-        def _load_librosa(self, filename):
-            import librosa
-            x, sr = librosa.load(filename, sr=None)
-            return x
-
-        def _load_audioread(self, filename):
-            import audioread
-            a = audioread.audio_open(filename)
-            a.read_data()
-
-        def _load_pydub(self, filename):
-            from pydub import AudioSegment
-            song = AudioSegment.from_file(filename)
-            song = song.set_channels(1)
-            x = song.get_array_of_samples()
-            # print(filename) if song.channels != 2 else None
-            return np.array(x)
-
-        def _load_ffmpeg(self, filename):
-            """Fastest and less CPU intensive loading method."""
-            import subprocess as sp
-            command = ['ffmpeg',
-                       '-i', filename,
-                       '-f', 's16le',
-                       '-acodec', 'pcm_s16le',
-                       '-ar', str(sampling_rate),
-                       '-ac', '1',  # channels: 2 for stereo, 1 for mono
-                       '-']
-            # 30s at 44.1 kHz ~= 1.3e6
-            proc = sp.run(command, stdout=sp.PIPE, bufsize=10**7)
-            return np.fromstring(proc.stdout, dtype="int16")
 
     return SampleLoader
