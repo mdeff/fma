@@ -66,12 +66,12 @@ For the most curious, these were used to create the dataset:
 1. [generation]: generation of the dataset.
 2. [features]: generation of features from the raw audio, i.e. `features.json`.
 
-[usage]:      https://nbviewer.jupyter.org/github/mdeff/fma/blob/outputs/fma_usage.ipynb
+[usage]:      https://nbviewer.jupyter.org/github/mdeff/fma/blob/outputs/usage.ipynb
 [webapi]:     https://nbviewer.jupyter.org/github/mdeff/fma/blob/outputs/webapi.ipynb
+[analysis]:   https://nbviewer.jupyter.org/github/mdeff/fma/blob/outputs/analysis.ipynb
+[baselines]:  https://nbviewer.jupyter.org/github/mdeff/fma/blob/outputs/baselines.ipynb
 [generation]: https://nbviewer.jupyter.org/github/mdeff/fma/blob/outputs/fma_generation.ipynb
 [features]:   https://nbviewer.jupyter.org/github/mdeff/fma/blob/outputs/features.ipynb
-[analysis]:   https://nbviewer.jupyter.org/github/mdeff/fma/blob/outputs/fma_analysis.ipynb
-[baselines]:  https://nbviewer.jupyter.org/github/mdeff/fma/blob/outputs/fma_baselines.ipynb
 
 ## Installation
 
