@@ -1,6 +1,10 @@
 import dotenv
+import pydot
+import requests
 import numpy as np
+import pandas as pd
 import ctypes
+import shutil
 import multiprocessing
 import multiprocessing.sharedctypes as sharedctypes
 import os.path
@@ -33,6 +37,144 @@ SAMPLING_RATE = 44100
 dotenv.load_dotenv(dotenv.find_dotenv())
 
 
+class FreeMusicArchive:
+
+    BASE_URL = 'https://freemusicarchive.org/api/get/'
+
+    def __init__(self, api_key):
+        self.api_key = api_key
+
+    def get_recent_tracks(self):
+        URL = 'https://freemusicarchive.org/recent.json'
+        r = requests.get(URL)
+        r.raise_for_status()
+        tracks = []
+        artists = []
+        date_created = []
+        for track in r.json()['aTracks']:
+            tracks.append(track['track_id'])
+            artists.append(track['artist_name'])
+            date_created.append(track['track_date_created'])
+        return tracks, artists, date_created
+
+    def _get_data(self, dataset, fma_id, fields):
+        url = self.BASE_URL + dataset + 's.json?'
+        url += dataset + '_id=' + str(fma_id) + '&api_key=' + self.api_key
+        # print(url)
+        r = requests.get(url)
+        r.raise_for_status()
+        data = r.json()['dataset'][0]
+        r_id = data[dataset + '_id']
+        if r_id != str(fma_id):
+            raise Exception('The received id {} does not correspond to'
+                            'the requested one {}'.format(r_id, fma_id))
+        if type(fields) is list:
+            ret = {}
+            for field in fields:
+                ret[field] = data[field]
+            return ret
+        else:
+            return data[fields]
+
+    def get_track(self, track_id, fields):
+        return self._get_data('track', track_id, fields)
+
+    def get_album(self, album_id, fields):
+        return self._get_data('album', album_id, fields)
+
+    def get_artist(self, artist_id, fields):
+        return self._get_data('artist', artist_id, fields)
+
+    def download_track(self, track_id, path):
+        url = 'https://files.freemusicarchive.org/'
+        url += self.get_track(track_id, 'track_file')
+        r = requests.get(url, stream=True)
+        r.raise_for_status()
+        with open(path, 'wb') as f:
+            shutil.copyfileobj(r.raw, f)
+
+    def get_track_genres(self, track_id):
+        genres = self.get_track(track_id, 'track_genres')
+        genre_ids = []
+        genre_titles = []
+        for genre in genres:
+            genre_ids.append(genre['genre_id'])
+            genre_titles.append(genre['genre_title'])
+        return genre_ids, genre_titles
+
+    def get_all_genres(self):
+        df = pd.DataFrame(columns=['genre_parent_id', 'genre_title'])
+        df.index.rename('genre_id', inplace=True)
+
+        page = 1
+        while True:
+            url = self.BASE_URL + 'genres.json?limit=50'
+            url += '&page={}&api_key={}'.format(page, self.api_key)
+            r = requests.get(url)
+            for genre in r.json()['dataset']:
+                genre_id = int(genre[df.index.name])
+                df.loc[genre_id] = [genre[col] for col in df.columns]
+            assert (r.json()['page'] == str(page))
+            page += 1
+            if page > r.json()['total_pages']:
+                break
+
+        df['genre_parent_id'].fillna(0, inplace=True)
+        df['genre_parent_id'] = df['genre_parent_id'].astype(int)
+        df['genre_title'] = df['genre_title'].astype(str)
+
+        return df
+
+
+class Genres:
+
+    def __init__(self, genres_df):
+        self.df = genres_df
+
+    def create_tree(self, roots, depth=None):
+
+        if type(roots) is not list:
+            roots = [roots]
+        graph = pydot.Dot(graph_type='graph')
+
+        def create_node(genre_id):
+            name = self.df.loc[genre_id]['genre_title'] + '\n' + str(genre_id)
+            name = '"' + name + '"'
+            return pydot.Node(name)
+
+        def create_tree(root_id, node_p, depth):
+            if depth == 0:
+                return
+            children = self.df[self.df['genre_parent_id'] == root_id]
+            for child in children.iterrows():
+                genre_id = child[0]
+                node_c = create_node(genre_id)
+                graph.add_edge(pydot.Edge(node_p, node_c))
+                create_tree(genre_id, node_c,
+                            depth-1 if depth is not None else None)
+
+        for root in roots:
+            node_p = create_node(root)
+            graph.add_node(node_p)
+            create_tree(root, node_p, depth)
+
+        return graph
+
+    def find_roots(self):
+        roots = []
+        for genre in self.df.iterrows():
+            genre_id = genre[0]
+            parent_id = genre[1]['genre_parent_id']
+            genre_title = genre[1]['genre_title']
+            if parent_id == 0:
+                roots.append(genre_id)
+            elif parent_id not in self.df.index:
+                msg = '{} ({}) has parent {} which is missing'.format(
+                        genre_id, genre_title, parent_id)
+                raise RuntimeError(msg)
+        return roots
+
+
 def build_path(df, data_dir):
     def path(index):
         genre = df.iloc[index]['top_genre']
@@ -50,6 +192,7 @@ class RawAudioLoader(Loader):
     def __init__(self, sampling_rate=SAMPLING_RATE):
         self.sampling_rate = sampling_rate
         self.shape = (NB_AUDIO_SAMPLES * sampling_rate // SAMPLING_RATE, )
+
     def load(self, filename):
         return self._load(filename)[:self.shape[0]]
 

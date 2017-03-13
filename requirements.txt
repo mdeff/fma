@@ -9,6 +9,9 @@ keras
 
 librosa
 
+requests
+pydot
+
 jupyter
 
 python-dotenv
