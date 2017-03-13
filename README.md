@@ -50,41 +50,54 @@ This repository features the following notebooks:
 [baselines]: https://nbviewer.jupyter.org/github/mdeff/fma/blob/outputs/fma_baselines.ipynb
 [usage]: https://nbviewer.jupyter.org/github/mdeff/fma/blob/outputs/fma_usage.ipynb
 
-### Installation
+## Installation
 
-```sh
-# Install Python 3.6 and create a virtual environment.
-pyenv install 3.6.0
-pyenv virtualenv 3.6.0 fma
-pyenv activate fma
+1. Optionally, use [pyenv] to install Python 3.6 and create a [virtual
+   environment][pyenv-virt].
+	```sh
+	pyenv install 3.6.0
+	pyenv virtualenv 3.6.0 fma
+	pyenv activate fma
+	```
 
-# Clone the repository.
-git clone https://github.com/mdeff/fma.git
-cd fma
+2. Clone the repository.
+	```sh
+	git clone https://github.com/mdeff/fma.git
+	cd fma
+	```
 
-# Install the dependencies.
-make install
+3. Install the Python dependencies from `requirements.txt`. Depending on your
+   usage, you may need to install [ffmpeg] or [graphviz].
+	```sh
+	make install
+	```
 
-# Fill in the configuration.
-cat .env
-DATA_DIR=/path/to/fma_small
+4. Optionnaly, install [CUDA] to train neural networks on GPUs. See
+   [Tensorflow's instructions](https://www.tensorflow.org/install/).
 
-# Open the Jupyter notebook.
-jupyter-notebook
+5. Fill in the configuration.
+	```sh
+	cat .env
+	DATA_DIR=/path/to/fma_small
+	```
 
-# Or run a notebook.
-make fma_baselines.ipynb
-```
+5. Open Jupyter or run a notebook.
+	```sh
+	jupyter-notebook
+	make fma_baselines.ipynb
+	```
 
-* External dependencies: [ffmpeg](https://ffmpeg.org/download.html).
-* Install [CUDA](https://en.wikipedia.org/wiki/CUDA) to train on GPU.
-  See [Tensorflow's instructions](https://www.tensorflow.org/install/).
+[pyenv]:    https://github.com/pyenv/pyenv
+[pyenv-virt]: https://github.com/pyenv/pyenv-virtualenv
+[ffmpeg]:   https://ffmpeg.org/download.html
+[graphviz]: http://www.graphviz.org/
+[CUDA]:     https://en.wikipedia.org/wiki/CUDA
 
-## License
+## License & co
 
 * Please cite our [paper] if you use our code or data.
 * The code is released under the terms of the [MIT license](LICENSE.txt).
-* The dataset is meant for research only.
+* The dataset is meant for research purposes only.
 * We are grateful to SWITCH and EPFL for hosting the dataset within the context
   of the [SCALE-UP](https://projects.switch.ch/scale-up/) project, funded in
   part by the swissuniversities
