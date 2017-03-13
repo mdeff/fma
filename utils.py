@@ -1,3 +1,4 @@
+import dotenv
 import numpy as np
 import ctypes
 import multiprocessing
@@ -27,6 +28,9 @@ ECHONEST_RANKS = ['artist_discovery_rank', 'artist_familiarity_rank',
 # TODO: fix dataset to be constant.
 NB_AUDIO_SAMPLES = 1321967
 SAMPLING_RATE = 44100
+
+# Load the environment from the .env file.
+dotenv.load_dotenv(dotenv.find_dotenv())
 
 
 def build_path(df, data_dir):
