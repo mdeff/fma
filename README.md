@@ -1,4 +1,4 @@
-# [FMA: A Dataset For Music Analysis][paper]
+# FMA: A Dataset For Music Analysis
 
 [Kirell Benzi](http://kirellbenzi.com/), [Michaël Defferrard](http://deff.ch),
 [Pierre Vandergheynst](https://people.epfl.ch/pierre.vandergheynst),
@@ -6,49 +6,72 @@
 [EPFL LTS2](https://lts2.epfl.ch).
 
 [paper]: https://arxiv.org/abs/1612.01840>
+[FMA]:   https://freemusicarchive
 
 Note that this is a **beta release** and that this repository as well as the
 paper and data are subject to change. Stay tuned!
 
 ## Data
 
-The dataset is a dump of the [Free Music Archive](https://freemusicarchive.org/).
-You got various sizes:
+The dataset is a dump of the [Free Music Archive (FMA)][FMA]. Please see the
+[paper] for a description of how the data was collected and cleaned as well as
+an analysis and some baselines.
 
-1. [Small](https://os.unil.cloud.switch.ch/fma/fma_small.zip): 4,000 clips of
-   30 seconds, 10 balanced genres (GTZAN-like) (~3.4 GiB)
-2. [Medium](https://os.unil.cloud.switch.ch/fma/fma_medium.zip): 14,511 clips
-   of 30 seconds, 20 unbalanced genres (~12.2 GiB)
-3. Large (available soon): 77,643 clips of 30 seconds, 68 unbalanced genres
-   (~90 GiB)
-4. Huge (subject to distribution constraints): 77,643 untrimmed clips, 68
-   unbalanced genres (~900 GiB)
+You got various sizes of MP3-encoded audio data:
 
-Notes:
+1. [fma_small.zip]: 4,000 tracks of 30 seconds, 10 balanced genres (GTZAN-like)
+   (~3.4 GiB)
+2. [fma_medium.zip]: 14,511 tracks of 30 seconds, 20 unbalanced genres
+   (~12.2 GiB)
+3. [fma_large.zip]: 77,643 tracks of 30 seconds, 68 unbalanced genres (~90 GiB)
+   (available soon)
+4. [fma_huge.zip]: 77,643 untrimmed tracks, 68 unbalanced genres (~900 GiB)
+   (subject to distribution constraints)
 
-* All datasets come with MP3 audio (128 kbps, 44.1 kHz, stereo) of all clips.
-* All datasets come with the following meta-data about each clip: artist,
-  title, list of genres (and top genre), play count.
-* Meta-data about all clips are stored in a JSON file to be loaded as a
-  [pandas dataframe](http://pandas.pydata.org/).
-* As additional audio meta-data, each clip of datasets 1 and 2 come with all
-  [Echonest features](http://the.echonest.com/).
-* Please see the [paper] for a description of how the data was collected and
-  cleaned.
+[fma_small.zip]:  https://os.unil.cloud.switch.ch/fma/fma_small.zip
+[fma_medium.zip]: https://os.unil.cloud.switch.ch/fma/fma_medium.zip
+
+As meta-data, you got the following in this repository:
+* `tracks.json`: a table (to be imported as a [pandas dataframe]) which
+  contains meta-data about each track such as the ID, the title, the artist or
+  the genres. See the [usage] notebook for an exhaustive list.
+* `genres.json`: all the xxx available genres, used to infer the genre
+  hierarchy and top-level genres.
+* `features.json`: common features extracted with [librosa].
+* `spotify.json`: audio features provided by [Spotify], formerly [Echonest].
+  Cover all tracks distributed in [fma_small.zip] and [fma_medium.zip] as well
+  as some others.
+
+[pandas dataframe]: http://pandas.pydata.org/
+[librosa]:  https://librosa.github.io/librosa/
+[spotify]:  https://www.spotify.com/
+[echonest]: http://the.echonest.com/
 
 ## Code
 
-This repository features the following notebooks:
+As a user of the dataset, you're probably most interested by those notebooks:
 
-1. [Generation]: generation of the datasets.
-2. [Analysis]: loading and basic analysis of the data.
-3. [Baselines]: baseline models for various tasks.
-4. [Usage]: how to load the datasets and train your own models.
+1. [usage]: how to load the datasets and train your own models.
+2. [webapi]: query the web API of the [FMA] to update the dataset or gather
+   further information about tracks, albums or artists.
 
+If you're curious you may check those notebooks, which most results appear in
+the paper:
+
+1. [analysis]: some exploration of the data.
+2. [baselines]: baseline models for various tasks.
+
+For the most curious, these were used to create the dataset:
+
+1. [generation]: generation of the dataset.
+2. [features]: generation of features from the raw audio, i.e. `features.json`.
+
+[usage]:      https://nbviewer.jupyter.org/github/mdeff/fma/blob/outputs/fma_usage.ipynb
+[webapi]:     https://nbviewer.jupyter.org/github/mdeff/fma/blob/outputs/webapi.ipynb
 [generation]: https://nbviewer.jupyter.org/github/mdeff/fma/blob/outputs/fma_generation.ipynb
-[analysis]: https://nbviewer.jupyter.org/github/mdeff/fma/blob/outputs/fma_analysis.ipynb
-[baselines]: https://nbviewer.jupyter.org/github/mdeff/fma/blob/outputs/fma_baselines.ipynb
-[usage]: https://nbviewer.jupyter.org/github/mdeff/fma/blob/outputs/fma_usage.ipynb
+[features]:   https://nbviewer.jupyter.org/github/mdeff/fma/blob/outputs/features.ipynb
+[analysis]:   https://nbviewer.jupyter.org/github/mdeff/fma/blob/outputs/fma_analysis.ipynb
+[baselines]:  https://nbviewer.jupyter.org/github/mdeff/fma/blob/outputs/fma_baselines.ipynb
 
 ## Installation
 
@@ -87,11 +110,11 @@ This repository features the following notebooks:
 	make fma_baselines.ipynb
 	```
 
-[pyenv]:    https://github.com/pyenv/pyenv
+[pyenv]:      https://github.com/pyenv/pyenv
 [pyenv-virt]: https://github.com/pyenv/pyenv-virtualenv
-[ffmpeg]:   https://ffmpeg.org/download.html
-[graphviz]: http://www.graphviz.org/
-[CUDA]:     https://en.wikipedia.org/wiki/CUDA
+[ffmpeg]:     https://ffmpeg.org/download.html
+[graphviz]:   http://www.graphviz.org/
+[CUDA]:       https://en.wikipedia.org/wiki/CUDA
 
 ## License & co
 
@@ -99,6 +122,8 @@ This repository features the following notebooks:
 * The code is released under the terms of the [MIT license](LICENSE.txt).
 * The dataset is meant for research purposes only.
 * We are grateful to SWITCH and EPFL for hosting the dataset within the context
-  of the [SCALE-UP](https://projects.switch.ch/scale-up/) project, funded in
-  part by the swissuniversities
-  [SUC P-2 program](https://www.swissuniversities.ch/isci).
+  of the [SCALE-UP] project, funded in part by the swissuniversities [SUC P-2
+  program].
+
+[SCALE-UP]: https://projects.switch.ch/scale-up/
+[SUC P-2 program]: https://www.swissuniversities.ch/isci
