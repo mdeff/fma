@@ -135,7 +135,7 @@ class Genres:
 
         if type(roots) is not list:
             roots = [roots]
-        graph = pydot.Dot(graph_type='graph')
+        graph = pydot.Dot(graph_type='digraph', strict=True)
 
         def create_node(genre_id):
             name = self.df.loc[genre_id]['genre_title'] + '\n' + str(genre_id)
