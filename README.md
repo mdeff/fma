@@ -5,17 +5,21 @@
 [Xavier Bresson](http://research.ntu.edu.sg/expertise/academicprofile/Pages/StaffProfile.aspx?ST_EMAILID=XBRESSON),
 [EPFL LTS2](https://lts2.epfl.ch).
 
-[paper]: https://arxiv.org/abs/1612.01840>
-[FMA]:   https://freemusicarchive.org
+[paper]:     https://arxiv.org/abs/1612.01840>
+[FMA]:       https://freemusicarchive.org
+[WFMU]:      https://wfmu.org
+[Wikipedia]: https://en.wikipedia.org/wiki/Free_Music_Archive
 
 Note that this is a **beta release** and that this repository as well as the
 paper and data are subject to change. Stay tuned!
 
 ## Data
 
-The dataset is a dump of the [Free Music Archive (FMA)][FMA]. Please see the
-[paper] for a description of how the data was collected and cleaned as well as
-an analysis and some baselines.
+The dataset is a dump of the [Free Music Archive (FMA)][FMA], an interactive
+library of high-quality, legal audio downloads directed by [WFMU], the
+longest-running freeform radio station in the United States [[Wikipedia]].
+Please see the [paper] for a description of how the data was collected and
+cleaned as well as an analysis and some baselines.
 
 You got various sizes of MP3-encoded audio data:
 
