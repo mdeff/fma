@@ -75,7 +75,13 @@ For the most curious, these were used to create the dataset:
 
 ## Installation
 
-1. Optionally, use [pyenv] to install Python 3.6 and create a [virtual
+1. Download some data and verify its integrity.
+	```sh
+	echo "e731a5d56a5625f7b7f770923ee32922374e2cbf  fma_small.zip" | sha1sum -c -
+	echo "fe23d6f2a400821ed1271ded6bcd530b7a8ea551  fma_medium.zip" | sha1sum -c -
+	```
+
+2. Optionally, use [pyenv] to install Python 3.6 and create a [virtual
    environment][pyenv-virt].
 	```sh
 	pyenv install 3.6.0
@@ -83,28 +89,28 @@ For the most curious, these were used to create the dataset:
 	pyenv activate fma
 	```
 
-2. Clone the repository.
+3. Clone the repository.
 	```sh
 	git clone https://github.com/mdeff/fma.git
 	cd fma
 	```
 
-3. Install the Python dependencies from `requirements.txt`. Depending on your
+4. Install the Python dependencies from `requirements.txt`. Depending on your
    usage, you may need to install [ffmpeg] or [graphviz].
 	```sh
 	make install
 	```
 
-4. Optionnaly, install [CUDA] to train neural networks on GPUs. See
+5. Optionnaly, install [CUDA] to train neural networks on GPUs. See
    [Tensorflow's instructions](https://www.tensorflow.org/install/).
 
-5. Fill in the configuration.
+6. Fill in the configuration.
 	```sh
 	cat .env
 	DATA_DIR=/path/to/fma_small
 	```
 
-5. Open Jupyter or run a notebook.
+7. Open Jupyter or run a notebook.
 	```sh
 	jupyter-notebook
 	make fma_baselines.ipynb
