@@ -1,4 +1,4 @@
-NB = $(sort $(wildcard *.ipynb))
+NB = $(filter-out fma_generation.ipynb, $(sort $(wildcard *.ipynb)))
 
 run: $(NB)
 
