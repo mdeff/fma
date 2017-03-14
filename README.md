@@ -6,7 +6,7 @@
 [EPFL LTS2](https://lts2.epfl.ch).
 
 [paper]: https://arxiv.org/abs/1612.01840>
-[FMA]:   https://freemusicarchive
+[FMA]:   https://freemusicarchive.org
 
 Note that this is a **beta release** and that this repository as well as the
 paper and data are subject to change. Stay tuned!
