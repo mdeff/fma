@@ -122,6 +122,14 @@ For the most curious, these were used to create the dataset:
 [graphviz]:   http://www.graphviz.org/
 [CUDA]:       https://en.wikipedia.org/wiki/CUDA
 
+## History
+
+* 2016-12-06 beta release
+	* paper: [arXiv:1612.01840v1](https://arxiv.org/abs/1612.01840v1)
+	* code: [git tag beta](https://github.com/mdeff/fma/releases/tag/beta)
+	* `fma_small.zip`  sha1: `e731a5d56a5625f7b7f770923ee32922374e2cbf`
+	* `fma_medium.zip` sha1: `fe23d6f2a400821ed1271ded6bcd530b7a8ea551`
+
 ## License & co
 
 * Please cite our [paper] if you use our code or data.
