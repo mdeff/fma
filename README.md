@@ -5,7 +5,7 @@
 [Xavier Bresson](http://research.ntu.edu.sg/expertise/academicprofile/Pages/StaffProfile.aspx?ST_EMAILID=XBRESSON),
 [EPFL LTS2](https://lts2.epfl.ch).
 
-[paper]:     https://arxiv.org/abs/1612.01840>
+[paper]:     https://arxiv.org/abs/1612.01840
 [FMA]:       https://freemusicarchive.org
 [WFMU]:      https://wfmu.org
 [Wikipedia]: https://en.wikipedia.org/wiki/Free_Music_Archive
