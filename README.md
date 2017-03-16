@@ -136,7 +136,7 @@ For the most curious, these were used to create the dataset:
 
 ## License & co
 
-* Please cite our [paper] if you use our code or data.
+* Please cite our [paper](https://arxiv.org/abs/1612.01840) if you use our code or data.
 * The code is released under the terms of the [MIT license](LICENSE.txt).
 * The dataset is meant for research purposes only.
 * We are grateful to SWITCH and EPFL for hosting the dataset within the context
