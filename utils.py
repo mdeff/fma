@@ -178,6 +178,9 @@ class Genres:
 def build_path(df, data_dir):
     def path(index):
         genre = df.iloc[index]['top_genre']
+        # Filesystems don't like slashes.
+        if genre == 'Old-Time / Historic':
+            genre = 'Old-Time'
         tid = df.iloc[index].name
         return os.path.join(data_dir, genre, str(tid) + '.mp3')
     return path
