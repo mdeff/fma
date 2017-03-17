@@ -29,7 +29,7 @@ You got various sizes of MP3-encoded audio data:
    (~12.2 GiB)
 3. [fma_large.zip]: 77,643 tracks of 30 seconds, 68 unbalanced genres (~90 GiB)
    (available soon)
-4. [fma_huge.zip]: 77,643 untrimmed tracks, 68 unbalanced genres (~900 GiB)
+4. [fma_full.zip]: 77,643 untrimmed tracks, 68 unbalanced genres (~900 GiB)
    (subject to distribution constraints)
 
 [fma_small.zip]:  https://os.unil.cloud.switch.ch/fma/fma_small.zip
@@ -39,7 +39,7 @@ As meta-data, you got the following in this repository:
 * `tracks.json`: a table (to be imported as a [pandas dataframe]) which
   contains meta-data about each track such as the ID, the title, the artist or
   the genres. See the [usage] notebook for an exhaustive list.
-* `genres.json`: all the xxx available genres, used to infer the genre
+* `genres.json`: all the 164 available genres, used to infer the genre
   hierarchy and top-level genres.
 * `features.json`: common features extracted with [librosa].
 * `spotify.json`: audio features provided by [Spotify], formerly [Echonest].
