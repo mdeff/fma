@@ -137,8 +137,14 @@ For the most curious, these were used to create the dataset:
 ## License & co
 
 * Please cite our [paper] if you use our code or data.
-* The code is released under the terms of the [MIT license](LICENSE.txt).
-* The dataset is meant for research purposes only.
+* The code in this repository is released under the terms of the [MIT license](LICENSE.txt).
+* The meta-data, i.e. all the `.json` files, is released under the terms of the
+  [Creative Commons Attribution 4.0 International License (CC BY 4.0)]
+  (https://creativecommons.org/licenses/by/4.0).
+* We do not hold the copyright on the audio data, i.e. all `.mp3` in the `.zip`
+  archives, and distribute it under the terms of the license chosen by the
+  artist.
+* The dataset is meant for research purposes.
 * We are grateful to SWITCH and EPFL for hosting the dataset within the context
   of the [SCALE-UP] project, funded in part by the swissuniversities [SUC P-2
   program].
