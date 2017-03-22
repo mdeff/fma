@@ -1,6 +1,6 @@
 # FMA: A Dataset For Music Analysis
 
-[Kirell Benzi](http://kirellbenzi.com/), [Michaël Defferrard](http://deff.ch),
+[Michaël Defferrard](http://deff.ch), [Kirell Benzi](http://kirellbenzi.com/),
 [Pierre Vandergheynst](https://people.epfl.ch/pierre.vandergheynst),
 [Xavier Bresson](http://research.ntu.edu.sg/expertise/academicprofile/Pages/StaffProfile.aspx?ST_EMAILID=XBRESSON),
 [EPFL LTS2](https://lts2.epfl.ch).
