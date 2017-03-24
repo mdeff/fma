@@ -16,10 +16,9 @@ paper and data are subject to change. Stay tuned!
 ## Data
 
 The dataset is a dump of the [Free Music Archive (FMA)][FMA], an interactive
-library of high-quality, legal audio downloads directed by [WFMU], the
-longest-running freeform radio station in the United States [[Wikipedia]].
-Please see the [paper] for a description of how the data was collected and
-cleaned as well as an analysis and some baselines.
+library of high-quality, legal audio downloads. Please see our [paper] for
+a description of how the data was collected and cleaned as well as an analysis
+and some baselines.
 
 You got various sizes of MP3-encoded audio data:
 
@@ -35,19 +34,20 @@ You got various sizes of MP3-encoded audio data:
 [fma_small.zip]:  https://os.unil.cloud.switch.ch/fma/fma_small.zip
 [fma_medium.zip]: https://os.unil.cloud.switch.ch/fma/fma_medium.zip
 
-As meta-data, you got the following in this repository:
+As meta-data, you got the following in this repository (all those are tables
+which can be imported as [pandas dataframes][pandas] or used with any other
+data analysis tool):
 
-* `tracks.json`: a table (to be imported as a [pandas dataframe]) which
-  contains meta-data about each track such as the ID, the title, the artist or
-  the genres. See the [usage] notebook for an exhaustive list.
-* `genres.json`: all the 164 available genres, used to infer the genre
-  hierarchy and top-level genres.
+* `tracks.json`: per track meta-data such as ID, title, artist, genres and
+  play counts. See the [usage] notebook for an exhaustive list.
+* `genres.json`: all 164 genre IDs with their name and parent (used to infer
+  the genre hierarchy and top-level genres).
 * `features.json`: common features extracted with [librosa].
 * `spotify.json`: audio features provided by [Spotify], formerly [Echonest].
   Cover all tracks distributed in `fma_small.zip` and `fma_medium.zip` as well
   as some others.
 
-[pandas dataframe]: http://pandas.pydata.org/
+[pandas]:   http://pandas.pydata.org/
 [librosa]:  https://librosa.github.io/librosa/
 [spotify]:  https://www.spotify.com/
 [echonest]: http://the.echonest.com/
@@ -70,7 +70,7 @@ the [paper]:
 For the most curious, these were used to create the dataset:
 
 1. [creation]: creation of the dataset, i.e. `tracks.json` and `genres.json`.
-2. [features]: features extraction from the raw audio, i.e. `features.json`.
+2. [features]: features extraction from the audio, i.e. `features.json`.
 
 [usage]:     https://nbviewer.jupyter.org/github/mdeff/fma/blob/outputs/usage.ipynb
 [webapi]:    https://nbviewer.jupyter.org/github/mdeff/fma/blob/outputs/webapi.ipynb
@@ -102,21 +102,21 @@ For the most curious, these were used to create the dataset:
 	```
 
 4. Install the Python dependencies from `requirements.txt`. Depending on your
-   usage, you may need to install [ffmpeg] or [graphviz].
+   usage, you may need to install [ffmpeg] or [graphviz]. Install [CUDA] if you
+   want to train neural networks on GPUs. See
+   [Tensorflow's instructions](https://www.tensorflow.org/install/).
 	```sh
 	make install
 	```
 
-5. Optionnaly, install [CUDA] to train neural networks on GPUs. See
-   [Tensorflow's instructions](https://www.tensorflow.org/install/).
-
-6. Fill in the configuration.
+5. Fill in the configuration.
 	```sh
 	cat .env
-	DATA_DIR=/path/to/fma_small
+	DATA_DIR=/path/to/data
+	FMA_KEY=IFIUSETHEAPI
 	```
 
-7. Open Jupyter or run a notebook.
+6. Open Jupyter or run a notebook.
 	```sh
 	jupyter-notebook
 	make fma_baselines.ipynb
@@ -140,16 +140,15 @@ For the most curious, these were used to create the dataset:
 
 * Please cite our [paper] if you use our code or data.
 * The code in this repository is released under the terms of the [MIT license](LICENSE.txt).
-* The meta-data, i.e. all the `.json` files, is released under the terms of the
-  [Creative Commons Attribution 4.0 International License (CC BY 4.0)]
-  (https://creativecommons.org/licenses/by/4.0).
-* We do not hold the copyright on the audio data, i.e. all `.mp3` in the `.zip`
-  archives, and distribute it under the terms of the license chosen by the
-  artist.
+* The meta-data is released under the terms of the
+  [Creative Commons Attribution 4.0 International License (CC BY 4.0)][ccby40].
+* We do not hold the copyright on the audio and distribute it under the terms
+  of the license chosen by the artist.
 * The dataset is meant for research purposes.
 * We are grateful to SWITCH and EPFL for hosting the dataset within the context
   of the [SCALE-UP] project, funded in part by the swissuniversities [SUC P-2
   program].
 
+[ccby40]: https://creativecommons.org/licenses/by/4.0
 [SCALE-UP]: https://projects.switch.ch/scale-up/
 [SUC P-2 program]: https://www.swissuniversities.ch/isci
