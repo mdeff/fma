@@ -9,25 +9,6 @@ import multiprocessing
 import multiprocessing.sharedctypes as sharedctypes
 import os.path
 
-FMA_METADATA = ['artist', 'title', 'genres', 'play_count']
-TOP_GENRE = 'top_genre'
-SPLIT = 'train'
-
-ECHONEST_METADATA = ['release', 'artist_location', 'artist_name', 'album_date',
-                     'album_name']
-
-ECHONEST_AUDIO_FEATURES = ['acousticness', 'danceability', 'energy',
-                           'instrumentalness', 'liveness', 'speechiness',
-                           'tempo', 'valence']
-ECHONEST_TEMPORAL_FEATURES = 'temporal_echonest_features'
-
-ECHONEST_SOCIAL_FEATURES = ['artist_discovery', 'artist_familiarity',
-                            'artist_hotttnesss', 'song_hotttnesss',
-                            'song_currency']
-ECHONEST_RANKS = ['artist_discovery_rank', 'artist_familiarity_rank',
-                  'artist_hotttnesss_rank', 'song_currency_rank',
-                  'song_hotttnesss_rank']
-
 # Number of samples per 30s audio clip.
 # TODO: fix dataset to be constant.
 NB_AUDIO_SAMPLES = 1321967
@@ -204,6 +185,8 @@ class LibrosaLoader(RawAudioLoader):
     def _load(self, filename):
         import librosa
         sr = self.sampling_rate if self.sampling_rate != SAMPLING_RATE else None
+        # kaiser_fast is 3x faster than kaiser_best
+        #x, sr = librosa.load(filename, sr=sr, res_type='kaiser_fast')
         x, sr = librosa.load(filename, sr=sr)
         return x
 
