@@ -12,6 +12,7 @@ librosa
 
 requests
 pydot
+tqdm
 
 jupyter
 
