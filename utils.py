@@ -38,17 +38,21 @@ class FreeMusicArchive:
             date_created.append(track['track_date_created'])
         return tracks, artists, date_created
 
-    def _get_data(self, dataset, fma_id, fields):
+    def _get_data(self, dataset, fma_id, fields=None):
         url = self.BASE_URL + dataset + 's.json?'
         url += dataset + '_id=' + str(fma_id) + '&api_key=' + self.api_key
         # print(url)
         r = requests.get(url)
         r.raise_for_status()
+        if r.json()['errors']:
+            raise Exception(r.json()['errors'])
         data = r.json()['dataset'][0]
         r_id = data[dataset + '_id']
         if r_id != str(fma_id):
             raise Exception('The received id {} does not correspond to'
                             'the requested one {}'.format(r_id, fma_id))
+        if fields is None:
+            return data
         if type(fields) is list:
             ret = {}
             for field in fields:
@@ -57,14 +61,35 @@ class FreeMusicArchive:
         else:
             return data[fields]
 
-    def get_track(self, track_id, fields):
+    def get_track(self, track_id, fields=None):
         return self._get_data('track', track_id, fields)
 
-    def get_album(self, album_id, fields):
+    def get_album(self, album_id, fields=None):
         return self._get_data('album', album_id, fields)
 
-    def get_artist(self, artist_id, fields):
+    def get_artist(self, artist_id, fields=None):
         return self._get_data('artist', artist_id, fields)
+
+    def get_all(self, dataset, id_range):
+        index = dataset + '_id'
+
+        id_ = 3 if dataset is 'track' else 1
+        row = self._get_data(dataset, id_)
+        df = pd.DataFrame(columns=row.keys())
+        df.set_index(index, inplace=True)
+
+        not_found_ids = []
+
+        for id_ in id_range:
+            try:
+                row = self._get_data(dataset, id_)
+            except:
+                not_found_ids.append(id_)
+                continue
+            row.pop(index)
+            df.loc[id_, :] = row
+
+        return df, not_found_ids
 
     def download_track(self, track_id, path):
         url = 'https://files.freemusicarchive.org/'
