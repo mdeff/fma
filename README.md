@@ -34,18 +34,20 @@ You got various sizes of MP3-encoded audio data:
 [fma_small.zip]:  https://os.unil.cloud.switch.ch/fma/fma_small.zip
 [fma_medium.zip]: https://os.unil.cloud.switch.ch/fma/fma_medium.zip
 
-As meta-data, you got the following in this repository (all those are tables
-which can be imported as [pandas dataframes][pandas] or used with any other
-data analysis tool):
+All the below metadata and features are tables which can be imported as [pandas
+dataframes][pandas], or used with any other data analysis tool. See the [paper]
+or the [usage] notebook for an exhaustive description.
 
-* `tracks.json`: per track meta-data such as ID, title, artist, genres and
-  play counts. See the [usage] notebook for an exhaustive list.
-* `genres.json`: all 164 genre IDs with their name and parent (used to infer
-  the genre hierarchy and top-level genres).
-* `features.json`: common features extracted with [librosa].
-* `spotify.json`: audio features provided by [Spotify], formerly [Echonest].
-  Cover all tracks distributed in `fma_small.zip` and `fma_medium.zip` as well
-  as some others.
+* [fma_metadata.zip]: all metadata for all tracks (~7 MiB)
+	* `tracks.json`: per track metadata such as ID, title, artist, genres and
+	  play counts, for all 110,000 tracks.
+	* `genres.json`: all 164 genre IDs with their name and parent (used to
+	  infer the genre hierarchy and top-level genres).
+* [fma_features.zip]: all features for all tracks (~400 MiB)
+	* `features.json`: common features extracted with [librosa].
+	* `spotify.json`: audio features provided by [Spotify], formerly
+	  [Echonest]. Cover all tracks distributed in `fma_small.zip` and
+	  `fma_medium.zip` as well as some others.
 
 [pandas]:   http://pandas.pydata.org/
 [librosa]:  https://librosa.github.io/librosa/
@@ -54,30 +56,27 @@ data analysis tool):
 
 ## Code
 
-As a user of the dataset, you're probably most interested by those notebooks:
+The following notebooks have been used to create and evaluate the dataset. They
+should be useful to users of the dataset.
 
 1. [usage]: how to load the datasets and develop, train and test your own
    models with it.
-2. [webapi]: query the web API of the [FMA] to update the dataset or gather
-   further information about tracks, albums or artists.
-
-If you're curious you may check those notebooks, which most results appear in
-the [paper]:
-
-1. [analysis]: some exploration of the data.
-2. [baselines]: baseline models for genre recognition.
-
-For the most curious, these were used to create the dataset:
-
-1. [creation]: creation of the dataset, i.e. `tracks.json` and `genres.json`.
-2. [features]: features extraction from the audio, i.e. `features.json`.
+2. [analysis]: some exploration of the metadata, data and features.
+3. [baselines]: baseline models for genre recognition, both from audio and
+   features.
+4. [features]: features extraction from the audio (used to create
+   `features.json`).
+5. [webapi]: query the web API of the [FMA]. Can be used to update the dataset
+   or gather further information.
+6. [creation]: creation of the dataset (used to create `tracks.json` and
+   `genres.json`).
 
 [usage]:     https://nbviewer.jupyter.org/github/mdeff/fma/blob/outputs/usage.ipynb
-[webapi]:    https://nbviewer.jupyter.org/github/mdeff/fma/blob/outputs/webapi.ipynb
 [analysis]:  https://nbviewer.jupyter.org/github/mdeff/fma/blob/outputs/analysis.ipynb
 [baselines]: https://nbviewer.jupyter.org/github/mdeff/fma/blob/outputs/baselines.ipynb
-[creation]:  https://nbviewer.jupyter.org/github/mdeff/fma/blob/outputs/creation.ipynb
 [features]:  https://nbviewer.jupyter.org/github/mdeff/fma/blob/outputs/features.ipynb
+[webapi]:    https://nbviewer.jupyter.org/github/mdeff/fma/blob/outputs/webapi.ipynb
+[creation]:  https://nbviewer.jupyter.org/github/mdeff/fma/blob/outputs/creation.ipynb
 
 ## Installation
 
@@ -119,7 +118,7 @@ For the most curious, these were used to create the dataset:
 6. Open Jupyter or run a notebook.
 	```sh
 	jupyter-notebook
-	make fma_baselines.ipynb
+	make baselines.ipynb
 	```
 
 [pyenv]:      https://github.com/pyenv/pyenv
