@@ -112,7 +112,7 @@ For the most curious, these were used to create the dataset:
 5. Fill in the configuration.
 	```sh
 	cat .env
-	DATA_DIR=/path/to/data
+	AUDIO_DIR=/path/to/audio
 	FMA_KEY=IFIUSETHEAPI
 	```
 

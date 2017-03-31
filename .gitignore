@@ -7,3 +7,6 @@ __pycache__/
 
 .env
 .python-version
+
+# Metadata and features
+*.csv
