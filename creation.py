@@ -22,7 +22,9 @@ def main():
     id_range = tqdm(tracks['artist_id'].unique(), desc='artists')
     artists, not_found['artists'] = fma.get_all('artist', id_range)
 
-    for dataset in 'tracks', 'albums', 'artists':
+    genres = fma.get_all_genres()
+
+    for dataset in 'tracks', 'albums', 'artists', 'genres':
         eval(dataset).sort_index(axis=0, inplace=True)
         eval(dataset).sort_index(axis=1, inplace=True)
         eval(dataset).to_csv(dataset + '_raw.csv')

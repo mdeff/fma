@@ -87,7 +87,7 @@ class FreeMusicArchive:
                 not_found_ids.append(id_)
                 continue
             row.pop(index)
-            df.loc[id_, :] = row
+            df.loc[id_] = row
 
         return df, not_found_ids
 
@@ -109,7 +109,8 @@ class FreeMusicArchive:
         return genre_ids, genre_titles
 
     def get_all_genres(self):
-        df = pd.DataFrame(columns=['genre_parent_id', 'genre_title'])
+        df = pd.DataFrame(columns=['genre_parent_id', 'genre_title',
+                                   'genre_handle', 'genre_color'])
         df.index.rename('genre_id', inplace=True)
 
         page = 1
@@ -118,16 +119,12 @@ class FreeMusicArchive:
             url += '&page={}&api_key={}'.format(page, self.api_key)
             r = requests.get(url)
             for genre in r.json()['dataset']:
-                genre_id = int(genre[df.index.name])
-                df.loc[genre_id] = [genre[col] for col in df.columns]
+                genre_id = int(genre.pop(df.index.name))
+                df.loc[genre_id] = genre
             assert (r.json()['page'] == str(page))
             page += 1
             if page > r.json()['total_pages']:
                 break
-
-        df['genre_parent_id'].fillna(0, inplace=True)
-        df['genre_parent_id'] = df['genre_parent_id'].astype(int)
-        df['genre_title'] = df['genre_title'].astype(str)
 
         return df
 
