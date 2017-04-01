@@ -91,9 +91,8 @@ class FreeMusicArchive:
 
         return df, not_found_ids
 
-    def download_track(self, track_id, path):
-        url = 'https://files.freemusicarchive.org/'
-        url += self.get_track(track_id, 'track_file')
+    def download_track(self, track_file, path):
+        url = 'https://files.freemusicarchive.org/' + track_file
         r = requests.get(url, stream=True)
         r.raise_for_status()
         with open(path, 'wb') as f:
