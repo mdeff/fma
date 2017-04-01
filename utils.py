@@ -178,14 +178,10 @@ class Genres:
         return roots
 
 
-def build_path(df, data_dir):
-    def path(index):
-        genre = df.iloc[index]['top_genre']
-        # Filesystems don't like slashes.
-        if genre == 'Old-Time / Historic':
-            genre = 'Old-Time'
-        tid = df.iloc[index].name
-        return os.path.join(data_dir, genre, str(tid) + '.mp3')
+def build_path(data_dir):
+    def path(track_id):
+        tid_str = '{:06d}'.format(track_id)
+        return os.path.join(data_dir, tid_str[:3], tid_str + '.mp3')
     return path
 
 

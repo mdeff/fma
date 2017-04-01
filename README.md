@@ -57,7 +57,7 @@ or the [usage] notebook for an exhaustive description.
 ## Code
 
 The following notebooks have been used to create and evaluate the dataset. They
-should be useful to users of the dataset.
+should be useful to users.
 
 1. [usage]: how to load the datasets and develop, train and test your own
    models with it.
