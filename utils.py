@@ -73,7 +73,7 @@ class FreeMusicArchive:
     def get_all(self, dataset, id_range):
         index = dataset + '_id'
 
-        id_ = 3 if dataset is 'track' else 1
+        id_ = 2 if dataset is 'track' else 1
         row = self._get_data(dataset, id_)
         df = pd.DataFrame(columns=row.keys())
         df.set_index(index, inplace=True)

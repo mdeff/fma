@@ -31,7 +31,7 @@ def download_metadata():
     for dataset in 'tracks', 'albums', 'artists', 'genres':
         eval(dataset).sort_index(axis=0, inplace=True)
         eval(dataset).sort_index(axis=1, inplace=True)
-        eval(dataset).to_csv(dataset + '_raw.csv')
+        eval(dataset).to_csv('raw_' + dataset + '.csv')
 
     pickle.dump(not_found, open('not_found.pickle', 'wb'))
 
