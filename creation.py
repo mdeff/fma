@@ -85,8 +85,11 @@ def trim_audio(dst_dir):
     tracks = pd.read_csv('tracks.csv', index_col=0, header=[0, 1])
     _create_subdirs(fma_large, tracks)
 
+    not_found = pickle.load(open('not_found.pickle', 'rb'))
+    not_found['clips'] = []
     path_in = utils.build_path(fma_full)
     path_out = utils.build_path(fma_large)
+
     # Todo: should use the fma_full subset (no need to check duration).
     for tid in tqdm(tracks.index):
         duration = tracks.loc[tid, ('track', 'duration')]
@@ -95,7 +98,12 @@ def trim_audio(dst_dir):
             command = ['ffmpeg', '-i', path_in(tid),
                        '-ss', str(start), '-t', '30',
                        '-acodec', 'copy', path_out(tid)]
-            sp.run(command, check=True, stdout=sp.DEVNULL, stderr=sp.DEVNULL)
+            try:
+                sp.run(command, check=True, stdout=sp.DEVNULL, stderr=sp.DEVNULL)
+            except:
+                not_found['clips'].append(tid)
+
+    pickle.dump(not_found, open('not_found.pickle', 'wb'))
 
 
 def normalize_permissions_times(dst_dir):
