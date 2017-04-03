@@ -3,8 +3,9 @@
 import os
 import sys
 import pickle
-import pandas as pd
+from datetime import datetime
 from tqdm import tqdm, trange
+import pandas as pd
 import utils
 
 
@@ -70,8 +71,24 @@ def download_data(dst_dir):
     pickle.dump(not_found, open('not_found.pickle', 'wb'))
 
 
+def normalize_permissions_times(dst_dir):
+    TIME = datetime(2017, 4, 1).timestamp()
+    dst_dir = os.path.abspath(dst_dir)
+    for dirpath, dirnames, filenames in tqdm(os.walk(dst_dir)):
+        for name in filenames:
+            dst = os.path.join(dirpath, name)
+            os.chmod(dst, 0o444)
+            os.utime(dst, (TIME, TIME))
+        for name in dirnames:
+            dst = os.path.join(dirpath, name)
+            os.chmod(dst, 0o555)
+            os.utime(dst, (TIME, TIME))
+
+
 if __name__ == "__main__":
     if sys.argv[1] == 'metadata':
         download_metadata()
     elif sys.argv[1] == 'data':
         download_data(sys.argv[2])
+    elif sys.argv[1] == 'normalize':
+        normalize_permissions_times(sys.argv[2])
