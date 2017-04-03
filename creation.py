@@ -3,6 +3,7 @@
 import os
 import sys
 import pickle
+import subprocess as sp
 from datetime import datetime
 from tqdm import tqdm, trange
 import pandas as pd
@@ -37,22 +38,27 @@ def download_metadata():
     pickle.dump(not_found, open('not_found.pickle', 'wb'))
 
 
-def download_data(dst_dir):
+def _create_subdirs(dst_dir, tracks):
 
     # Get write access.
-    dst_dir = os.path.abspath(dst_dir)
     if not os.path.exists(dst_dir):
         os.makedirs(dst_dir)
     os.chmod(dst_dir, 0o777)
 
     # Create writable sub-directories.
-    tracks = pd.read_csv('tracks_raw.csv', index_col=0)
     n_folders = max(tracks.index) // 1000 + 1
     for folder in range(n_folders):
         dst = os.path.join(dst_dir, '{:03d}'.format(folder))
         if not os.path.exists(dst):
             os.makedirs(dst)
         os.chmod(dst, 0o777)
+
+
+def download_data(dst_dir):
+
+    dst_dir = os.path.abspath(dst_dir)
+    tracks = pd.read_csv('raw_tracks.csv', index_col=0)
+    _create_subdirs(dst_dir, tracks)
 
     path = utils.build_path(dst_dir)
     fma = utils.FreeMusicArchive(os.environ.get('FMA_KEY'))
@@ -69,6 +75,27 @@ def download_data(dst_dir):
                 not_found['audio'].append(tid)
 
     pickle.dump(not_found, open('not_found.pickle', 'wb'))
+
+
+def trim_audio(dst_dir):
+
+    dst_dir = os.path.abspath(dst_dir)
+    fma_full = os.path.join(dst_dir, 'fma_full')
+    fma_large = os.path.join(dst_dir, 'fma_large')
+    tracks = pd.read_csv('tracks.csv', index_col=0, header=[0, 1])
+    _create_subdirs(fma_large, tracks)
+
+    path_in = utils.build_path(fma_full)
+    path_out = utils.build_path(fma_large)
+    # Todo: should use the fma_full subset (no need to check duration).
+    for tid in tqdm(tracks.index):
+        duration = tracks.loc[tid, ('track', 'duration')]
+        if not os.path.exists(path_out(tid)) and duration > 30:
+            start = duration // 2 - 15
+            command = ['ffmpeg', '-i', path_in(tid),
+                       '-ss', str(start), '-t', '30',
+                       '-acodec', 'copy', path_out(tid)]
+            sp.run(command, check=True, stdout=sp.DEVNULL, stderr=sp.DEVNULL)
 
 
 def normalize_permissions_times(dst_dir):
@@ -90,5 +117,7 @@ if __name__ == "__main__":
         download_metadata()
     elif sys.argv[1] == 'data':
         download_data(sys.argv[2])
+    elif sys.argv[1] == 'clips':
+        trim_audio(sys.argv[2])
     elif sys.argv[1] == 'normalize':
         normalize_permissions_times(sys.argv[2])
