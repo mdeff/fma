@@ -140,14 +140,16 @@ class Genres:
         graph = pydot.Dot(graph_type='digraph', strict=True)
 
         def create_node(genre_id):
-            name = self.df.loc[genre_id]['genre_title'] + '\n' + str(genre_id)
-            name = '"' + name + '"'
+            title = self.df.at[genre_id, 'title']
+            ntracks = self.df.at[genre_id, '#tracks']
+            #name = self.df.at[genre_id, 'title'] + '\n' + str(genre_id)
+            name = '"{}\n{}  {}"'.format(title, genre_id, ntracks)
             return pydot.Node(name)
 
         def create_tree(root_id, node_p, depth):
             if depth == 0:
                 return
-            children = self.df[self.df['genre_parent_id'] == root_id]
+            children = self.df[self.df['parent_id'] == root_id]
             for child in children.iterrows():
                 genre_id = child[0]
                 node_c = create_node(genre_id)
@@ -166,13 +168,13 @@ class Genres:
         roots = []
         for genre in self.df.iterrows():
             genre_id = genre[0]
-            parent_id = genre[1]['genre_parent_id']
-            genre_title = genre[1]['genre_title']
+            parent_id = genre[1]['parent_id']
+            title = genre[1]['title']
             if parent_id == 0:
                 roots.append(genre_id)
             elif parent_id not in self.df.index:
                 msg = '{} ({}) has parent {} which is missing'.format(
-                        genre_id, genre_title, parent_id)
+                        genre_id, title, parent_id)
                 raise RuntimeError(msg)
         return roots
 
