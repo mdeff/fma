@@ -8,6 +8,7 @@ import shutil
 import multiprocessing
 import multiprocessing.sharedctypes as sharedctypes
 import os.path
+import ast
 
 # Number of samples per 30s audio clip.
 # TODO: fix dataset to be constant.
@@ -179,15 +180,52 @@ class Genres:
         return roots
 
 
-def build_path(data_dir):
-    def path(track_id):
-        tid_str = '{:06d}'.format(track_id)
-        return os.path.join(data_dir, tid_str[:3], tid_str + '.mp3')
-    return path
+def load(filepath):
+
+    if 'features.csv' in filepath:
+        return pd.read_csv(filepath, index_col=0, header=[0, 1, 2])
+
+    if 'echonest.csv' in filepath:
+        return pd.read_csv(filepath, index_col=0, header=[0, 1, 2])
+
+    if 'genres.csv' in filepath:
+        return pd.read_csv(filepath, index_col=0)
+
+    if 'tracks.csv' in filepath:
+        tracks = pd.read_csv(filepath, index_col=0, header=[0, 1])
+
+        COLUMNS = [('track', 'tags'), ('album', 'tags'), ('artist', 'tags'),
+                   ('track', 'genres')]
+        for column in COLUMNS:
+            tracks[column] = tracks[column].map(ast.literal_eval)
+
+        COLUMNS = [('track', 'date_created'), ('track', 'date_recorded'),
+                   ('album', 'date_created'), ('album', 'date_released'),
+                   ('artist', 'date_created'), ('artist', 'active_year_begin'),
+                   ('artist', 'active_year_end')]
+        for column in COLUMNS:
+            tracks[column] = pd.to_datetime(tracks[column])
+
+        SUBSETS = ('small', 'medium', 'large', 'full')
+        tracks['set', 'subset'] = tracks['set', 'subset'].astype(
+                'category', categories=SUBSETS, ordered=True)
+
+        COLUMNS = [('track', 'top_genre'), ('track', 'license'),
+                   ('album', 'type'), ('album', 'information'),
+                   ('artist', 'bio')]
+        for column in COLUMNS:
+            tracks[column] = tracks[column].astype('category')
+
+        return tracks
+
+
+def get_audio_path(audio_dir, track_id):
+    tid_str = '{:06d}'.format(track_id)
+    return os.path.join(audio_dir, tid_str[:3], tid_str + '.mp3')
 
 
 class Loader:
-    def load(path):
+    def load(self, filepath):
         raise NotImplemented()
 
 
@@ -196,43 +234,43 @@ class RawAudioLoader(Loader):
         self.sampling_rate = sampling_rate
         self.shape = (NB_AUDIO_SAMPLES * sampling_rate // SAMPLING_RATE, )
 
-    def load(self, filename):
-        return self._load(filename)[:self.shape[0]]
+    def load(self, filepath):
+        return self._load(filepath)[:self.shape[0]]
 
 
 class LibrosaLoader(RawAudioLoader):
-    def _load(self, filename):
+    def _load(self, filepath):
         import librosa
         sr = self.sampling_rate if self.sampling_rate != SAMPLING_RATE else None
         # kaiser_fast is 3x faster than kaiser_best
-        #x, sr = librosa.load(filename, sr=sr, res_type='kaiser_fast')
-        x, sr = librosa.load(filename, sr=sr)
+        #x, sr = librosa.load(filepath, sr=sr, res_type='kaiser_fast')
+        x, sr = librosa.load(filepath, sr=sr)
         return x
 
 
 class AudioreadLoader(RawAudioLoader):
-    def _load(self, filename):
+    def _load(self, filepath):
         import audioread
-        a = audioread.audio_open(filename)
+        a = audioread.audio_open(filepath)
         a.read_data()
 
 
 class PydubLoader(RawAudioLoader):
-    def _load(self, filename):
+    def _load(self, filepath):
         from pydub import AudioSegment
-        song = AudioSegment.from_file(filename)
+        song = AudioSegment.from_file(filepath)
         song = song.set_channels(1)
         x = song.get_array_of_samples()
-        # print(filename) if song.channels != 2 else None
+        # print(filepath) if song.channels != 2 else None
         return np.array(x)
 
 
 class FfmpegLoader(RawAudioLoader):
-    def _load(self, filename):
+    def _load(self, filepath):
         """Fastest and less CPU intensive loading method."""
         import subprocess as sp
         command = ['ffmpeg',
-                   '-i', filename,
+                   '-i', filepath,
                    '-f', 's16le',
                    '-acodec', 'pcm_s16le',
                    '-ac', '1']  # channels: 2 for stereo, 1 for mono
@@ -244,7 +282,7 @@ class FfmpegLoader(RawAudioLoader):
         return np.fromstring(proc.stdout, dtype="int16")
 
 
-def build_sample_loader(path, Y, loader):
+def build_sample_loader(audio_dir, Y, loader):
 
     class SampleLoader:
 
@@ -285,7 +323,7 @@ def build_sample_loader(path, Y, loader):
                 indices = np.array(self.ids[batch_current:batch_current+batch_size])
 
             for i, idx in enumerate(indices):
-                self.X[i] = self.loader.load(path(idx))
+                self.X[i] = self.loader.load(get_audio_path(audio_dir, idx))
                 self.Y[i] = Y[idx]
 
             with self.lock2:
