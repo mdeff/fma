@@ -2,6 +2,7 @@
 
 import os
 import sys
+import shutil
 import pickle
 import subprocess as sp
 from datetime import datetime
@@ -60,21 +61,31 @@ def download_data(dst_dir):
     tracks = pd.read_csv('raw_tracks.csv', index_col=0)
     _create_subdirs(dst_dir, tracks)
 
-    path = utils.build_path(dst_dir)
     fma = utils.FreeMusicArchive(os.environ.get('FMA_KEY'))
     not_found = pickle.load(open('not_found.pickle', 'rb'))
     not_found['audio'] = []
 
     # Download missing tracks.
     for tid in tqdm(tracks.index):
-        dst = path(tid)
+        dst = utils.get_audio_path(dst_dir, tid)
         if not os.path.exists(dst):
             try:
-                fma.download_track(tracks.loc[tid, 'track_file'], dst)
-            except:
+                fma.download_track(tracks.at[tid, 'track_file'], dst)
+            except:  # requests.HTTPError
                 not_found['audio'].append(tid)
 
     pickle.dump(not_found, open('not_found.pickle', 'wb'))
+
+
+def convert_duration(x):
+    times = x.split(':')
+    seconds = int(times[-1])
+    minutes = int(times[-2])
+    try:
+        minutes += 60 * int(times[-3])
+    except IndexError:
+        pass
+    return seconds + 60 * minutes
 
 
 def trim_audio(dst_dir):
@@ -82,26 +93,37 @@ def trim_audio(dst_dir):
     dst_dir = os.path.abspath(dst_dir)
     fma_full = os.path.join(dst_dir, 'fma_full')
     fma_large = os.path.join(dst_dir, 'fma_large')
-    tracks = pd.read_csv('tracks.csv', index_col=0, header=[0, 1])
+    tracks = pd.read_csv('raw_tracks.csv', index_col=0)
     _create_subdirs(fma_large, tracks)
 
     not_found = pickle.load(open('not_found.pickle', 'rb'))
     not_found['clips'] = []
-    path_in = utils.build_path(fma_full)
-    path_out = utils.build_path(fma_large)
 
-    # Todo: should use the fma_full subset (no need to check duration).
     for tid in tqdm(tracks.index):
-        duration = tracks.loc[tid, ('track', 'duration')]
-        if not os.path.exists(path_out(tid)) and duration > 30:
+        duration = convert_duration(tracks.at[tid, 'track_duration'])
+        src = utils.get_audio_path(fma_full, tid)
+        dst = utils.get_audio_path(fma_large, tid)
+        if tid in not_found['audio']:
+            continue
+        elif os.path.exists(dst):
+            continue
+        elif duration <= 30:
+            shutil.copyfile(src, dst)
+        else:
             start = duration // 2 - 15
-            command = ['ffmpeg', '-i', path_in(tid),
+            command = ['ffmpeg', '-i', src,
                        '-ss', str(start), '-t', '30',
-                       '-acodec', 'copy', path_out(tid)]
+                       '-acodec', 'copy', dst]
             try:
-                sp.run(command, check=True, stdout=sp.DEVNULL, stderr=sp.DEVNULL)
-            except:
+                sp.run(command, check=True, stderr=sp.DEVNULL)
+            except sp.CalledProcessError:
                 not_found['clips'].append(tid)
+
+    for tid in not_found['clips']:
+        try:
+            os.remove(utils.get_audio_path(fma_large, tid))
+        except FileNotFoundError:
+            pass
 
     pickle.dump(not_found, open('not_found.pickle', 'wb'))
 

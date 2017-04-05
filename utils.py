@@ -206,7 +206,7 @@ def load(filepath):
         for column in COLUMNS:
             tracks[column] = pd.to_datetime(tracks[column])
 
-        SUBSETS = ('small', 'medium', 'large', 'full')
+        SUBSETS = ('small', 'medium', 'large')
         tracks['set', 'subset'] = tracks['set', 'subset'].astype(
                 'category', categories=SUBSETS, ordered=True)
 
