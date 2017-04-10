@@ -12,6 +12,7 @@
 
 import os
 import multiprocessing
+import warnings
 import numpy as np
 from scipy import stats
 import pandas as pd
@@ -43,6 +44,9 @@ def columns():
 def compute_features(tid):
 
     features = pd.Series(index=columns(), dtype=np.float32, name=tid)
+
+    # Catch warnings as exceptions (audioread leaks file descriptors).
+    warnings.filterwarnings('error', module='librosa')
 
     def feature_stats(name, values):
         features[name, 'mean'] = np.mean(values, axis=1)
