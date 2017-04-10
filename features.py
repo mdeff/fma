@@ -63,7 +63,7 @@ def compute_features(tid):
         cqt = np.abs(librosa.cqt(x, sr=sr, hop_length=512, bins_per_octave=12,
                                  n_bins=7*12, tuning=None))
         assert cqt.shape[0] == 7 * 12
-        assert cqt.shape[1] == int(np.floor(len(x) / 512 + 1))
+        assert np.ceil(len(x)/512) <= cqt.shape[1] <= np.ceil(len(x)/512)+1
 
         f = librosa.feature.chroma_cqt(C=cqt, n_chroma=12, n_octaves=7)
         feature_stats('chroma_cqt', f)
@@ -75,7 +75,7 @@ def compute_features(tid):
         del cqt
         stft = np.abs(librosa.stft(x, n_fft=2048, hop_length=512))
         assert stft.shape[0] == 1 + 2048 // 2
-        assert stft.shape[1] == int(np.floor(len(x) / 512 + 1))
+        assert np.ceil(len(x)/512) <= stft.shape[1] <= np.ceil(len(x)/512)+1
         del x
 
         f = librosa.feature.chroma_stft(S=stft**2, n_chroma=12)
@@ -137,7 +137,9 @@ def save(features, ndigits):
 
 def test(features, ndigits):
 
-    assert not features.isnull().values.any()
+    indices = features[features.isnull().any(axis=1)].index
+    if len(indices) > 0:
+        print('Failed tracks: {}'.format(', '.join(str(i) for i in indices)))
 
     tmp = utils.load('features.csv')
     np.testing.assert_allclose(tmp.values, features.values, rtol=10**-ndigits)
