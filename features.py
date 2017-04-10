@@ -110,19 +110,23 @@ def compute_features(tid):
 
 def main():
     tracks = utils.load('tracks.csv')
+    features = pd.DataFrame(index=tracks.index,
+                            columns=columns(), dtype=np.float32)
+    long_tracks = tracks[tracks['track', 'duration'] > 1000].index
+    tracks = tracks.index.drop(long_tracks)
+
+    # Process long tracks sequentially to avoid memory errors.
+    for tid in tqdm(long_tracks):
+        features.loc[tid] = compute_features(tid)
 
     # More than number of usable CPUs to be CPU bound, not I/O bound.
     nb_worker = int(1.5 * len(os.sched_getaffinity(0)))
     print('Working with {} processes.'.format(nb_worker))
 
-    tids = tracks.index
-    del tracks
-
     pool = multiprocessing.Pool(nb_worker)
-    it = pool.imap_unordered(compute_features, tids)
+    it = pool.imap_unordered(compute_features, tracks)
 
-    features = pd.DataFrame(index=tids, columns=columns(), dtype=np.float32)
-    for row in tqdm(it, total=len(tids)):
+    for row in tqdm(it, total=len(tracks)):
         features.loc[row.name] = row
 
     NDIGITS = 10
