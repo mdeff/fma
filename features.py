@@ -127,12 +127,14 @@ def main():
         pool = multiprocessing.Pool(nb_workers)
         it = pool.imap_unordered(compute_features, tids)
 
-        for row in tqdm(it, total=len(tids)):
+        for i, row in enumerate(tqdm(it, total=len(tids))):
             features.loc[row.name] = row
 
-    NDIGITS = 10
-    save(features, NDIGITS)
-    test(features, NDIGITS)
+            if i % 1000 == 0:
+                save(features, 10)
+
+    save(features, 10)
+    test(features, 10)
 
 
 def save(features, ndigits):
