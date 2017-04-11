@@ -112,22 +112,23 @@ def main():
     tracks = utils.load('tracks.csv')
     features = pd.DataFrame(index=tracks.index,
                             columns=columns(), dtype=np.float32)
-    long_tracks = tracks[tracks['track', 'duration'] > 1000].index
-    tracks = tracks.index.drop(long_tracks)
 
-    # Process long tracks sequentially to avoid memory errors.
-    for tid in tqdm(long_tracks):
-        features.loc[tid] = compute_features(tid)
+    # More than usable CPUs to be CPU bound, not I/O bound. Beware memory.
+    nb_workers = int(1.5 * len(os.sched_getaffinity(0)))
 
-    # More than number of usable CPUs to be CPU bound, not I/O bound.
-    nb_worker = int(1.5 * len(os.sched_getaffinity(0)))
-    print('Working with {} processes.'.format(nb_worker))
+    # Longest is ~11,000 seconds. Limit processes to avoid memory errors.
+    table = ((5000, 1), (3000, 3), (2000, 5), (1000, 10), (0, nb_workers))
+    for duration, nb_workers in table:
+        print('Working with {} processes.'.format(nb_workers))
 
-    pool = multiprocessing.Pool(nb_worker)
-    it = pool.imap_unordered(compute_features, tracks)
+        tids = tracks[tracks['track', 'duration'] >= duration].index
+        tracks.drop(tids, axis=0, inplace=True)
 
-    for row in tqdm(it, total=len(tracks)):
-        features.loc[row.name] = row
+        pool = multiprocessing.Pool(nb_workers)
+        it = pool.imap_unordered(compute_features, tids)
+
+        for row in tqdm(it, total=len(tids)):
+            features.loc[row.name] = row
 
     NDIGITS = 10
     save(features, NDIGITS)
