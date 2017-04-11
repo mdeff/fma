@@ -286,15 +286,15 @@ def build_sample_loader(audio_dir, Y, loader):
 
     class SampleLoader:
 
-        def __init__(self, ids, batch_size=4):
+        def __init__(self, tids, batch_size=4):
             self.lock1 = multiprocessing.Lock()
             self.lock2 = multiprocessing.Lock()
             self.batch_foremost = sharedctypes.RawValue(ctypes.c_int, 0)
             self.batch_rearmost = sharedctypes.RawValue(ctypes.c_int, -1)
             self.condition = multiprocessing.Condition(lock=self.lock2)
 
-            data = sharedctypes.RawArray(ctypes.c_int, ids.data)
-            self.ids = np.ctypeslib.as_array(data)
+            data = sharedctypes.RawArray(ctypes.c_int, tids.data)
+            self.tids = np.ctypeslib.as_array(data)
 
             self.batch_size = batch_size
             self.loader = loader
@@ -308,26 +308,26 @@ def build_sample_loader(audio_dir, Y, loader):
 
             with self.lock1:
                 if self.batch_foremost.value == 0:
-                    np.random.shuffle(self.ids)
+                    np.random.shuffle(self.tids)
 
                 batch_current = self.batch_foremost.value
-                if self.batch_foremost.value + self.batch_size < self.ids.size:
+                if self.batch_foremost.value + self.batch_size < self.tids.size:
                     batch_size = self.batch_size
                     self.batch_foremost.value += self.batch_size
                 else:
-                    batch_size = self.ids.size - self.batch_foremost.value
+                    batch_size = self.tids.size - self.batch_foremost.value
                     self.batch_foremost.value = 0
 
-                # print(self.ids, self.batch_foremost.value, batch_current, self.ids[batch_current], batch_size)
-                # print('queue', self.ids[batch_current], batch_size)
-                indices = np.array(self.ids[batch_current:batch_current+batch_size])
+                # print(self.tids, self.batch_foremost.value, batch_current, self.tids[batch_current], batch_size)
+                # print('queue', self.tids[batch_current], batch_size)
+                tids = np.array(self.tids[batch_current:batch_current+batch_size])
 
-            for i, idx in enumerate(indices):
-                self.X[i] = self.loader.load(get_audio_path(audio_dir, idx))
-                self.Y[i] = Y[idx]
+            for i, tid in enumerate(tids):
+                self.X[i] = self.loader.load(get_audio_path(audio_dir, tid))
+                self.Y[i] = Y.loc[tid]
 
             with self.lock2:
-                while (batch_current - self.batch_rearmost.value) % self.ids.size > self.batch_size:
+                while (batch_current - self.batch_rearmost.value) % self.tids.size > self.batch_size:
                     # print('wait', indices[0], batch_current, self.batch_rearmost.value)
                     self.condition.wait()
                 self.condition.notify_all()
