@@ -278,7 +278,8 @@ class FfmpegLoader(RawAudioLoader):
             command.extend(['-ar', str(self.sampling_rate)])
         command.append('-')
         # 30s at 44.1 kHz ~= 1.3e6
-        proc = sp.run(command, stdout=sp.PIPE, bufsize=10**7)
+        proc = sp.run(command, stdout=sp.PIPE, bufsize=10**7, stderr=sp.DEVNULL, check=True)
+
         return np.fromstring(proc.stdout, dtype="int16")
 
 
