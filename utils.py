@@ -182,16 +182,18 @@ class Genres:
 
 def load(filepath):
 
-    if 'features.csv' in filepath:
+    filename = os.path.basename(filepath)
+
+    if 'features' in filename:
         return pd.read_csv(filepath, index_col=0, header=[0, 1, 2])
 
-    if 'echonest.csv' in filepath:
+    if 'echonest' in filename:
         return pd.read_csv(filepath, index_col=0, header=[0, 1, 2])
 
-    if 'genres.csv' in filepath:
+    if 'genres' in filename:
         return pd.read_csv(filepath, index_col=0)
 
-    if 'tracks.csv' in filepath:
+    if 'tracks' in filename:
         tracks = pd.read_csv(filepath, index_col=0, header=[0, 1])
 
         COLUMNS = [('track', 'tags'), ('album', 'tags'), ('artist', 'tags'),
