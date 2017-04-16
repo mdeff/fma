@@ -109,7 +109,7 @@ class FreeMusicArchive:
         return genre_ids, genre_titles
 
     def get_all_genres(self):
-        df = pd.DataFrame(columns=['genre_parent_id', 'genre_title',
+        df = pd.DataFrame(columns=['genre_parent', 'genre_title',
                                    'genre_handle', 'genre_color'])
         df.index.rename('genre_id', inplace=True)
 
@@ -150,7 +150,7 @@ class Genres:
         def create_tree(root_id, node_p, depth):
             if depth == 0:
                 return
-            children = self.df[self.df['parent_id'] == root_id]
+            children = self.df[self.df['parent'] == root_id]
             for child in children.iterrows():
                 genre_id = child[0]
                 node_c = create_node(genre_id)
@@ -167,15 +167,14 @@ class Genres:
 
     def find_roots(self):
         roots = []
-        for genre in self.df.iterrows():
-            genre_id = genre[0]
-            parent_id = genre[1]['parent_id']
-            title = genre[1]['title']
-            if parent_id == 0:
-                roots.append(genre_id)
-            elif parent_id not in self.df.index:
+        for gid, row in self.df.iterrows():
+            parent = row['parent']
+            title = row['title']
+            if parent == 0:
+                roots.append(gid)
+            elif parent not in self.df.index:
                 msg = '{} ({}) has parent {} which is missing'.format(
-                        genre_id, title, parent_id)
+                        gid, title, parent)
                 raise RuntimeError(msg)
         return roots
 
