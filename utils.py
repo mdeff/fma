@@ -144,7 +144,7 @@ class Genres:
             title = self.df.at[genre_id, 'title']
             ntracks = self.df.at[genre_id, '#tracks']
             #name = self.df.at[genre_id, 'title'] + '\n' + str(genre_id)
-            name = '"{}\n{}  {}"'.format(title, genre_id, ntracks)
+            name = '"{}\n{} / {}"'.format(title, genre_id, ntracks)
             return pydot.Node(name)
 
         def create_tree(root_id, node_p, depth):
