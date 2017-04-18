@@ -6,7 +6,7 @@ seaborn
 scikit-learn
 #tensorflow
 tensorflow-gpu
-keras
+keras<2
 
 librosa
 
