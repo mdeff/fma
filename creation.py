@@ -7,11 +7,24 @@ import os
 import sys
 import shutil
 import pickle
+import zipfile
 import subprocess as sp
 from datetime import datetime
 from tqdm import tqdm, trange
 import pandas as pd
 import utils
+
+
+TIME = datetime(2017, 4, 1).timestamp()
+
+README = """This .zip archive is part of the FMA, a dataset for music analysis.
+Code & data: https://github.com/mdeff/fma
+Paper: https://arxiv.org/abs/1612.01840
+
+Each .mp3 is licensed by its artist.
+
+The content's integrity can be verified with sha1sum -c checksums.
+"""
 
 
 def download_metadata():
@@ -132,7 +145,6 @@ def trim_audio(dst_dir):
 
 
 def normalize_permissions_times(dst_dir):
-    TIME = datetime(2017, 4, 1).timestamp()
     dst_dir = os.path.abspath(dst_dir)
     for dirpath, dirnames, filenames in tqdm(os.walk(dst_dir)):
         for name in filenames:
@@ -145,6 +157,75 @@ def normalize_permissions_times(dst_dir):
             os.utime(dst, (TIME, TIME))
 
 
+def create_zips(dst_dir):
+
+    def get_filepaths(subset):
+        filepaths = []
+        tids = tracks.index[tracks['set', 'subset'] <= subset]
+        for tid in tids:
+            filepaths.append(utils.get_audio_path('', tid))
+        return filepaths
+
+    def get_checksums(base_dir, filepaths):
+        """Checksums are assumed to be stored in order for efficiency."""
+        checksums = []
+        with open(os.path.join(dst_dir, base_dir, 'checksums')) as f:
+            for filepath in filepaths:
+                exist = False
+                for line in f:
+                    if filepath == line[42:-1]:
+                        exist = True
+                        break
+                if not exist:
+                    raise ValueError('checksum not found: {}'.format(filepath))
+                checksums.append(line)
+        return checksums
+
+    def create_zip(zip_filename, base_dir, filepaths):
+
+        # Audio: all compressions are the same.
+        # CSV: stored > deflated > BZIP2 > LZMA.
+        # LZMA is close to BZIP2 and too recent to be widely available (unzip).
+        compression = zipfile.ZIP_BZIP2
+
+        zip_filepath = os.path.join(dst_dir, zip_filename)
+        with zipfile.ZipFile(zip_filepath, 'x', compression) as zf:
+
+            def info(name):
+                name = os.path.join(zip_filename[:-4], name)
+                info = zipfile.ZipInfo(name, (2017, 4, 1, 0, 0, 0))
+                info.external_attr = 0o444 << 16 | 0o2 << 30
+                return info
+
+            zf.writestr(info('README.txt'), README, compression)
+
+            checksums = get_checksums(base_dir, filepaths)
+            zf.writestr(info('checksums'), ''.join(checksums), compression)
+
+            for filepath in tqdm(filepaths):
+                src = os.path.join(dst_dir, base_dir, filepath)
+                dst = os.path.join(zip_filename[:-4], filepath)
+                zf.write(src, dst)
+
+        os.chmod(zip_filepath, 0o444)
+        os.utime(zip_filepath, (TIME, TIME))
+
+    METADATA = [
+        'not_found.pickle',
+        'raw_genres.csv', 'raw_albums.csv',
+        'raw_artists.csv', 'raw_tracks.csv',
+        'tracks.csv', 'genres.csv',
+        'echonest.csv', 'features.csv',
+    ]
+    create_zip('fma_metadata.zip', 'fma_metadata', METADATA)
+
+    tracks = utils.load('tracks.csv')
+    create_zip('fma_small.zip', 'fma_large', get_filepaths('small'))
+    create_zip('fma_medium.zip', 'fma_large', get_filepaths('medium'))
+    create_zip('fma_large.zip', 'fma_large', get_filepaths('large'))
+    create_zip('fma_full.zip', 'fma_full', get_filepaths('large'))
+
+
 if __name__ == "__main__":
     if sys.argv[1] == 'metadata':
         download_metadata()
@@ -154,3 +235,5 @@ if __name__ == "__main__":
         trim_audio(sys.argv[2])
     elif sys.argv[1] == 'normalize':
         normalize_permissions_times(sys.argv[2])
+    elif sys.argv[1] == 'zips':
+        create_zips(sys.argv[2])
