@@ -215,7 +215,7 @@ def create_zips(dst_dir):
         'raw_genres.csv', 'raw_albums.csv',
         'raw_artists.csv', 'raw_tracks.csv',
         'tracks.csv', 'genres.csv',
-        'echonest.csv', 'features.csv',
+        'raw_echonest.csv', 'echonest.csv', 'features.csv',
     ]
     create_zip('fma_metadata.zip', 'fma_metadata', METADATA)
 
