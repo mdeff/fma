@@ -109,7 +109,7 @@ class FreeMusicArchive:
         return genre_ids, genre_titles
 
     def get_all_genres(self):
-        df = pd.DataFrame(columns=['genre_parent', 'genre_title',
+        df = pd.DataFrame(columns=['genre_parent_id', 'genre_title',
                                    'genre_handle', 'genre_color'])
         df.index.rename('genre_id', inplace=True)
 
