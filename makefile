@@ -26,4 +26,8 @@ install:
 readme:
 	grip README.md
 
-.PHONY: run $(NB) clean install readme
+html:
+	grip --export README.md
+	jupyter nbconvert $(NB) --to html
+
+.PHONY: run $(NB) clean install readme html
