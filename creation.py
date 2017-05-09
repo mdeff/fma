@@ -18,6 +18,8 @@ import utils
 TIME = datetime(2017, 4, 1).timestamp()
 
 README = """This .zip archive is part of the FMA, a dataset for music analysis.
+Michaël Defferrard, Kirell Benzi, Pierre Vandergheynst, Xavier Bresson, EPFL LTS2.
+
 Code & data: https://github.com/mdeff/fma
 Paper: https://arxiv.org/abs/1612.01840
 
