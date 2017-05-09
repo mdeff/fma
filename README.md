@@ -57,17 +57,16 @@ a description.
 
 Then, you got various sizes of MP3-encoded audio data:
 
-1. **[fma_small.zip]**: 8,000 tracks of 30 seconds, 8 balanced genres
-   (GTZAN-like) (7.2 GiB)
-2. **[fma_medium.zip]**: 25,000 tracks of 30 seconds, 16 unbalanced genres (22
-   GiB)
-3. **[fma_large.zip]**: 106,574 tracks of 30 seconds, 161 unbalanced genres (93
-   GiB)
-4. **[fma_full.zip]**: 106,574 untrimmed tracks, 161 unbalanced genres (879
-   GiB) (pending hosting agreement)
+1. **[fma_small.zip]**: 8,000 tracks of 30s, 8 balanced genres (GTZAN-like) (7.2 GiB)
+2. **[fma_medium.zip]**: 25,000 tracks of 30s, 16 unbalanced genres (22 GiB)
+3. **[fma_large.zip]**: 106,574 tracks of 30s, 161 unbalanced genres (93 GiB)
+4. **[fma_full.zip]**: 106,574 untrimmed tracks, 161 unbalanced genres (879 GiB)
 
-**Download is not available for some time as the dataset is now being updated.
-Please come back in a few days.**
+[fma_metadata.zip]: https://os.unil.cloud.switch.ch/fma/fma_metadata.zip
+[fma_small.zip]:    https://os.unil.cloud.switch.ch/fma/fma_small.zip
+[fma_medium.zip]:   https://os.unil.cloud.switch.ch/fma/fma_medium.zip
+[fma_large.zip]:    https://os.unil.cloud.switch.ch/fma/fma_large.zip
+[fma_full.zip]:     https://os.unil.cloud.switch.ch/fma/fma_full.zip
 
 ## Code
 
@@ -146,7 +145,7 @@ developed for the dataset.
 
 ## History
 
-* 2017-05-05 pre-publication release
+* 2017-05-09 pre-publication release
 	* paper: [arXiv:1612.01840v2](https://arxiv.org/abs/1612.01840v2)
 	* code: [git tag rc1](https://github.com/mdeff/fma/releases/tag/rc1)
 	* `fma_metadata.zip` sha1: `f0df49ffe5f2a6008d7dc83c6915b31835dfe733`
