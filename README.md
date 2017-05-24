@@ -149,6 +149,27 @@ developed for the dataset.
 [graphviz]:   http://www.graphviz.org/
 [CUDA]:       https://en.wikipedia.org/wiki/CUDA
 
+## Coverage
+
+* [A Music Information Retrieval Dataset, Made With FMA][fma2], freemusicarchive.org, 2017-05-22.
+* [Pre-publication release announced][tw2], twitter.com, 2017-05-09.
+* [FMA: A Dataset For Music Analysis][tfblog], tensorflow.blog, 2017-03-14.
+* [Beta release discussed][tw1], twitter.com, 2017-02-08.
+* [FMA Data Set for Researchers Released][fma1], freemusicarchive.org, 2016-12-15.
+
+[tw1]:  https://twitter.com/YadFaeq/status/829406463286063104
+[tw2]:  https://twitter.com/m_deff/status/861985446116589569
+[fma1]: http://freemusicarchive.org/member/cheyenne_h/blog/FMA_Dataset_for_Researchers
+[fma2]: http://freemusicarchive.org/member/cheyenne_h/blog/A_Music_Information_Retrieval_Dataset_Made_With_FMA
+[tfblog]: https://tensorflow.blog/2017/03/14/fma-a-dataset-for-music-analysis
+
+Dataset lists
+* <http://deeplearning.net/datasets>
+* <http://www.audiocontentanalysis.org/data-sets>
+* <https://teachingmir.wikispaces.com/Datasets>
+* <https://en.wikipedia.org/wiki/List_of_datasets_for_machine_learning_research>
+* <https://cloudlab.atlassian.net/wiki/display/datasets/FMA:+A+Dataset+For+Music+Analysis>
+
 ## History
 
 * 2017-05-09 pre-publication release
