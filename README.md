@@ -165,6 +165,7 @@ developed for the dataset.
 
 Dataset lists
 * <http://deeplearning.net/datasets>
+* <https://archive.ics.uci.edu/ml/datasets/FMA:+A+Dataset+For+Music+Analysis>
 * <http://www.audiocontentanalysis.org/data-sets>
 * <https://teachingmir.wikispaces.com/Datasets>
 * <https://en.wikipedia.org/wiki/List_of_datasets_for_machine_learning_research>
