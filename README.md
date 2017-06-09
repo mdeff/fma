@@ -164,8 +164,9 @@ developed for the dataset.
 [tfblog]: https://tensorflow.blog/2017/03/14/fma-a-dataset-for-music-analysis
 
 Dataset lists
-* <http://deeplearning.net/datasets>
+* <https://github.com/caesar0301/awesome-public-datasets>
 * <https://archive.ics.uci.edu/ml/datasets/FMA:+A+Dataset+For+Music+Analysis>
+* <http://deeplearning.net/datasets>
 * <http://www.audiocontentanalysis.org/data-sets>
 * <https://teachingmir.wikispaces.com/Datasets>
 * <https://en.wikipedia.org/wiki/List_of_datasets_for_machine_learning_research>
