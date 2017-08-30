@@ -93,7 +93,7 @@ developed for the dataset.
 
 ## Usage
 
-1. Download some data and verify its integrity.
+1. Download some data, verify its integrity, and uncompress the archives.
 	```sh
 	curl -O https://os.unil.cloud.switch.ch/fma/fma_metadata.zip
 	curl -O https://os.unil.cloud.switch.ch/fma/fma_small.zip
@@ -106,7 +106,17 @@ developed for the dataset.
 	echo "c67b69ea232021025fca9231fc1c7c1a063ab50b  fma_medium.zip"   | sha1sum -c -
 	echo "497109f4dd721066b5ce5e5f250ec604dc78939e  fma_large.zip"    | sha1sum -c -
 	echo "0f0ace23fbe9ba30ecb7e95f763e435ea802b8ab  fma_full.zip"     | sha1sum -c -
+
+	unzip fma_metadata.zip
+	unzip fma_small.zip
+	unzip fma_medium.zip
+	unzip fma_large.zip
+	unzip fma_full.zip
 	```
+
+	If you get any error while decompressing the archives (especially with the
+	Windows and macOS system unzippers), please try [7zip]. That is probably an
+	[unsupported compression issue](https://github.com/mdeff/fma/issues/5).
 
 2. Optionally, use [pyenv] to install Python 3.6 and create a [virtual
    environment][pyenv-virt].
@@ -143,6 +153,7 @@ developed for the dataset.
 	make baselines.ipynb
 	```
 
+[7zip]:       http://www.7-zip.org
 [pyenv]:      https://github.com/pyenv/pyenv
 [pyenv-virt]: https://github.com/pyenv/pyenv-virtualenv
 [ffmpeg]:     https://ffmpeg.org/download.html
