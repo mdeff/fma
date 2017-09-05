@@ -12,26 +12,19 @@ The dataset is a dump of the [Free Music Archive (FMA)][FMA], an interactive
 library of high-quality, legal audio downloads. Below the abstract from the
 [paper].
 > We introduce the Free Music Archive (FMA), an open and easily accessible
-> dataset which can be used to evaluate several tasks in music information
-> retrieval (MIR), a field concerned with browsing, searching, and organizing
-> large music collections. The community's growing interest in feature and
-> end-to-end learning is however restrained by the limited availability of
-> large audio datasets. By releasing the FMA, we hope to foster research which
-> will improve the state-of-the-art and hopefully surpass the performance
-> ceiling observed in e.g. genre recognition (MGR). The data is made of 106,574
-> tracks, 16,341 artists, 14,854 albums, arranged in a hierarchical taxonomy of
-> 161 genres, for a total of 343 days of audio and 917 GiB, all under
-> permissive Creative Commons licenses. It features metadata like song title,
-> album, artist and genres; user data like play counts, favorites, and
-> comments; free-form text like description, biography, and tags; together with
-> full-length, high-quality audio, and some pre-computed features. We propose
-> a train/validation/test split and three subsets: a genre-balanced set of
-> 8,000 tracks from 8 major genres, a genre-unbalanced set of 25,000 tracks
-> from 16 genres, and a 98 GiB version with clips trimmed to 30s. This paper
-> describes the dataset and how it was created, proposes some tasks like music
-> classification and annotation or recommendation, and evaluates some baselines
-> for MGR. Code, data, and usage examples are available at
-> <https://github.com/mdeff/fma>.
+> dataset suitable for evaluating several tasks in MIR, a field concerned with
+> browsing, searching, and organizing large music collections. The community's
+> growing interest in feature and end-to-end learning is however restrained by
+> the limited availability of large audio datasets. The FMA aims to overcome
+> this hurdle by providing 917 GiB and 343 days of Creative Commons-licensed
+> audio from 106,574 tracks from 16,341 artists and 14,854 albums, arranged in
+> a hierarchical taxonomy of 161 genres. It provides full-length and
+> high-quality audio, pre-computed features, together with track- and
+> user-level metadata, tags, and free-form text such as biographies. We here
+> describe the dataset and how it was created, propose a train/validation/test
+> split and three subsets, discuss some suitable MIR tasks, and evaluate some
+> baselines for genre recognition. Code, data, and usage examples are available
+> at <https://github.com/mdeff/fma>.
 
 This is a **pre-publication release**. As such, this repository as well as the
 paper and data are subject to change. Stay tuned!
