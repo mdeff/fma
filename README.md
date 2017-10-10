@@ -205,6 +205,14 @@ we can keep it lively by evolving it toward people's needs.
 ## License & co
 
 * Please cite our [paper] if you use our code or data.
+  ```
+  @inproceedings{fma,
+    title = {FMA: A Dataset for Music Analysis},
+    author = {Defferrard, Micha{\"e}l and Benzi, Kirell and Vandergheynst, Pierre and Bresson, Xavier},
+    booktitle = {18th International Society for Music Information Retrieval Conference},
+    year = {2017}
+  }
+  ```
 * The code in this repository is released under the terms of the
   [MIT license](LICENSE.txt).
 * The metadata is released under the terms of the
