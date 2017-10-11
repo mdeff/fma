@@ -197,7 +197,8 @@ def load(filepath):
         tracks = pd.read_csv(filepath, index_col=0, header=[0, 1])
 
         COLUMNS = [('track', 'tags'), ('album', 'tags'), ('artist', 'tags'),
-                   ('track', 'genres'), ('track', 'genres_all')]
+                   ('track', 'genres'), ('track', 'genres_all'),
+                   ('track', 'genres_top')]
         for column in COLUMNS:
             tracks[column] = tracks[column].map(ast.literal_eval)
 
@@ -212,9 +213,8 @@ def load(filepath):
         tracks['set', 'subset'] = tracks['set', 'subset'].astype(
                 'category', categories=SUBSETS, ordered=True)
 
-        COLUMNS = [('track', 'genre_top'), ('track', 'license'),
-                   ('album', 'type'), ('album', 'information'),
-                   ('artist', 'bio')]
+        COLUMNS = [('track', 'license'), ('artist', 'bio'),
+                   ('album', 'type'), ('album', 'information')]
         for column in COLUMNS:
             tracks[column] = tracks[column].astype('category')
 
