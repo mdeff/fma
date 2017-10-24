@@ -155,7 +155,8 @@ developed for the dataset.
 
 ## Coverage
 
-* [Slides][osip] for the [Open Science in Practice](https://osip2017.epfl.ch) summer school at EPFL, 2017-09-29
+* [Poster][poster] presented at [ISMIR 2017](https://ismir2017.smcnus.org) in China, 2017-10-24.
+* [Slides][osip] for the [Open Science in Practice](https://osip2017.epfl.ch) summer school at EPFL, 2017-09-29.
 * [A Music Information Retrieval Dataset, Made With FMA][fma2], freemusicarchive.org, 2017-05-22.
 * [Pre-publication release announced][tw2], twitter.com, 2017-05-09.
 * [FMA: A Dataset For Music Analysis][tfblog], tensorflow.blog, 2017-03-14.
@@ -168,6 +169,7 @@ developed for the dataset.
 [fma2]: http://freemusicarchive.org/member/cheyenne_h/blog/A_Music_Information_Retrieval_Dataset_Made_With_FMA
 [tfblog]: https://tensorflow.blog/2017/03/14/fma-a-dataset-for-music-analysis
 [osip]: https://doi.org/10.5281/zenodo.999353
+[poster]: https://doi.org/10.5281/zenodo.1035847
 
 Dataset lists
 * <https://github.com/caesar0301/awesome-public-datasets>
