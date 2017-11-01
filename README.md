@@ -155,6 +155,7 @@ developed for the dataset.
 
 ## Coverage
 
+* [Data Jam days](http://datajamdays.org), Lausanne, 2017-11-24.
 * [Poster][poster] presented at [ISMIR 2017](https://ismir2017.smcnus.org) in China, 2017-10-24.
 * [Slides][osip] for the [Open Science in Practice](https://osip2017.epfl.ch) summer school at EPFL, 2017-09-29.
 * [A Music Information Retrieval Dataset, Made With FMA][fma2], freemusicarchive.org, 2017-05-22.
