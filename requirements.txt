@@ -9,6 +9,7 @@ tensorflow-gpu
 keras<2
 
 librosa
+mutagen
 
 requests
 pydot

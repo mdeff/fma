@@ -14,11 +14,13 @@
 import os
 import multiprocessing
 import warnings
+
+from tqdm import tqdm
 import numpy as np
 from scipy import stats
 import pandas as pd
 import librosa
-from tqdm import tqdm
+
 import utils
 
 

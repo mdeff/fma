@@ -9,9 +9,15 @@ import shutil
 import pickle
 import zipfile
 import subprocess as sp
+import multiprocessing
 from datetime import datetime
+
 from tqdm import tqdm, trange
+import numpy as np
 import pandas as pd
+import librosa
+import mutagen
+
 import utils
 
 
@@ -93,6 +99,71 @@ def download_data(dst_dir):
                 not_found['audio'].append(tid)
 
     pickle.dump(not_found, open('not_found.pickle', 'wb'))
+
+
+def _extract_metadata(tid):
+
+    metadata = pd.Series(name=tid)
+
+    try:
+        path = utils.get_audio_path(os.environ.get('AUDIO_DIR'), tid)
+        f = mutagen.File(path)
+        x, sr = librosa.load(path, sr=None, mono=False)
+        assert f.info.channels == (x.shape[0] if x.ndim > 1 else 1)
+        assert f.info.sample_rate == sr
+
+        mode = {
+            mutagen.mp3.BitrateMode.CBR: 'CBR',
+            mutagen.mp3.BitrateMode.VBR: 'VBR',
+            mutagen.mp3.BitrateMode.ABR: 'ABR',
+            mutagen.mp3.BitrateMode.UNKNOWN: 'UNKNOWN',
+        }
+
+        metadata['bit_rate'] = f.info.bitrate
+        metadata['mode'] = mode[f.info.bitrate_mode]
+        metadata['channels'] = f.info.channels
+        metadata['sample_rate'] = f.info.sample_rate
+        metadata['samples'] = x.shape[-1]
+
+    except Exception as e:
+        print('{}: {}'.format(tid, repr(e)))
+        metadata['bit_rate'] = 0
+        metadata['mode'] = 'UNKNOWN'
+        metadata['channels'] = 0
+        metadata['sample_rate'] = 0
+        metadata['samples'] = 0
+
+    return metadata
+
+
+def extract_mp3_metadata():
+    """
+    Fill metadata about the audio, e.g. the bit and sample rates.
+
+    It extracts some metadata from the mp3 and creates an mp3_metadata.csv table.
+    """
+
+    # More than usable CPUs to be CPU bound, not I/O bound. Beware memory.
+    nb_workers = int(1.5 * len(os.sched_getaffinity(0)))
+    print('Working with {} processes.'.format(nb_workers))
+
+    tids = pd.read_csv('raw_tracks.csv', index_col=0).index
+
+    metadata = pd.DataFrame(index=tids)
+    # Prevent the columns of being of type float because of NaNs.
+    metadata['channels'] = 0
+    metadata['mode'] = 'UNKNOWN'
+    metadata['bit_rate'] = 0
+    metadata['sample_rate'] = 0
+    metadata['samples'] = 0
+
+    pool = multiprocessing.Pool(nb_workers)
+    it = pool.imap_unordered(_extract_metadata, tids)
+
+    for _, row in enumerate(tqdm(it, total=len(tids))):
+        metadata.loc[row.name] = row
+
+    metadata.to_csv('mp3_metadata.csv')
 
 
 def convert_duration(x):
@@ -233,6 +304,8 @@ if __name__ == "__main__":
         download_metadata()
     elif sys.argv[1] == 'data':
         download_data(sys.argv[2])
+    elif sys.argv[1] == 'mp3_metadata':
+        extract_mp3_metadata()
     elif sys.argv[1] == 'clips':
         trim_audio(sys.argv[2])
     elif sys.argv[1] == 'normalize':
