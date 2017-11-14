@@ -13,7 +13,6 @@ import multiprocessing
 from datetime import datetime
 
 from tqdm import tqdm, trange
-import numpy as np
 import pandas as pd
 import librosa
 import mutagen
@@ -102,6 +101,7 @@ def download_data(dst_dir):
 
 
 def _extract_metadata(tid):
+    """Extract metadata from one audio file."""
 
     metadata = pd.Series(name=tid)
 
@@ -140,7 +140,7 @@ def extract_mp3_metadata():
     """
     Fill metadata about the audio, e.g. the bit and sample rates.
 
-    It extracts some metadata from the mp3 and creates an mp3_metadata.csv table.
+    It extracts metadata from the mp3 and creates an mp3_metadata.csv table.
     """
 
     # More than usable CPUs to be CPU bound, not I/O bound. Beware memory.
