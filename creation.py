@@ -166,30 +166,19 @@ def extract_mp3_metadata():
     metadata.to_csv('mp3_metadata.csv')
 
 
-def convert_duration(x):
-    times = x.split(':')
-    seconds = int(times[-1])
-    minutes = int(times[-2])
-    try:
-        minutes += 60 * int(times[-3])
-    except IndexError:
-        pass
-    return seconds + 60 * minutes
-
-
 def trim_audio(dst_dir):
 
     dst_dir = os.path.abspath(dst_dir)
     fma_full = os.path.join(dst_dir, 'fma_full')
     fma_large = os.path.join(dst_dir, 'fma_large')
-    tracks = pd.read_csv('raw_tracks.csv', index_col=0)
+    tracks = pd.read_csv('mp3_metadata.csv', index_col=0)
     _create_subdirs(fma_large, tracks)
 
     not_found = pickle.load(open('not_found.pickle', 'rb'))
     not_found['clips'] = []
 
-    for tid in tqdm(tracks.index):
-        duration = convert_duration(tracks.at[tid, 'track_duration'])
+    for tid, track in tqdm(tracks.iterrows(), total=len(tracks)):
+        duration = track['samples'] / track['sample_rate']
         src = utils.get_audio_path(fma_full, tid)
         dst = utils.get_audio_path(fma_large, tid)
         if tid in not_found['audio']:
@@ -199,7 +188,7 @@ def trim_audio(dst_dir):
         elif duration <= 30:
             shutil.copyfile(src, dst)
         else:
-            start = duration // 2 - 15
+            start = int(duration // 2 - 15)
             command = ['ffmpeg', '-i', src,
                        '-ss', str(start), '-t', '30',
                        '-acodec', 'copy', dst]
