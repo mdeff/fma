@@ -111,7 +111,7 @@ developed for the dataset.
 	Windows and macOS system unzippers), please try [7zip]. That is probably an
 	[unsupported compression issue](https://github.com/mdeff/fma/issues/5).
 
-2. Optionally, use [pyenv] to install Python 3.6 and create a [virtual
+1. Optionally, use [pyenv] to install Python 3.6 and create a [virtual
    environment][pyenv-virt].
 	```sh
 	pyenv install 3.6.0
@@ -119,13 +119,19 @@ developed for the dataset.
 	pyenv activate fma
 	```
 
-3. Clone the repository.
+1. Clone the repository.
 	```sh
 	git clone https://github.com/mdeff/fma.git
 	cd fma
 	```
 
-4. Install the Python dependencies from `requirements.txt`. Depending on your
+1. Checkout the revision matching the data you downloaded (e.g., `beta`, `rc1`,
+   `v1`). See the [history](#history) of the dataset.
+	```sh
+	git checkout rc1
+	```
+
+1. Install the Python dependencies from `requirements.txt`. Depending on your
    usage, you may need to install [ffmpeg] or [graphviz]. Install [CUDA] if you
    want to train neural networks on GPUs (see
    [Tensorflow's instructions](https://www.tensorflow.org/install/)).
@@ -133,14 +139,14 @@ developed for the dataset.
 	make install
 	```
 
-5. Fill in the configuration.
+1. Fill in the configuration.
 	```sh
 	cat .env
 	AUDIO_DIR=/path/to/audio
 	FMA_KEY=IFIUSETHEAPI
 	```
 
-6. Open Jupyter or run a notebook.
+1. Open Jupyter or run a notebook.
 	```sh
 	jupyter-notebook
 	make baselines.ipynb
