@@ -179,7 +179,7 @@ developed for the dataset.
 [osip]: https://doi.org/10.5281/zenodo.999353
 [poster]: https://doi.org/10.5281/zenodo.1035847
 [djd]: https://doi.org/10.5281/zenodo.1066119
-[crowdai_challenge]: https://www.crowdai.org/organizers/epfl/challenges/www-2018-challenge-learning-to-recognize-musical-genre
+[crowdai_challenge]: https://www.crowdai.org/challenges/www-2018-challenge-learning-to-recognize-musical-genre
 
 Dataset lists
 * <https://github.com/caesar0301/awesome-public-datasets>
