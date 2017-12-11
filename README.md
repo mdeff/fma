@@ -161,7 +161,7 @@ developed for the dataset.
 
 ## Coverage
 
-* [Genre recognition challenge][crowdai_challenge] at the [web conference](https://www2018.thewebconf.org), Lyon, 2018-04.
+* [Genre recognition challenge][crowdai_challenge] at the [web conference], Lyon, 2018-04.
 * [Slides][djd] presented at the [Data Jam days](http://datajamdays.org), Lausanne, 2017-11-24.
 * [Poster][poster] presented at [ISMIR 2017](https://ismir2017.smcnus.org), China, 2017-10-24.
 * [Slides][osip] for the [Open Science in Practice](https://osip2017.epfl.ch) summer school at EPFL, 2017-09-29.
@@ -180,6 +180,7 @@ developed for the dataset.
 [poster]: https://doi.org/10.5281/zenodo.1035847
 [djd]: https://doi.org/10.5281/zenodo.1066119
 [crowdai_challenge]: https://www.crowdai.org/challenges/www-2018-challenge-learning-to-recognize-musical-genre
+[web conference]: https://www2018.thewebconf.org/program/challenges-track/
 
 Dataset lists
 * <https://github.com/caesar0301/awesome-public-datasets>
