@@ -219,11 +219,12 @@ we can keep it lively by evolving it toward people's needs.
 
 * Please cite our [paper] if you use our code or data.
   ```
-  @inproceedings{fma,
+  @inproceedings{fma_dataset,
     title = {FMA: A Dataset for Music Analysis},
-    author = {Defferrard, Micha{\"e}l and Benzi, Kirell and Vandergheynst, Pierre and Bresson, Xavier},
+    author = {Defferrard, Micha\"el and Benzi, Kirell and Vandergheynst, Pierre and Bresson, Xavier},
     booktitle = {18th International Society for Music Information Retrieval Conference},
-    year = {2017}
+    year = {2017},
+    url = {https://arxiv.org/abs/1612.01840},
   }
   ```
 * The code in this repository is released under the terms of the
