@@ -4,13 +4,14 @@
 # Michaël Defferrard, Kirell Benzi, Pierre Vandergheynst, Xavier Bresson, EPFL LTS2.
 
 import os
-import sys
 import shutil
 import pickle
 import zipfile
 import subprocess as sp
 import multiprocessing
 from datetime import datetime
+import argparse
+from functools import partial
 
 from tqdm import tqdm, trange
 import pandas as pd
@@ -34,16 +35,19 @@ The content's integrity can be verified with sha1sum -c checksums.
 """
 
 
-def download_metadata():
+def download_metadata(args):
 
     fma = utils.FreeMusicArchive(os.environ.get('FMA_KEY'))
 
-    max_tid = int(fma.get_recent_tracks()[0][0])
-    print('Largest track id: {}'.format(max_tid))
+    if args.tid_max is None:
+        args.tid_max = int(fma.get_recent_tracks()[0][0])
+
+    message = 'Collecting metadata from track ID {} to {}.'
+    print(message.format(args.tid_min, args.tid_max))
 
     not_found = {}
 
-    id_range = trange(max_tid, desc='tracks')
+    id_range = trange(args.tid_min, args.tid_max, desc='tracks')
     tracks, not_found['tracks'] = fma.get_all('track', id_range)
 
     id_range = tqdm(tracks['album_id'].unique(), desc='albums')
@@ -58,6 +62,9 @@ def download_metadata():
         eval(dataset).sort_index(axis=0, inplace=True)
         eval(dataset).sort_index(axis=1, inplace=True)
         eval(dataset).to_csv('raw_' + dataset + '.csv')
+        if dataset != 'genres':
+            print('{}: {} collected, {} not found'.format(
+                dataset, len(eval(dataset)), len(not_found[dataset])))
 
     pickle.dump(not_found, open('not_found.pickle', 'wb'))
 
@@ -78,9 +85,9 @@ def _create_subdirs(dst_dir, tracks):
         os.chmod(dst, 0o777)
 
 
-def download_data(dst_dir):
+def download_data(args):
 
-    dst_dir = os.path.abspath(dst_dir)
+    dst_dir = os.path.join(os.path.abspath(args.path), 'fma_full')
     tracks = pd.read_csv('raw_tracks.csv', index_col=0)
     _create_subdirs(dst_dir, tracks)
 
@@ -89,24 +96,30 @@ def download_data(dst_dir):
     not_found['audio'] = []
 
     # Download missing tracks.
+    collected = 0
     for tid in tqdm(tracks.index):
         dst = utils.get_audio_path(dst_dir, tid)
         if not os.path.exists(dst):
             try:
                 fma.download_track(tracks.at[tid, 'track_file'], dst)
+                collected += 1
             except:  # requests.HTTPError
                 not_found['audio'].append(tid)
 
     pickle.dump(not_found, open('not_found.pickle', 'wb'))
 
+    existing = len(tracks) - collected - len(not_found['audio'])
+    print('audio: {} collected, {} existing, {} not found'.format(
+        collected, existing, len(not_found['audio'])))
 
-def _extract_metadata(tid):
+
+def _extract_metadata(tid, path):
     """Extract metadata from one audio file."""
 
     metadata = pd.Series(name=tid)
 
     try:
-        path = utils.get_audio_path(os.environ.get('AUDIO_DIR'), tid)
+        path = utils.get_audio_path(path, tid)
         f = mutagen.File(path)
         x, sr = librosa.load(path, sr=None, mono=False)
         assert f.info.channels == (x.shape[0] if x.ndim > 1 else 1)
@@ -136,12 +149,14 @@ def _extract_metadata(tid):
     return metadata
 
 
-def extract_mp3_metadata():
+def extract_mp3_metadata(args):
     """
     Fill metadata about the audio, e.g. the bit and sample rates.
 
     It extracts metadata from the mp3 and creates an mp3_metadata.csv table.
     """
+
+    path = os.path.join(args.path, 'fma_full')
 
     # More than usable CPUs to be CPU bound, not I/O bound. Beware memory.
     nb_workers = int(1.5 * len(os.sched_getaffinity(0)))
@@ -158,7 +173,7 @@ def extract_mp3_metadata():
     metadata['samples'] = 0
 
     pool = multiprocessing.Pool(nb_workers)
-    it = pool.imap_unordered(_extract_metadata, tids)
+    it = pool.imap_unordered(partial(_extract_metadata, path=path), tids)
 
     for _, row in enumerate(tqdm(it, total=len(tids))):
         metadata.loc[row.name] = row
@@ -166,11 +181,11 @@ def extract_mp3_metadata():
     metadata.to_csv('mp3_metadata.csv')
 
 
-def trim_audio(dst_dir):
+def trim_audio(args):
 
-    dst_dir = os.path.abspath(dst_dir)
-    fma_full = os.path.join(dst_dir, 'fma_full')
-    fma_large = os.path.join(dst_dir, 'fma_large')
+    path = os.path.abspath(args.path)
+    fma_full = os.path.join(path, 'fma_full')
+    fma_large = os.path.join(path, 'fma_large')
     tracks = pd.read_csv('mp3_metadata.csv', index_col=0)
     _create_subdirs(fma_large, tracks)
 
@@ -206,9 +221,9 @@ def trim_audio(dst_dir):
     pickle.dump(not_found, open('not_found.pickle', 'wb'))
 
 
-def normalize_permissions_times(dst_dir):
-    dst_dir = os.path.abspath(dst_dir)
-    for dirpath, dirnames, filenames in tqdm(os.walk(dst_dir)):
+def normalize_permissions_times(args):
+    path = os.path.abspath(args.path)
+    for dirpath, dirnames, filenames in tqdm(os.walk(path)):
         for name in filenames:
             dst = os.path.join(dirpath, name)
             os.chmod(dst, 0o444)
@@ -219,7 +234,7 @@ def normalize_permissions_times(dst_dir):
             os.utime(dst, (TIME, TIME))
 
 
-def create_zips(dst_dir):
+def create_zips(args):
 
     def get_filepaths(subset):
         filepaths = []
@@ -231,7 +246,7 @@ def create_zips(dst_dir):
     def get_checksums(base_dir, filepaths):
         """Checksums are assumed to be stored in order for efficiency."""
         checksums = []
-        with open(os.path.join(dst_dir, base_dir, 'checksums')) as f:
+        with open(os.path.join(args.path, base_dir, 'checksums')) as f:
             for filepath in filepaths:
                 exist = False
                 for line in f:
@@ -250,7 +265,7 @@ def create_zips(dst_dir):
         # LZMA is close to BZIP2 and too recent to be widely available (unzip).
         compression = zipfile.ZIP_BZIP2
 
-        zip_filepath = os.path.join(dst_dir, zip_filename)
+        zip_filepath = os.path.join(args.path, zip_filename)
         with zipfile.ZipFile(zip_filepath, 'x', compression) as zf:
 
             def info(name):
@@ -265,7 +280,7 @@ def create_zips(dst_dir):
             zf.writestr(info('checksums'), ''.join(checksums), compression)
 
             for filepath in tqdm(filepaths):
-                src = os.path.join(dst_dir, base_dir, filepath)
+                src = os.path.join(args.path, base_dir, filepath)
                 dst = os.path.join(zip_filename[:-4], filepath)
                 zf.write(src, dst)
 
@@ -289,15 +304,46 @@ def create_zips(dst_dir):
 
 
 if __name__ == "__main__":
-    if sys.argv[1] == 'metadata':
-        download_metadata()
-    elif sys.argv[1] == 'data':
-        download_data(sys.argv[2])
-    elif sys.argv[1] == 'mp3_metadata':
-        extract_mp3_metadata()
-    elif sys.argv[1] == 'clips':
-        trim_audio(sys.argv[2])
-    elif sys.argv[1] == 'normalize':
-        normalize_permissions_times(sys.argv[2])
-    elif sys.argv[1] == 'zips':
-        create_zips(sys.argv[2])
+    desc = 'Collect and process data to create the Free Music Archive (FMA) dataset.'
+    parser = argparse.ArgumentParser(description=desc)
+    subparsers = parser.add_subparsers(title='subcommands')
+
+    path = 'Path to the folder where the audio of the FMA subsets is stored.'
+
+    desc = ('Query the API of the FMA and store the collected metadata in '
+            'raw_tracks.csv, raw_albums.csv, raw_artists.csv, and '
+            'raw_genres.csv. The files are created in the current directory.')
+    subparser = subparsers.add_parser('metadata', description=desc)
+    subparser.add_argument('--min', dest='tid_min', type=int, default=0,
+                           help='smallest track ID to consider')
+    subparser.add_argument('--max', dest='tid_max', type=int, default=None,
+                           help='largest track ID to consider')
+    subparser.set_defaults(func=download_metadata)
+
+    desc = 'Download the mp3 audio of each track.'
+    subparser = subparsers.add_parser('data', description=desc)
+    subparser.add_argument('path', type=str, help=path)
+    subparser.set_defaults(func=download_data)
+
+    desc = 'Extract technical metadata, such as duration, from the audio.'
+    subparser = subparsers.add_parser('mp3_metadata', description=desc)
+    subparser.add_argument('path', type=str, help=path)
+    subparser.set_defaults(func=extract_mp3_metadata)
+
+    desc = 'Extract 30s clips from the downloaded full-length audio.'
+    subparser = subparsers.add_parser('clips', description=desc)
+    subparser.add_argument('path', type=str, help=path)
+    subparser.set_defaults(func=trim_audio)
+
+    desc = 'Normalize the file permissions and times.'
+    subparser = subparsers.add_parser('normalize', description=desc)
+    subparser.add_argument('path', type=str, help=path)
+    subparser.set_defaults(func=normalize_permissions_times)
+
+    desc = 'Create the datasets as ZIP archives.'
+    subparser = subparsers.add_parser('zips', description=desc)
+    subparser.add_argument('path', type=str, help=path)
+    subparser.set_defaults(func=create_zips)
+
+    args = parser.parse_args()
+    args.func(args)
