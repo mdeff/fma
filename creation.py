@@ -175,7 +175,7 @@ def extract_mp3_metadata(args):
     pool = multiprocessing.Pool(nb_workers)
     it = pool.imap_unordered(partial(_extract_metadata, path=path), tids)
 
-    for _, row in enumerate(tqdm(it, total=len(tids))):
+    for row in tqdm(it, total=len(tids)):
         metadata.loc[row.name] = row
 
     metadata.to_csv('mp3_metadata.csv')
