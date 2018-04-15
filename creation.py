@@ -36,7 +36,7 @@ def download_metadata():
 
     not_found = {}
 
-    id_range = trange(20, desc='tracks')
+    id_range = trange(max_tid, desc='tracks')
     tracks, not_found['tracks'] = fma.get_all('track', id_range)
 
     id_range = tqdm(tracks['album_id'].unique(), desc='albums')
