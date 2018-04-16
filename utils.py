@@ -89,7 +89,7 @@ class FreeMusicArchive:
                 not_found_ids.append(id_)
                 continue
             row.pop(index)
-            df.loc[id_] = row
+            df = df.append(pd.Series(row, name=id_))
 
         return df, not_found_ids
 
