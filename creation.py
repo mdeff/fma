@@ -156,13 +156,12 @@ def extract_mp3_metadata(args):
     It extracts metadata from the mp3 and creates an mp3_metadata.csv table.
     """
 
-    path = os.path.join(args.path, 'fma_full')
-
     # More than usable CPUs to be CPU bound, not I/O bound. Beware memory.
     nb_workers = int(1.5 * len(os.sched_getaffinity(0)))
     print('Working with {} processes.'.format(nb_workers))
 
-    tids = pd.read_csv('raw_tracks.csv', index_col=0).index
+    path = os.path.join(args.path, 'fma_full')
+    tids = utils.get_tids_from_directory(path)
 
     metadata = pd.DataFrame(index=tids)
     # Prevent the columns of being of type float because of NaNs.
@@ -196,8 +195,6 @@ def trim_audio(args):
         duration = track['samples'] / track['sample_rate']
         src = utils.get_audio_path(fma_full, tid)
         dst = utils.get_audio_path(fma_large, tid)
-        if tid in not_found['audio']:
-            continue
         elif os.path.exists(dst):
             continue
         elif duration <= 30:

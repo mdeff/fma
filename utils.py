@@ -238,6 +238,25 @@ def get_audio_path(audio_dir, track_id):
     return os.path.join(audio_dir, tid_str[:3], tid_str + '.mp3')
 
 
+def get_tids_from_directory(audio_dir):
+    """Get track IDs from the mp3s in a directory.
+
+    Parameters
+    ----------
+    audio_dir : str
+        Path to the directory where the audio files are stored.
+
+    Returns
+    -------
+        A list of track IDs.
+    """
+    tids = []
+    for _, dirnames, files in os.walk(audio_dir):
+        if dirnames == []:
+            tids.extend(int(file[:-4]) for file in files)
+    return tids
+
+
 class Loader:
     def load(self, filepath):
         raise NotImplemented()
