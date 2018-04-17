@@ -164,6 +164,7 @@ def extract_mp3_metadata(args):
     tids = utils.get_tids_from_directory(path)
 
     metadata = pd.DataFrame(index=tids)
+    metadata.index.name = 'track_id'
     # Prevent the columns of being of type float because of NaNs.
     metadata['channels'] = 0
     metadata['mode'] = 'UNKNOWN'
