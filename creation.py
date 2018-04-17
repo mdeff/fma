@@ -141,7 +141,7 @@ def _extract_metadata(tid, path):
     except Exception as e:
         print('{}: {}'.format(tid, repr(e)))
         metadata['bit_rate'] = 0
-        metadata['mode'] = 'UNKNOWN'
+        metadata['mode'] = 'ERROR'
         metadata['channels'] = 0
         metadata['sample_rate'] = 0
         metadata['samples'] = 0
@@ -172,11 +172,18 @@ def extract_mp3_metadata(args):
     metadata['samples'] = 0
 
     pool = multiprocessing.Pool(nb_workers)
-    it = pool.imap_unordered(partial(_extract_metadata, path=path), tids)
+    extract = partial(_extract_metadata, path=path)
+    it = pool.imap_unordered(extract, tids)
 
     for row in tqdm(it, total=len(tids)):
         metadata.loc[row.name] = row
 
+    not_found = pickle.load(open('not_found.pickle', 'rb'))
+    tids = list(metadata[metadata['mode'] == 'ERROR'].index)
+    not_found['mp3_metadata'] = tids
+    pickle.dump(not_found, open('not_found.pickle', 'wb'))
+
+    metadata.drop(tids, inplace=True)
     metadata.to_csv('mp3_metadata.csv')
 
 
@@ -195,7 +202,7 @@ def trim_audio(args):
         duration = track['samples'] / track['sample_rate']
         src = utils.get_audio_path(fma_full, tid)
         dst = utils.get_audio_path(fma_large, tid)
-        elif os.path.exists(dst):
+        if os.path.exists(dst):
             continue
         elif duration <= 30:
             shutil.copyfile(src, dst)
