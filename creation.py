@@ -185,6 +185,8 @@ def extract_mp3_metadata(args):
     pickle.dump(not_found, open('not_found.pickle', 'wb'))
 
     metadata.drop(tids, inplace=True)
+    metadata.sort_index(axis=0, inplace=True)
+    metadata.sort_index(axis=1, inplace=True)
     metadata.to_csv('mp3_metadata.csv')
 
 
