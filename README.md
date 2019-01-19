@@ -189,6 +189,7 @@ Dataset lists
 * <https://archive.ics.uci.edu/ml/datasets/FMA:+A+Dataset+For+Music+Analysis>
 * <http://deeplearning.net/datasets>
 * <http://www.audiocontentanalysis.org/data-sets>
+* <https://github.com/ismir/mir-datasets>
 * <https://teachingmir.wikispaces.com/Datasets>
 * <https://en.wikipedia.org/wiki/List_of_datasets_for_machine_learning_research>
 * <https://cloudlab.atlassian.net/wiki/display/datasets/FMA:+A+Dataset+For+Music+Analysis>
