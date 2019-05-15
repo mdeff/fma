@@ -237,10 +237,10 @@ we can keep it lively by evolving it toward people's needs.
 * We do not hold the copyright on the audio and distribute it under the terms
   of the license chosen by the artist.
 * The dataset is meant for research purposes.
-* We are grateful to SWITCH and EPFL for hosting the dataset within the context
-  of the [SCALE-UP] project, funded in part by the swissuniversities [SUC P-2
-  program].
+* We are grateful to the [Swiss Data Science Center] ([EPFL] and [ETH Zürich])
+  for hosting the dataset.
 
 [ccby40]: https://creativecommons.org/licenses/by/4.0
-[SCALE-UP]: https://projects.switch.ch/scale-up/
-[SUC P-2 program]: https://www.swissuniversities.ch/isci
+[Swiss Data Science Center]: https://datascience.ch/collaboration-and-partnerships
+[EPFL]: http://www.epfl.ch
+[ETH Zürich]: http://www.ethz.ch
