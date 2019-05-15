@@ -161,6 +161,8 @@ developed for the dataset.
 
 ## Coverage
 
+* [Using CNNs and RNNs for Music Genre Recognition][tds2], Towards Data Science, 2018-12-13.
+* [Over 1.5 TB’s of Labeled Audio Datasets][tds1], Towards Data Science, 2018-11-13.
 * [Genre recognition challenge][crowdai_challenge] at the [web conference], Lyon, 2018-04.
 * [25 Open Datasets for Deep Learning Every Data Scientist Must Work With][vidhya], Analytics Vidhya, 2018-03-29.
 * [Slides][djd] presented at the [Data Jam days](http://datajamdays.org), Lausanne, 2017-11-24.
@@ -183,6 +185,8 @@ developed for the dataset.
 [crowdai_challenge]: https://www.crowdai.org/challenges/www-2018-challenge-learning-to-recognize-musical-genre
 [web conference]: https://www2018.thewebconf.org/program/challenges-track/
 [vidhya]: https://www.analyticsvidhya.com/blog/2018/03/comprehensive-collection-deep-learning-datasets/
+[tds1]: https://towardsdatascience.com/a-data-lakes-worth-of-audio-datasets-b45b88cd4ad
+[tds2]: https://towardsdatascience.com/using-cnns-and-rnns-for-music-genre-recognition-2435fb2ed6af
 
 Dataset lists
 * <https://github.com/caesar0301/awesome-public-datasets>
