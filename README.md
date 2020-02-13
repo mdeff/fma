@@ -197,6 +197,7 @@ Dataset lists
 * <https://teachingmir.wikispaces.com/Datasets>
 * <https://en.wikipedia.org/wiki/List_of_datasets_for_machine_learning_research>
 * <https://cloudlab.atlassian.net/wiki/display/datasets/FMA:+A+Dataset+For+Music+Analysis>
+* <https://www.datasetlist.com>
 
 ## History
 
