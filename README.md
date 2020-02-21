@@ -1,9 +1,9 @@
 # FMA: A Dataset For Music Analysis
 
-[Michaël Defferrard](http://deff.ch), [Kirell Benzi](http://kirellbenzi.com),
+[Michaël Defferrard](https://deff.ch), [Kirell Benzi](https://kirellbenzi.com),
 [Pierre Vandergheynst](https://people.epfl.ch/pierre.vandergheynst),
-[Xavier Bresson](http://www.ntu.edu.sg/home/xbresson),
-[EPFL LTS2](https://lts2.epfl.ch).
+[Xavier Bresson](https://www.ntu.edu.sg/home/xbresson),
+[EPFL LTS2](https://lts2.epfl.ch)
 
 [paper]:     https://arxiv.org/abs/1612.01840
 [FMA]:       https://freemusicarchive.org
@@ -40,7 +40,7 @@ a description.
 * `echonest.csv`: audio features provided by [Echonest] (now [Spotify]) for
   a subset of 13,129 tracks.
 
-[pandas]:   http://pandas.pydata.org/
+[pandas]:   https://pandas.pydata.org/
 [librosa]:  https://librosa.github.io/librosa/
 [spotify]:  https://www.spotify.com/
 [echonest]: http://the.echonest.com/
@@ -149,11 +149,11 @@ developed for the dataset.
 	make baselines.ipynb
 	```
 
-[7zip]:       http://www.7-zip.org
+[7zip]:       https://www.7-zip.org
 [pyenv]:      https://github.com/pyenv/pyenv
 [pyenv-virt]: https://github.com/pyenv/pyenv-virtualenv
 [ffmpeg]:     https://ffmpeg.org/download.html
-[graphviz]:   http://www.graphviz.org/
+[graphviz]:   https://www.graphviz.org
 [CUDA]:       https://en.wikipedia.org/wiki/CUDA
 
 ## Coverage
@@ -244,5 +244,5 @@ we can keep it lively by evolving it toward people's needs.
 
 [ccby40]: https://creativecommons.org/licenses/by/4.0
 [Swiss Data Science Center]: https://datascience.ch/collaboration-and-partnerships
-[EPFL]: http://www.epfl.ch
-[ETH Zürich]: http://www.ethz.ch
+[EPFL]: https://www.epfl.ch
+[ETH Zürich]: https://www.ethz.ch
