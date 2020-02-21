@@ -26,9 +26,6 @@ library of high-quality, legal audio downloads. Below the abstract from the
 > baselines for genre recognition. Code, data, and usage examples are available
 > at <https://github.com/mdeff/fma>.
 
-This is a **pre-publication release**. As such, this repository as well as the
-paper and data are subject to change. Stay tuned!
-
 ## Data
 
 All metadata and features for all tracks are distributed in
