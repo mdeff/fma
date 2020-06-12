@@ -61,7 +61,7 @@ Then, you got various sizes of MP3-encoded audio data:
 The following notebooks, scripts and modules have been developed for the dataset.
 
 1. [`usage.ipynb`]: shows how to load the datasets and develop, train and test your own models with it.
-2. [`analysis.ipynb`]: exploration of the metadata, data and features.
+2. [`analysis.ipynb`]: exploration of the metadata, data and features. Creates the [figures](https://github.com/mdeff/fma/tree/outputs/figures) used in the paper.
 3. [`baselines.ipynb`]: baseline models for genre recognition, both from audio and features.
 4. [`features.py`]: features extraction from the audio (used to create `features.csv`).
 5. [`webapi.ipynb`]: query the web API of the [FMA]. Can be used to update the dataset.
