@@ -58,7 +58,7 @@ Then, you got various sizes of MP3-encoded audio data:
 
 ## Code
 
-The following notebooks and scripts have been developed for the dataset.
+The following notebooks, scripts and modules have been developed for the dataset.
 
 1. [`usage.ipynb`]: shows how to load the datasets and develop, train and test your own models with it.
 2. [`analysis.ipynb`]: exploration of the metadata, data and features.
@@ -66,6 +66,8 @@ The following notebooks and scripts have been developed for the dataset.
 4. [`features.py`]: features extraction from the audio (used to create `features.csv`).
 5. [`webapi.ipynb`]: query the web API of the [FMA]. Can be used to update the dataset.
 6. [`creation.ipynb`]: creation of the dataset (used to create `tracks.csv` and `genres.csv`).
+7. [`creation.py`]: creation of the dataset (long-running data collection and processing).
+8. [`utils.py`]: helper functions and classes.
 
 [`usage.ipynb`]:     https://nbviewer.jupyter.org/github/mdeff/fma/blob/outputs/usage.ipynb
 [`analysis.ipynb`]:  https://nbviewer.jupyter.org/github/mdeff/fma/blob/outputs/analysis.ipynb
@@ -73,6 +75,8 @@ The following notebooks and scripts have been developed for the dataset.
 [`features.py`]:     features.py
 [`webapi.ipynb`]:    https://nbviewer.jupyter.org/github/mdeff/fma/blob/outputs/webapi.ipynb
 [`creation.ipynb`]:  https://nbviewer.jupyter.org/github/mdeff/fma/blob/outputs/creation.ipynb
+[`creation.py`]:     creation.py
+[`utils.py`]:        utils.py
 
 ## Usage
 
