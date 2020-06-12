@@ -149,7 +149,7 @@ The following notebooks and scripts have been developed for the dataset.
 [graphviz]: https://www.graphviz.org
 [CUDA]: https://en.wikipedia.org/wiki/CUDA
 
-## Coverage
+## Coverage and resources
 
 * [Using CNNs and RNNs for Music Genre Recognition](https://towardsdatascience.com/using-cnns-and-rnns-for-music-genre-recognition-2435fb2ed6af), Towards Data Science, 2018-12-13.
 * [Over 1.5 TB’s of Labeled Audio Datasets](https://towardsdatascience.com/a-data-lakes-worth-of-audio-datasets-b45b88cd4ad), Towards Data Science, 2018-11-13.
@@ -165,6 +165,18 @@ The following notebooks and scripts have been developed for the dataset.
 * [FMA: A Dataset For Music Analysis](https://tensorflow.blog/2017/03/14/fma-a-dataset-for-music-analysis), tensorflow.blog, 2017-03-14.
 * [Beta release discussed](https://twitter.com/YadFaeq/status/829406463286063104), twitter.com, 2017-02-08.
 * [FMA Data Set for Researchers Released](https://web.archive.org/web/20190826112752/http://freemusicarchive.org/member/cheyenne_h/blog/FMA_Dataset_for_Researchers), freemusicarchive.org, 2016-12-15.
+
+Research papers (see also [citations on Google Scholar](https://scholar.google.com/scholar?cites=13646959466952873682,13785796238335741238)):
+* [Zero-shot Learning for Audio-based Music Classification and Tagging](https://arxiv.org/abs/1907.02670)
+* [One deep music representation to rule them all? A comparative analysis of different representation learning strategies](https://doi.org/10.1007/s00521-019-04076-1)
+* [Deep Learning for Audio-Based Music Classification and Tagging: Teaching Computers to Distinguish Rock from Bach](https://sci-hub.tw/10.1109/MSP.2018.2874383)
+* [Learning Discrete Structures for Graph Neural Networks](https://arxiv.org/abs/1903.11960)
+* [A context encoder for audio inpainting](https://arxiv.org/abs/1810.12138)
+* [OpenMIC-2018: An Open Data-set for Multiple Instrument Recognition](https://archives.ismir.net/ismir2018/paper/000248.pdf)
+* [Detecting Music Genre Using Extreme Gradient Boosting](https://doi.org/10.1145/3184558.3191822)
+* [Transfer Learning of Artist Group Factors to Musical Genre Classification](https://doi.org/10.1145/3184558.3191823)
+* [Learning to Recognize Musical Genre from Audio: Challenge Overview](https://arxiv.org/abs/1803.05337)
+* [Representation Learning of Music Using Artist Labels](https://arxiv.org/abs/1710.06648)
 
 Dataset lists:
 * <https://github.com/caesar0301/awesome-public-datasets>
