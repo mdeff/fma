@@ -203,6 +203,7 @@ Dataset lists:
 * `fma_medium.zip`   sha1: `c67b69ea232021025fca9231fc1c7c1a063ab50b`
 * `fma_large.zip`    sha1: `497109f4dd721066b5ce5e5f250ec604dc78939e`
 * `fma_full.zip`     sha1: `0f0ace23fbe9ba30ecb7e95f763e435ea802b8ab`
+* known issues: see [#41](https://github.com/mdeff/fma/issues/41)
 
 **2016-12-06 beta release**
 * paper: [arXiv:1612.01840v1](https://arxiv.org/abs/1612.01840v1)
