@@ -342,9 +342,20 @@ def build_sample_loader(audio_dir, Y, loader):
                 # print('queue', self.tids[batch_current], batch_size)
                 tids = np.array(self.tids[batch_current:batch_current+batch_size])
 
+            delIdx = []
             for i, tid in enumerate(tids):
-                self.X[i] = self.loader.load(get_audio_path(audio_dir, tid))
+                try:
+                    self.X[i] = self.loader.load(get_audio_path(audio_dir, tid))
+                except Exception as e:
+                    delIdx.append(i)
+                    print("\nERROR LOADING FILE at index", i, ":", e)
                 self.Y[i] = Y.loc[tid]
+                
+               
+            if len(delIdx) > 0:
+                print("\nDeleting the following failed cases:", delIdx)
+                self.X = np.delete(self.X, delIdx, axis=0)
+                self.Y = np.delete(self.Y, delIdx, axis=0)
 
             with self.lock2:
                 while (batch_current - self.batch_rearmost.value) % self.tids.size > self.batch_size:
