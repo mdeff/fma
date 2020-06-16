@@ -81,6 +81,9 @@ The following notebooks, scripts, and modules have been developed for the datase
 
 ## Usage
 
+[![Binder](https://static.mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/mdeff/fma/outputs?urlpath=lab/tree/usage.ipynb)
+&nbsp; Click the binder badge to play with the code and data from your browser without installing anything.
+
 1. Clone the repository.
     ```sh
     git clone https://github.com/mdeff/fma.git

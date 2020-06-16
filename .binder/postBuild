@@ -1,0 +1,15 @@
+#!/bin/sh
+
+python3.6 -m venv ./env
+
+./env/bin/pip install --upgrade pip setuptools wheel
+./env/bin/pip install numpy==1.12.1  # workaround resampy's bogus setup.py
+./env/bin/pip install -r requirements.txt
+
+# Shadow the default kernelspec for jupyter to use our environment by default.
+./env/bin/python -m ipykernel install --user
+
+cd data
+curl -O https://os.unil.cloud.switch.ch/fma/fma_metadata.zip
+unzip fma_metadata.zip
+rm fma_metadata.zip
