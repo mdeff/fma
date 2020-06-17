@@ -75,7 +75,7 @@ class FreeMusicArchive:
     def get_all(self, dataset, id_range):
         index = dataset + '_id'
 
-        id_ = 2 if dataset is 'track' else 1
+        id_ = 2 if dataset == 'track' else 1
         row = self._get_data(dataset, id_)
         df = pd.DataFrame(columns=row.keys())
         df.set_index(index, inplace=True)
@@ -89,7 +89,7 @@ class FreeMusicArchive:
                 not_found_ids.append(id_)
                 continue
             row.pop(index)
-            df.loc[id_] = row
+            df = df.append(pd.Series(row, name=id_))
 
         return df, not_found_ids
 
@@ -144,7 +144,7 @@ class Genres:
         def create_node(genre_id):
             title = self.df.at[genre_id, 'title']
             ntracks = self.df.at[genre_id, '#tracks']
-            #name = self.df.at[genre_id, 'title'] + '\n' + str(genre_id)
+            # name = self.df.at[genre_id, 'title'] + '\n' + str(genre_id)
             name = '"{}\n{} / {}"'.format(title, genre_id, ntracks)
             return pydot.Node(name)
 
@@ -259,7 +259,7 @@ def get_tids_from_directory(audio_dir):
 
 class Loader:
     def load(self, filepath):
-        raise NotImplemented()
+        raise NotImplementedError()
 
 
 class RawAudioLoader(Loader):
@@ -276,7 +276,7 @@ class LibrosaLoader(RawAudioLoader):
         import librosa
         sr = self.sampling_rate if self.sampling_rate != SAMPLING_RATE else None
         # kaiser_fast is 3x faster than kaiser_best
-        #x, sr = librosa.load(filepath, sr=sr, res_type='kaiser_fast')
+        # x, sr = librosa.load(filepath, sr=sr, res_type='kaiser_fast')
         x, sr = librosa.load(filepath, sr=sr)
         return x
 
