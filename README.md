@@ -1,8 +1,8 @@
 # FMA: A Dataset For Music Analysis
 
-[Michaël Defferrard](http://deff.ch), [Kirell Benzi](http://kirellbenzi.com/),
+[Michaël Defferrard](http://deff.ch), [Kirell Benzi](http://kirellbenzi.com),
 [Pierre Vandergheynst](https://people.epfl.ch/pierre.vandergheynst),
-[Xavier Bresson](http://research.ntu.edu.sg/expertise/academicprofile/Pages/StaffProfile.aspx?ST_EMAILID=XBRESSON),
+[Xavier Bresson](http://www.ntu.edu.sg/home/xbresson),
 [EPFL LTS2](https://lts2.epfl.ch).
 
 [paper]:     https://arxiv.org/abs/1612.01840
@@ -12,26 +12,19 @@ The dataset is a dump of the [Free Music Archive (FMA)][FMA], an interactive
 library of high-quality, legal audio downloads. Below the abstract from the
 [paper].
 > We introduce the Free Music Archive (FMA), an open and easily accessible
-> dataset which can be used to evaluate several tasks in music information
-> retrieval (MIR), a field concerned with browsing, searching, and organizing
-> large music collections. The community's growing interest in feature and
-> end-to-end learning is however restrained by the limited availability of
-> large audio datasets. By releasing the FMA, we hope to foster research which
-> will improve the state-of-the-art and hopefully surpass the performance
-> ceiling observed in e.g. genre recognition (MGR). The data is made of 106,574
-> tracks, 16,341 artists, 14,854 albums, arranged in a hierarchical taxonomy of
-> 161 genres, for a total of 343 days of audio and 917 GiB, all under
-> permissive Creative Commons licenses. It features metadata like song title,
-> album, artist and genres; user data like play counts, favorites, and
-> comments; free-form text like description, biography, and tags; together with
-> full-length, high-quality audio, and some pre-computed features. We propose
-> a train/validation/test split and three subsets: a genre-balanced set of
-> 8,000 tracks from 8 major genres, a genre-unbalanced set of 25,000 tracks
-> from 16 genres, and a 98 GiB version with clips trimmed to 30s. This paper
-> describes the dataset and how it was created, proposes some tasks like music
-> classification and annotation or recommendation, and evaluates some baselines
-> for MGR. Code, data, and usage examples are available at
-> <https://github.com/mdeff/fma>.
+> dataset suitable for evaluating several tasks in MIR, a field concerned with
+> browsing, searching, and organizing large music collections. The community's
+> growing interest in feature and end-to-end learning is however restrained by
+> the limited availability of large audio datasets. The FMA aims to overcome
+> this hurdle by providing 917 GiB and 343 days of Creative Commons-licensed
+> audio from 106,574 tracks from 16,341 artists and 14,854 albums, arranged in
+> a hierarchical taxonomy of 161 genres. It provides full-length and
+> high-quality audio, pre-computed features, together with track- and
+> user-level metadata, tags, and free-form text such as biographies. We here
+> describe the dataset and how it was created, propose a train/validation/test
+> split and three subsets, discuss some suitable MIR tasks, and evaluate some
+> baselines for genre recognition. Code, data, and usage examples are available
+> at <https://github.com/mdeff/fma>.
 
 This is a **pre-publication release**. As such, this repository as well as the
 paper and data are subject to change. Stay tuned!
@@ -91,16 +84,32 @@ developed for the dataset.
 [webapi]:    https://nbviewer.jupyter.org/github/mdeff/fma/blob/outputs/webapi.ipynb
 [creation]:  https://nbviewer.jupyter.org/github/mdeff/fma/blob/outputs/creation.ipynb
 
-## Installation
+## Usage
 
-1. Download some data and verify its integrity.
+1. Download some data, verify its integrity, and uncompress the archives.
 	```sh
+	curl -O https://os.unil.cloud.switch.ch/fma/fma_metadata.zip
+	curl -O https://os.unil.cloud.switch.ch/fma/fma_small.zip
+	curl -O https://os.unil.cloud.switch.ch/fma/fma_medium.zip
+	curl -O https://os.unil.cloud.switch.ch/fma/fma_large.zip
+	curl -O https://os.unil.cloud.switch.ch/fma/fma_full.zip
+
 	echo "f0df49ffe5f2a6008d7dc83c6915b31835dfe733  fma_metadata.zip" | sha1sum -c -
 	echo "ade154f733639d52e35e32f5593efe5be76c6d70  fma_small.zip"    | sha1sum -c -
 	echo "c67b69ea232021025fca9231fc1c7c1a063ab50b  fma_medium.zip"   | sha1sum -c -
 	echo "497109f4dd721066b5ce5e5f250ec604dc78939e  fma_large.zip"    | sha1sum -c -
 	echo "0f0ace23fbe9ba30ecb7e95f763e435ea802b8ab  fma_full.zip"     | sha1sum -c -
+
+	unzip fma_metadata.zip
+	unzip fma_small.zip
+	unzip fma_medium.zip
+	unzip fma_large.zip
+	unzip fma_full.zip
 	```
+
+	If you get any error while decompressing the archives (especially with the
+	Windows and macOS system unzippers), please try [7zip]. That is probably an
+	[unsupported compression issue](https://github.com/mdeff/fma/issues/5).
 
 2. Optionally, use [pyenv] to install Python 3.6 and create a [virtual
    environment][pyenv-virt].
@@ -137,11 +146,37 @@ developed for the dataset.
 	make baselines.ipynb
 	```
 
+[7zip]:       http://www.7-zip.org
 [pyenv]:      https://github.com/pyenv/pyenv
 [pyenv-virt]: https://github.com/pyenv/pyenv-virtualenv
 [ffmpeg]:     https://ffmpeg.org/download.html
 [graphviz]:   http://www.graphviz.org/
 [CUDA]:       https://en.wikipedia.org/wiki/CUDA
+
+## Coverage
+
+* [Slides][osip] for the [Open Science in Practice](https://osip2017.epfl.ch) summer school at EPFL, 2017-09-29
+* [A Music Information Retrieval Dataset, Made With FMA][fma2], freemusicarchive.org, 2017-05-22.
+* [Pre-publication release announced][tw2], twitter.com, 2017-05-09.
+* [FMA: A Dataset For Music Analysis][tfblog], tensorflow.blog, 2017-03-14.
+* [Beta release discussed][tw1], twitter.com, 2017-02-08.
+* [FMA Data Set for Researchers Released][fma1], freemusicarchive.org, 2016-12-15.
+
+[tw1]:  https://twitter.com/YadFaeq/status/829406463286063104
+[tw2]:  https://twitter.com/m_deff/status/861985446116589569
+[fma1]: http://freemusicarchive.org/member/cheyenne_h/blog/FMA_Dataset_for_Researchers
+[fma2]: http://freemusicarchive.org/member/cheyenne_h/blog/A_Music_Information_Retrieval_Dataset_Made_With_FMA
+[tfblog]: https://tensorflow.blog/2017/03/14/fma-a-dataset-for-music-analysis
+[osip]: https://doi.org/10.5281/zenodo.999353
+
+Dataset lists
+* <https://github.com/caesar0301/awesome-public-datasets>
+* <https://archive.ics.uci.edu/ml/datasets/FMA:+A+Dataset+For+Music+Analysis>
+* <http://deeplearning.net/datasets>
+* <http://www.audiocontentanalysis.org/data-sets>
+* <https://teachingmir.wikispaces.com/Datasets>
+* <https://en.wikipedia.org/wiki/List_of_datasets_for_machine_learning_research>
+* <https://cloudlab.atlassian.net/wiki/display/datasets/FMA:+A+Dataset+For+Music+Analysis>
 
 ## History
 
@@ -170,6 +205,14 @@ we can keep it lively by evolving it toward people's needs.
 ## License & co
 
 * Please cite our [paper] if you use our code or data.
+  ```
+  @inproceedings{fma,
+    title = {FMA: A Dataset for Music Analysis},
+    author = {Defferrard, Micha{\"e}l and Benzi, Kirell and Vandergheynst, Pierre and Bresson, Xavier},
+    booktitle = {18th International Society for Music Information Retrieval Conference},
+    year = {2017}
+  }
+  ```
 * The code in this repository is released under the terms of the
   [MIT license](LICENSE.txt).
 * The metadata is released under the terms of the

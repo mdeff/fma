@@ -5,6 +5,7 @@
 
 # All features are extracted using [librosa](https://github.com/librosa/librosa).
 # Alternatives:
+# * [Essentia](http://essentia.upf.edu) (C++ with Python bindings)
 # * [MARSYAS](https://github.com/marsyas/marsyas) (C++ with Python bindings)
 # * [RP extract](http://www.ifs.tuwien.ac.at/mir/downloads.html) (Matlab, Java, Python)
 # * [jMIR jAudio](http://jmir.sourceforge.net) (Java)
