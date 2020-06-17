@@ -111,7 +111,7 @@ developed for the dataset.
 	Windows and macOS system unzippers), please try [7zip]. That is probably an
 	[unsupported compression issue](https://github.com/mdeff/fma/issues/5).
 
-2. Optionally, use [pyenv] to install Python 3.6 and create a [virtual
+1. Optionally, use [pyenv] to install Python 3.6 and create a [virtual
    environment][pyenv-virt].
 	```sh
 	pyenv install 3.6.0
@@ -119,13 +119,19 @@ developed for the dataset.
 	pyenv activate fma
 	```
 
-3. Clone the repository.
+1. Clone the repository.
 	```sh
 	git clone https://github.com/mdeff/fma.git
 	cd fma
 	```
 
-4. Install the Python dependencies from `requirements.txt`. Depending on your
+1. Checkout the revision matching the data you downloaded (e.g., `beta`, `rc1`,
+   `v1`). See the [history](#history) of the dataset.
+	```sh
+	git checkout rc1
+	```
+
+1. Install the Python dependencies from `requirements.txt`. Depending on your
    usage, you may need to install [ffmpeg] or [graphviz]. Install [CUDA] if you
    want to train neural networks on GPUs (see
    [Tensorflow's instructions](https://www.tensorflow.org/install/)).
@@ -133,14 +139,14 @@ developed for the dataset.
 	make install
 	```
 
-5. Fill in the configuration.
+1. Fill in the configuration.
 	```sh
 	cat .env
 	AUDIO_DIR=/path/to/audio
 	FMA_KEY=IFIUSETHEAPI
 	```
 
-6. Open Jupyter or run a notebook.
+1. Open Jupyter or run a notebook.
 	```sh
 	jupyter-notebook
 	make baselines.ipynb
@@ -155,7 +161,10 @@ developed for the dataset.
 
 ## Coverage
 
-* [Slides][osip] for the [Open Science in Practice](https://osip2017.epfl.ch) summer school at EPFL, 2017-09-29
+* [Genre recognition challenge][crowdai_challenge] at the [web conference], Lyon, 2018-04.
+* [Slides][djd] presented at the [Data Jam days](http://datajamdays.org), Lausanne, 2017-11-24.
+* [Poster][poster] presented at [ISMIR 2017](https://ismir2017.smcnus.org), China, 2017-10-24.
+* [Slides][osip] for the [Open Science in Practice](https://osip2017.epfl.ch) summer school at EPFL, 2017-09-29.
 * [A Music Information Retrieval Dataset, Made With FMA][fma2], freemusicarchive.org, 2017-05-22.
 * [Pre-publication release announced][tw2], twitter.com, 2017-05-09.
 * [FMA: A Dataset For Music Analysis][tfblog], tensorflow.blog, 2017-03-14.
@@ -168,6 +177,10 @@ developed for the dataset.
 [fma2]: http://freemusicarchive.org/member/cheyenne_h/blog/A_Music_Information_Retrieval_Dataset_Made_With_FMA
 [tfblog]: https://tensorflow.blog/2017/03/14/fma-a-dataset-for-music-analysis
 [osip]: https://doi.org/10.5281/zenodo.999353
+[poster]: https://doi.org/10.5281/zenodo.1035847
+[djd]: https://doi.org/10.5281/zenodo.1066119
+[crowdai_challenge]: https://www.crowdai.org/challenges/www-2018-challenge-learning-to-recognize-musical-genre
+[web conference]: https://www2018.thewebconf.org/program/challenges-track/
 
 Dataset lists
 * <https://github.com/caesar0301/awesome-public-datasets>
@@ -206,11 +219,12 @@ we can keep it lively by evolving it toward people's needs.
 
 * Please cite our [paper] if you use our code or data.
   ```
-  @inproceedings{fma,
+  @inproceedings{fma_dataset,
     title = {FMA: A Dataset for Music Analysis},
-    author = {Defferrard, Micha{\"e}l and Benzi, Kirell and Vandergheynst, Pierre and Bresson, Xavier},
+    author = {Defferrard, Micha\"el and Benzi, Kirell and Vandergheynst, Pierre and Bresson, Xavier},
     booktitle = {18th International Society for Music Information Retrieval Conference},
-    year = {2017}
+    year = {2017},
+    url = {https://arxiv.org/abs/1612.01840},
   }
   ```
 * The code in this repository is released under the terms of the
