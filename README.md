@@ -58,10 +58,11 @@ Then, you got various sizes of MP3-encoded audio data:
 
 ## Code
 
-The following notebooks, scripts and modules have been developed for the dataset.
+The following notebooks, scripts, and modules have been developed for the dataset.
 
-1. [`usage.ipynb`]: shows how to load the datasets and develop, train and test your own models with it.
-2. [`analysis.ipynb`]: exploration of the metadata, data and features. Creates the [figures](https://github.com/mdeff/fma/tree/outputs/figures) used in the paper.
+1. [`usage.ipynb`]: shows how to load the datasets and develop, train, and test your own models with it.
+2. [`analysis.ipynb`]: exploration of the metadata, data, and features.
+   Creates the [figures](https://github.com/mdeff/fma/tree/outputs/figures) used in the paper.
 3. [`baselines.ipynb`]: baseline models for genre recognition, both from audio and features.
 4. [`features.py`]: features extraction from the audio (used to create `features.csv`).
 5. [`webapi.ipynb`]: query the web API of the [FMA]. Can be used to update the dataset.
@@ -80,78 +81,85 @@ The following notebooks, scripts and modules have been developed for the dataset
 
 ## Usage
 
-1. Download some data, verify its integrity, and uncompress the archives.
-	```sh
-	curl -O https://os.unil.cloud.switch.ch/fma/fma_metadata.zip
-	curl -O https://os.unil.cloud.switch.ch/fma/fma_small.zip
-	curl -O https://os.unil.cloud.switch.ch/fma/fma_medium.zip
-	curl -O https://os.unil.cloud.switch.ch/fma/fma_large.zip
-	curl -O https://os.unil.cloud.switch.ch/fma/fma_full.zip
-
-	echo "f0df49ffe5f2a6008d7dc83c6915b31835dfe733  fma_metadata.zip" | sha1sum -c -
-	echo "ade154f733639d52e35e32f5593efe5be76c6d70  fma_small.zip"    | sha1sum -c -
-	echo "c67b69ea232021025fca9231fc1c7c1a063ab50b  fma_medium.zip"   | sha1sum -c -
-	echo "497109f4dd721066b5ce5e5f250ec604dc78939e  fma_large.zip"    | sha1sum -c -
-	echo "0f0ace23fbe9ba30ecb7e95f763e435ea802b8ab  fma_full.zip"     | sha1sum -c -
-
-	unzip fma_metadata.zip
-	unzip fma_small.zip
-	unzip fma_medium.zip
-	unzip fma_large.zip
-	unzip fma_full.zip
-	```
-
-	If you get any error while decompressing the archives (especially with the
-	Windows and macOS system unzippers), please try [7zip]. That is probably an
-	[unsupported compression issue](https://github.com/mdeff/fma/issues/5).
-
-1. Optionally, use [pyenv] to install Python 3.6 and create a [virtual
-   environment][pyenv-virt].
-	```sh
-	pyenv install 3.6.0
-	pyenv virtualenv 3.6.0 fma
-	pyenv activate fma
-	```
+[![Binder](https://static.mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/mdeff/fma/outputs?urlpath=lab/tree/usage.ipynb)
+&nbsp; Click the binder badge to play with the code and data from your browser without installing anything.
 
 1. Clone the repository.
-	```sh
-	git clone https://github.com/mdeff/fma.git
-	cd fma
-	```
+    ```sh
+    git clone https://github.com/mdeff/fma.git
+    cd fma
+    ```
 
-1. Checkout the revision matching the data you downloaded (e.g., `beta`, `rc1`,
-   `v1`). See the [history](#history) of the dataset.
-	```sh
-	git checkout rc1
-	```
+1. <details><summary>Create a Python 3.6 environment.</summary>
 
-1. Install the Python dependencies from `requirements.txt`. Depending on your
-   usage, you may need to install [ffmpeg] or [graphviz]. Install [CUDA] if you
-   want to train neural networks on GPUs (see
-   [Tensorflow's instructions](https://www.tensorflow.org/install/)).
-	```sh
-	make install
-	```
+    ```sh
+    # with https://conda.io
+    conda create -n fma python=3.6
+    conda activate fma
 
-1. Fill in the configuration.
-	```sh
-	cat .env
-	AUDIO_DIR=/path/to/audio
-	FMA_KEY=IFIUSETHEAPI
-	```
+    # with https://github.com/pyenv/pyenv
+    pyenv install 3.6.0
+    pyenv virtualenv 3.6.0 fma
+    pyenv activate fma
+
+    # with https://pipenv.pypa.io
+    pipenv --python 3.6
+    pipenv shell
+
+    # with https://docs.python.org/3/tutorial/venv.html
+    python3.6 -m venv ./env
+    source ./env/bin/activate
+    ```
+    </details>
+
+1. Install dependencies.
+    ```sh
+    pip install --upgrade pip setuptools wheel
+    pip install numpy==1.12.1  # workaround resampy's bogus setup.py
+    pip install -r requirements.txt
+    ```
+    Note: depending on your usage, you may need to install [ffmpeg](https://ffmpeg.org/download.html) or [graphviz](https://www.graphviz.org).\
+    Note: install [CUDA](https://en.wikipedia.org/wiki/CUDA) to train neural networks on GPUs (see [Tensorflow's instructions](https://www.tensorflow.org/install/)).
+
+1. Download some data, verify its integrity, and uncompress the archives.
+    ```sh
+    cd data
+
+    curl -O https://os.unil.cloud.switch.ch/fma/fma_metadata.zip
+    curl -O https://os.unil.cloud.switch.ch/fma/fma_small.zip
+    curl -O https://os.unil.cloud.switch.ch/fma/fma_medium.zip
+    curl -O https://os.unil.cloud.switch.ch/fma/fma_large.zip
+    curl -O https://os.unil.cloud.switch.ch/fma/fma_full.zip
+
+    echo "f0df49ffe5f2a6008d7dc83c6915b31835dfe733  fma_metadata.zip" | sha1sum -c -
+    echo "ade154f733639d52e35e32f5593efe5be76c6d70  fma_small.zip"    | sha1sum -c -
+    echo "c67b69ea232021025fca9231fc1c7c1a063ab50b  fma_medium.zip"   | sha1sum -c -
+    echo "497109f4dd721066b5ce5e5f250ec604dc78939e  fma_large.zip"    | sha1sum -c -
+    echo "0f0ace23fbe9ba30ecb7e95f763e435ea802b8ab  fma_full.zip"     | sha1sum -c -
+
+    unzip fma_metadata.zip
+    unzip fma_small.zip
+    unzip fma_medium.zip
+    unzip fma_large.zip
+    unzip fma_full.zip
+
+    cd ..
+    ```
+
+    Note: try [7zip](https://www.7-zip.org) if you get any error while decompressing the archives (especially with the Windows and macOS system unzippers).
+    That is probably an [unsupported compression issue](https://github.com/mdeff/fma/issues/5).
+
+1. Fill a `.env` configuration file (at repository's root) with the following content.
+    ```
+    AUDIO_DIR=./data/fma_small/  # the path to a decompressed fma_*.zip
+    FMA_KEY=MYKEY  # only if you want to query the freemusicarchive.org API
+    ```
 
 1. Open Jupyter or run a notebook.
-	```sh
-	jupyter notebook
-	make baselines.ipynb
-	```
-
-[7zip]: https://www.7-zip.org
-[pyenv]: https://github.com/pyenv/pyenv
-[pyenv-virt]: https://github.com/pyenv/pyenv-virtualenv
-[ffmpeg]: https://ffmpeg.org/download.html
-[graphviz]: https://www.graphviz.org
-[CUDA]: https://en.wikipedia.org/wiki/CUDA
+    ```sh
+    jupyter notebook
+    make usage.ipynb
+    ```
 
 ## Coverage and resources
 
@@ -203,6 +211,7 @@ Dataset lists:
 * `fma_medium.zip`   sha1: `c67b69ea232021025fca9231fc1c7c1a063ab50b`
 * `fma_large.zip`    sha1: `497109f4dd721066b5ce5e5f250ec604dc78939e`
 * `fma_full.zip`     sha1: `0f0ace23fbe9ba30ecb7e95f763e435ea802b8ab`
+* known issues: see [#41](https://github.com/mdeff/fma/issues/41)
 
 **2016-12-06 beta release**
 * paper: [arXiv:1612.01840v1](https://arxiv.org/abs/1612.01840v1)
