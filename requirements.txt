@@ -1,19 +1,76 @@
-numpy
-pandas
-matplotlib
-seaborn
+# Version numbers have been retrieved from a range of machines and environments.
+# Take them with a grain of salt.
 
-scikit-learn
-#tensorflow
-tensorflow-gpu
-keras<2
+# Direct dependencies
+#python==3.6.0
+#pip==9.0.1
+#setuptools==38.2.4  # old for MarkupSafe 1.0 (28.8.0 is installed with py 3.6)
+numpy==1.12.1  # 1.12.0
+pandas==0.19.2
+matplotlib==2.0.0
+seaborn==0.7.1
+scikit-learn==0.18.1
+tensorflow-gpu==1.0.1  # 1.0.0
+Keras==1.2.2  # 2.0.2 / 2.0.3
+librosa==0.5.0
+audioread==2.1.4
+mutagen==1.39  # 1.39.dev0
+pydub==0.18.0
+#exiftool  # Only considered at some point.
+#eyed3  # Only considered at some point.
+requests==2.13.0
+pydot==1.2.3
+tqdm==4.11.2
+python-dotenv==0.6.3  # 0.6.4
 
-librosa
+# Dependencies of the above.
+certifi==2017.11.5
+click==6.7
+cycler==0.10.0
+Cython==0.25.2
+decorator==4.0.11  # 4.1.2
+joblib==0.11
+protobuf==3.2.0
+pyparsing==2.2.0
+python-dateutil==2.6.0
+pytz==2017.2  # 2016.10 / 2017.3
+PyYAML==3.12
+resampy==0.1.5
+scipy==0.19.0  # 0.18.1
+six==1.10.0
+Theano==0.9.0  # 0.8.2
 
-requests
-pydot
-tqdm
-
-jupyter
-
-python-dotenv
+# Jupyter notebook and its dependencies.
+notebook==5.0.0  # 4.4.1
+ipywidgets==6.0.0
+bleach==2.0.0  # 1.5.0
+entrypoints==0.2.2
+html5lib==0.999999999  # 0.9999999
+ipykernel==4.6.0  # 4.5.2 / 4.6.1
+ipython==5.3.0
+ipython-genutils==0.2.0  # 0.1.0
+Jinja2==2.9.6  # 2.9.5 / 2.10
+jsonschema==2.6.0
+jupyter-client==5.0.0  # 5.0.1
+jupyter-core==4.3.0
+MarkupSafe==0.23  # 1.0 (requires an old setuptools for `from setuptools import Feature`)
+mistune==0.7.4  # 0.7.3
+nbconvert==5.1.1
+nbformat==4.3.0
+packaging==16.8
+pandocfilters==1.4.1
+pexpect==4.2.1
+pickleshare==0.7.4
+prompt-toolkit==1.0.14  # 1.0.13
+ptyprocess==0.5.1
+Pygments==2.2.0
+pyparsing==2.2.0
+pyzmq==16.0.2
+simplegeneric==0.8.1
+terminado==0.6
+testpath==0.3
+tornado==4.4.3  # 4.4.2
+traitlets==4.3.2
+wcwidth==0.1.7
+webencodings==0.5.1
+widgetsnbextension==2.0.0
