@@ -6,6 +6,8 @@ $(NB):
 	jupyter nbconvert --inplace --execute --ExecutePreprocessor.timeout=-1 $@
 
 clean:
+	rm -rf __pycache__/ .ipynb_checkpoints/
+	#jupyter nbconvert --inplace --ClearOutputPreprocessor.enabled=True $(NB)
 	@for nb in $(NB); do \
 		echo "$$(jq --indent 1 ' \
 			.metadata = {} \
