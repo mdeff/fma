@@ -61,7 +61,7 @@ def download_metadata(args):
     for dataset in 'tracks', 'albums', 'artists', 'genres':
         eval(dataset).sort_index(axis=0, inplace=True)
         eval(dataset).sort_index(axis=1, inplace=True)
-        eval(dataset).to_csv('raw_' + dataset + '.csv')
+        eval(dataset).to_csv('data/fma_metadata/raw_' + dataset + '.csv')
         if dataset != 'genres':
             print('{}: {} collected, {} not found'.format(
                 dataset, len(eval(dataset)), len(not_found[dataset])))
@@ -88,7 +88,7 @@ def _create_subdirs(dst_dir, tracks):
 def download_data(args):
 
     dst_dir = os.path.join(os.path.abspath(args.path), 'fma_full')
-    tracks = pd.read_csv('raw_tracks.csv', index_col=0)
+    tracks = pd.read_csv('data/fma_metadata/raw_tracks.csv', index_col=0)
     _create_subdirs(dst_dir, tracks)
 
     fma = utils.FreeMusicArchive(os.environ.get('FMA_KEY'))
@@ -187,7 +187,7 @@ def extract_mp3_metadata(args):
     metadata.drop(tids, inplace=True)
     metadata.sort_index(axis=0, inplace=True)
     metadata.sort_index(axis=1, inplace=True)
-    metadata.to_csv('mp3_metadata.csv')
+    metadata.to_csv('data/fma_metadata/mp3_metadata.csv')
 
 
 def trim_audio(args):
@@ -195,7 +195,7 @@ def trim_audio(args):
     path = os.path.abspath(args.path)
     fma_full = os.path.join(path, 'fma_full')
     fma_large = os.path.join(path, 'fma_large')
-    tracks = pd.read_csv('mp3_metadata.csv', index_col=0)
+    tracks = pd.read_csv('data/fma_metadata/mp3_metadata.csv', index_col=0)
     _create_subdirs(fma_large, tracks)
 
     not_found = pickle.load(open('not_found.pickle', 'rb'))
@@ -303,7 +303,7 @@ def create_zips(args):
     ]
     create_zip('fma_metadata.zip', 'fma_metadata', METADATA)
 
-    tracks = utils.load('tracks.csv')
+    tracks = utils.load('data/fma_metadata/tracks.csv')
     create_zip('fma_small.zip', 'fma_large', get_filepaths('small'))
     create_zip('fma_medium.zip', 'fma_large', get_filepaths('medium'))
     create_zip('fma_large.zip', 'fma_large', get_filepaths('large'))
@@ -319,7 +319,7 @@ if __name__ == "__main__":
 
     desc = ('Query the API of the FMA and store the collected metadata in '
             'raw_tracks.csv, raw_albums.csv, raw_artists.csv, and '
-            'raw_genres.csv. The files are created in the current directory.')
+            'raw_genres.csv. The files are created in ./data/fma_metadata/.')
     subparser = subparsers.add_parser('metadata', description=desc)
     subparser.add_argument('--min', dest='tid_min', type=int, default=0,
                            help='smallest track ID to consider')

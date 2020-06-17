@@ -112,7 +112,7 @@ def compute_features(tid):
 
 
 def main():
-    tracks = utils.load('tracks.csv')
+    tracks = utils.load('data/fma_metadata/tracks.csv')
     features = pd.DataFrame(index=tracks.index,
                             columns=columns(), dtype=np.float32)
 
@@ -146,7 +146,8 @@ def save(features, ndigits):
     features.sort_index(axis=0, inplace=True)
     features.sort_index(axis=1, inplace=True)
 
-    features.to_csv('features.csv', float_format='%.{}e'.format(ndigits))
+    features.to_csv('data/fma_metadata/features.csv',
+                    float_format='%.{}e'.format(ndigits))
 
 
 def test(features, ndigits):
@@ -155,7 +156,7 @@ def test(features, ndigits):
     if len(indices) > 0:
         print('Failed tracks: {}'.format(', '.join(str(i) for i in indices)))
 
-    tmp = utils.load('features.csv')
+    tmp = utils.load('data/fma_metadata/features.csv')
     np.testing.assert_allclose(tmp.values, features.values, rtol=10**-ndigits)
 
 
