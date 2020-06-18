@@ -118,7 +118,7 @@ The following notebooks, scripts, and modules have been developed for the datase
     pip install numpy==1.12.1  # workaround resampy's bogus setup.py
     pip install -r requirements.txt
     ```
-    Note: depending on your usage, you may need to install [ffmpeg](https://ffmpeg.org/download.html) or [graphviz](https://www.graphviz.org).\
+    Note: you may need to install [ffmpeg](https://ffmpeg.org/download.html) or [graphviz](https://www.graphviz.org) depending on your usage.\
     Note: install [CUDA](https://en.wikipedia.org/wiki/CUDA) to train neural networks on GPUs (see [Tensorflow's instructions](https://www.tensorflow.org/install/)).
 
 1. Download some data, verify its integrity, and uncompress the archives.
@@ -146,8 +146,8 @@ The following notebooks, scripts, and modules have been developed for the datase
     cd ..
     ```
 
-    Note: try [7zip](https://www.7-zip.org) if you get any error while decompressing the archives (especially with the Windows and macOS system unzippers).
-    That is probably an [unsupported compression issue](https://github.com/mdeff/fma/issues/5).
+    Note: try [7zip](https://www.7-zip.org) if decompression errors.
+    It might be an [unsupported compression issue](https://github.com/mdeff/fma/issues/5).
 
 1. Fill a `.env` configuration file (at repository's root) with the following content.
     ```
@@ -226,6 +226,11 @@ Some picks below.
 
 </details>
 
+## Contributing
+
+Contribute by opening an [issue](https://github.com/mdeff/fma/issues) or a [pull request](https://github.com/mdeff/fma/pulls).
+Let this repository be a hub around the dataset!
+
 ## History
 
 **2017-05-09 pre-publication release**
@@ -243,12 +248,6 @@ Some picks below.
 * code: [git tag beta](https://github.com/mdeff/fma/releases/tag/beta)
 * `fma_small.zip`  sha1: `e731a5d56a5625f7b7f770923ee32922374e2cbf`
 * `fma_medium.zip` sha1: `fe23d6f2a400821ed1271ded6bcd530b7a8ea551`
-
-## Contributing
-
-Please open an issue or a pull request if you want to contribute.
-Let's try to keep this repository the central place around the dataset!
-Links to resources related to the dataset are welcome.
 
 ## Acknowledgments and Licenses
 
