@@ -161,24 +161,13 @@ The following notebooks, scripts, and modules have been developed for the datase
     make usage.ipynb
     ```
 
-## Coverage and resources
+## Impact, coverage, and resources
 
-* [Using CNNs and RNNs for Music Genre Recognition](https://towardsdatascience.com/using-cnns-and-rnns-for-music-genre-recognition-2435fb2ed6af), Towards Data Science, 2018-12-13.
-* [Over 1.5 TB’s of Labeled Audio Datasets](https://towardsdatascience.com/a-data-lakes-worth-of-audio-datasets-b45b88cd4ad), Towards Data Science, 2018-11-13.
-* [Genre recognition challenge](https://www.crowdai.org/challenges/www-2018-challenge-learning-to-recognize-musical-genre) at the [web conference](https://www2018.thewebconf.org/program/challenges-track/), Lyon, 2018-04.
-* [Discovering Descriptive Music Genres Using K-Means Clustering](https://medium.com/latinxinai/discovering-descriptive-music-genres-using-k-means-clustering-d19bdea5e443), Medium, 2018-04-09.
-* [25 Open Datasets for Deep Learning Every Data Scientist Must Work With](https://www.analyticsvidhya.com/blog/2018/03/comprehensive-collection-deep-learning-datasets/), Analytics Vidhya, 2018-03-29.
-* [music2vec: Generating Vector Embeddings for Genre-Classification Task](https://medium.com/@rajatheb/music2vec-generating-vector-embedding-for-genre-classification-task-411187a20820), Medium, 2017-11-28.
-* [Slides](https://doi.org/10.5281/zenodo.1066119) presented at the [Data Jam days](http://datajamdays.org), Lausanne, 2017-11-24.
-* [Poster](https://doi.org/10.5281/zenodo.1035847) presented at [ISMIR 2017](https://ismir2017.smcnus.org), China, 2017-10-24.
-* [Slides](https://doi.org/10.5281/zenodo.999353) for the [Open Science in Practice](https://osip2017.epfl.ch) summer school at EPFL, 2017-09-29.
-* [A Music Information Retrieval Dataset, Made With FMA](https://web.archive.org/web/20190907182116/http://freemusicarchive.org/member/cheyenne_h/blog/A_Music_Information_Retrieval_Dataset_Made_With_FMA), freemusicarchive.org, 2017-05-22.
-* [Pre-publication release announced](https://twitter.com/m_deff/status/861985446116589569), twitter.com, 2017-05-09.
-* [FMA: A Dataset For Music Analysis](https://tensorflow.blog/2017/03/14/fma-a-dataset-for-music-analysis), tensorflow.blog, 2017-03-14.
-* [Beta release discussed](https://twitter.com/YadFaeq/status/829406463286063104), twitter.com, 2017-02-08.
-* [FMA Data Set for Researchers Released](https://web.archive.org/web/20190826112752/http://freemusicarchive.org/member/cheyenne_h/blog/FMA_Dataset_for_Researchers), freemusicarchive.org, 2016-12-15.
+<details><summary>100+ research papers</summary>
 
-Research papers (see also [citations on Google Scholar](https://scholar.google.com/scholar?cites=13646959466952873682,13785796238335741238)):
+Full list on [Google Scholar](https://scholar.google.com/scholar?cites=13646959466952873682,13785796238335741238,7544459641098681164,5736399534855095976).
+Some picks below.
+
 * [Zero-shot Learning for Audio-based Music Classification and Tagging](https://arxiv.org/abs/1907.02670)
 * [One deep music representation to rule them all? A comparative analysis of different representation learning strategies](https://doi.org/10.1007/s00521-019-04076-1)
 * [Deep Learning for Audio-Based Music Classification and Tagging: Teaching Computers to Distinguish Rock from Bach](https://sci-hub.tw/10.1109/MSP.2018.2874383)
@@ -190,7 +179,41 @@ Research papers (see also [citations on Google Scholar](https://scholar.google.c
 * [Learning to Recognize Musical Genre from Audio: Challenge Overview](https://arxiv.org/abs/1803.05337)
 * [Representation Learning of Music Using Artist Labels](https://arxiv.org/abs/1710.06648)
 
-Dataset lists:
+</details>
+
+<details><summary>2 derived works</summary>
+
+* [OpenMIC-2018: An Open Data-set for Multiple Instrument Recognition](https://github.com/cosmir/openmic-2018)
+* [ConvNet features](https://github.com/keunwoochoi/FMA_convnet_features) from [Transfer learning for music classification and regression tasks](https://arxiv.org/abs/1703.09179)
+
+</details>
+
+<details><summary>~10 posts</summary>
+
+* [Using CNNs and RNNs for Music Genre Recognition](https://towardsdatascience.com/using-cnns-and-rnns-for-music-genre-recognition-2435fb2ed6af), Towards Data Science, 2018-12-13.
+* [Over 1.5 TB’s of Labeled Audio Datasets](https://towardsdatascience.com/a-data-lakes-worth-of-audio-datasets-b45b88cd4ad), Towards Data Science, 2018-11-13.
+* [Discovering Descriptive Music Genres Using K-Means Clustering](https://medium.com/latinxinai/discovering-descriptive-music-genres-using-k-means-clustering-d19bdea5e443), Medium, 2018-04-09.
+* [25 Open Datasets for Deep Learning Every Data Scientist Must Work With](https://www.analyticsvidhya.com/blog/2018/03/comprehensive-collection-deep-learning-datasets/), Analytics Vidhya, 2018-03-29.
+* [music2vec: Generating Vector Embeddings for Genre-Classification Task](https://medium.com/@rajatheb/music2vec-generating-vector-embedding-for-genre-classification-task-411187a20820), Medium, 2017-11-28.
+* [A Music Information Retrieval Dataset, Made With FMA](https://web.archive.org/web/20190907182116/http://freemusicarchive.org/member/cheyenne_h/blog/A_Music_Information_Retrieval_Dataset_Made_With_FMA), freemusicarchive.org, 2017-05-22.
+* [Pre-publication release announced](https://twitter.com/m_deff/status/861985446116589569), twitter.com, 2017-05-09.
+* [FMA: A Dataset For Music Analysis](https://tensorflow.blog/2017/03/14/fma-a-dataset-for-music-analysis), tensorflow.blog, 2017-03-14.
+* [Beta release discussed](https://twitter.com/YadFaeq/status/829406463286063104), twitter.com, 2017-02-08.
+* [FMA Data Set for Researchers Released](https://web.archive.org/web/20190826112752/http://freemusicarchive.org/member/cheyenne_h/blog/FMA_Dataset_for_Researchers), freemusicarchive.org, 2016-12-15.
+
+</details>
+
+<details><summary>4 events</summary>
+
+* [Genre recognition challenge](https://www.crowdai.org/challenges/www-2018-challenge-learning-to-recognize-musical-genre) at the [web conference](https://www2018.thewebconf.org/program/challenges-track/), Lyon, 2018-04.
+* [Slides](https://doi.org/10.5281/zenodo.1066119) presented at the [Data Jam days](http://datajamdays.org), Lausanne, 2017-11-24.
+* [Poster](https://doi.org/10.5281/zenodo.1035847) presented at [ISMIR 2017](https://ismir2017.smcnus.org), China, 2017-10-24.
+* [Slides](https://doi.org/10.5281/zenodo.999353) for the [Open Science in Practice](https://osip2017.epfl.ch) summer school at EPFL, 2017-09-29.
+
+</details>
+
+<details><summary>~10 dataset lists</summary>
+
 * <https://github.com/caesar0301/awesome-public-datasets>
 * <https://archive.ics.uci.edu/ml/datasets/FMA:+A+Dataset+For+Music+Analysis>
 * <http://deeplearning.net/datasets>
@@ -200,6 +223,8 @@ Dataset lists:
 * <https://en.wikipedia.org/wiki/List_of_datasets_for_machine_learning_research>
 * <https://cloudlab.atlassian.net/wiki/display/datasets/FMA:+A+Dataset+For+Music+Analysis>
 * <https://www.datasetlist.com>
+
+</details>
 
 ## History
 
