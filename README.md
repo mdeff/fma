@@ -225,25 +225,44 @@ Please open an issue or a pull request if you want to contribute.
 Let's try to keep this repository the central place around the dataset!
 Links to resources related to the dataset are welcome.
 
-## License & co
+## Acknowledgments and Licenses
 
-* Please cite our [paper] if you use our code or data.
-  ```
-  @inproceedings{fma_dataset,
-    title = {{FMA}: A Dataset for Music Analysis},
-    author = {Defferrard, Micha\"el and Benzi, Kirell and Vandergheynst, Pierre and Bresson, Xavier},
-    booktitle = {18th International Society for Music Information Retrieval Conference (ISMIR)},
-    year = {2017},
-    archiveprefix = {arXiv},
-    eprint = {1612.01840},
-    url = {https://arxiv.org/abs/1612.01840},
-  }
-  ```
+We are grateful to the [Swiss Data Science Center] ([EPFL] and [ETHZ]) for hosting the dataset.
+
+Please cite our work if you use our code or data.
+
+```
+@inproceedings{fma_dataset,
+  title = {{FMA}: A Dataset for Music Analysis},
+  author = {Defferrard, Micha\"el and Benzi, Kirell and Vandergheynst, Pierre and Bresson, Xavier},
+  booktitle = {18th International Society for Music Information Retrieval Conference (ISMIR)},
+  year = {2017},
+  archiveprefix = {arXiv},
+  eprint = {1612.01840},
+  url = {https://arxiv.org/abs/1612.01840},
+}
+```
+
+```
+@inproceedings{fma_challenge,
+  title = {Learning to Recognize Musical Genre from Audio},
+  subtitle = {Challenge Overview},
+  author = {Defferrard, Micha\"el and Mohanty, Sharada P. and Carroll, Sean F. and Salath\'e, Marcel},
+  booktitle = {The 2018 Web Conference Companion},
+  year = {2018},
+  publisher = {ACM Press},
+  isbn = {9781450356404},
+  doi = {10.1145/3184558.3192310},
+  archiveprefix = {arXiv},
+  eprint = {1803.05337},
+  url = {https://arxiv.org/abs/1803.05337},
+}
+```
+
 * The code in this repository is released under the terms of the [MIT license](LICENSE.txt).
 * The metadata is released under the terms of the [Creative Commons Attribution 4.0 International License (CC BY 4.0)][ccby40].
 * We do not hold the copyright on the audio and distribute it under the terms of the license chosen by the artist.
 * The dataset is meant for research purposes.
-* We are grateful to the [Swiss Data Science Center] ([EPFL] and [ETHZ]) for hosting the dataset.
 
 [ccby40]: https://creativecommons.org/licenses/by/4.0
 [Swiss Data Science Center]: https://datascience.ch/collaboration-and-partnerships
