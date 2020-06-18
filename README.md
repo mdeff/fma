@@ -205,9 +205,9 @@ Some picks below.
 
 <details><summary>4 events</summary>
 
-* [Genre recognition challenge](https://www.crowdai.org/challenges/www-2018-challenge-learning-to-recognize-musical-genre) at the [web conference](https://www2018.thewebconf.org/program/challenges-track/), Lyon, 2018-04.
+* [Genre recognition challenge](https://www.crowdai.org/challenges/www-2018-challenge-learning-to-recognize-musical-genre) at the [Web Conference](https://www2018.thewebconf.org/program/challenges-track/), Lyon, 2018-04.
 * [Slides](https://doi.org/10.5281/zenodo.1066119) presented at the [Data Jam days](http://datajamdays.org), Lausanne, 2017-11-24.
-* [Poster](https://doi.org/10.5281/zenodo.1035847) presented at [ISMIR 2017](https://ismir2017.smcnus.org), China, 2017-10-24.
+* [Poster](https://doi.org/10.5281/zenodo.1035847) presented at [ISMIR 2017](https://ismir2017.ismir.net), Suzhou, 2017-10-24.
 * [Slides](https://doi.org/10.5281/zenodo.999353) for the [Open Science in Practice](https://osip2017.epfl.ch) summer school at EPFL, 2017-09-29.
 
 </details>
