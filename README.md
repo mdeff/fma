@@ -190,6 +190,7 @@ Some picks below.
 
 <details><summary>~10 posts</summary>
 
+* [Music Genre Classification: Transformers vs Recurrent Neural Networks](https://towardsdatascience.com/music-genre-classification-transformers-vs-recurrent-neural-networks-631751a71c58), Towards Data Science, 2020-06-14.
 * [Using CNNs and RNNs for Music Genre Recognition](https://towardsdatascience.com/using-cnns-and-rnns-for-music-genre-recognition-2435fb2ed6af), Towards Data Science, 2018-12-13.
 * [Over 1.5 TB’s of Labeled Audio Datasets](https://towardsdatascience.com/a-data-lakes-worth-of-audio-datasets-b45b88cd4ad), Towards Data Science, 2018-11-13.
 * [Discovering Descriptive Music Genres Using K-Means Clustering](https://medium.com/latinxinai/discovering-descriptive-music-genres-using-k-means-clustering-d19bdea5e443), Medium, 2018-04-09.
@@ -223,6 +224,7 @@ Some picks below.
 * <https://en.wikipedia.org/wiki/List_of_datasets_for_machine_learning_research>
 * <https://cloudlab.atlassian.net/wiki/display/datasets/FMA:+A+Dataset+For+Music+Analysis>
 * <https://www.datasetlist.com>
+* <https://data-flair.training/blogs/deep-learning-project-ideas>
 
 </details>
 
