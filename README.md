@@ -56,6 +56,8 @@ Then, you got various sizes of MP3-encoded audio data:
 [`fma_large.zip`]:    https://os.unil.cloud.switch.ch/fma/fma_large.zip
 [`fma_full.zip`]:     https://os.unil.cloud.switch.ch/fma/fma_full.zip
 
+See the [wiki](https://github.com/mdeff/fma/wiki) (or [#41](https://github.com/mdeff/fma/issues/41)) for **known issues (errata)**.
+
 ## Code
 
 The following notebooks, scripts, and modules have been developed for the dataset.
