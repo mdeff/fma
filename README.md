@@ -34,7 +34,7 @@ All metadata and features for all tracks are distributed in **[`fma_metadata.zip
 The below tables can be used with [pandas] or any other data analysis tool.
 See the [paper] or the [`usage.ipynb`] notebook for a description.
 * `tracks.csv`: per track metadata such as ID, title, artist, genres, tags and play counts, for all 106,574 tracks.
-* `genres.csv`: all 163 genre IDs with their name and parent (used to infer the genre hierarchy and top-level genres).
+* `genres.csv`: all 163 genres with name and parent (used to infer the genre hierarchy and top-level genres).
 * `features.csv`: common features extracted with [librosa].
 * `echonest.csv`: audio features provided by [Echonest] (now [Spotify]) for a subset of 13,129 tracks.
 
