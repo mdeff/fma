@@ -288,9 +288,9 @@ Please cite our work if you use our code or data.
 }
 ```
 
-* The code in this repository is released under the terms of the [MIT license](LICENSE.txt).
-* The metadata is released under the terms of the [Creative Commons Attribution 4.0 International License (CC BY 4.0)][ccby40].
-* We do not hold the copyright on the audio and distribute it under the terms of the license chosen by the artist.
+* The code in this repository is released under the [MIT license](LICENSE.txt).
+* The metadata is released under the [Creative Commons Attribution 4.0 International License (CC BY 4.0)][ccby40].
+* We do not hold the copyright on the audio and distribute it under the license chosen by the artist.
 * The dataset is meant for research purposes.
 
 [ccby40]: https://creativecommons.org/licenses/by/4.0
