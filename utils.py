@@ -350,7 +350,7 @@ def build_sample_loader(audio_dir, Y, loader):
                     self.Y[batch_size] = Y.loc[tid]
                     batch_size += 1
                 except Exception as e:
-                    print(f"Ignoring {audio_path} (error: {e}).")
+                    print("\nIgnoring " + audio_path +" (error: " + str(e) +").")
 
             with self.lock2:
                 while (batch_current - self.batch_rearmost.value) % self.tids.size > self.batch_size:
@@ -359,7 +359,7 @@ def build_sample_loader(audio_dir, Y, loader):
                 self.condition.notify_all()
                 # print('yield', indices[0], batch_current, self.batch_rearmost.value)
                 self.batch_rearmost.value = batch_current
-
+                
                 return self.X[:batch_size], self.Y[:batch_size]
 
     return SampleLoader
