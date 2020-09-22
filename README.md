@@ -192,11 +192,13 @@ Some picks below.
 
 <details><summary>~10 posts</summary>
 
+* [Music Genre Classification With TensorFlow](https://towardsdatascience.com/music-genre-classification-with-tensorflow-3de38f0d4dbb), Towards Data Science, 2020-08-11.
 * [Music Genre Classification: Transformers vs Recurrent Neural Networks](https://towardsdatascience.com/music-genre-classification-transformers-vs-recurrent-neural-networks-631751a71c58), Towards Data Science, 2020-06-14.
 * [Using CNNs and RNNs for Music Genre Recognition](https://towardsdatascience.com/using-cnns-and-rnns-for-music-genre-recognition-2435fb2ed6af), Towards Data Science, 2018-12-13.
 * [Over 1.5 TB’s of Labeled Audio Datasets](https://towardsdatascience.com/a-data-lakes-worth-of-audio-datasets-b45b88cd4ad), Towards Data Science, 2018-11-13.
 * [Discovering Descriptive Music Genres Using K-Means Clustering](https://medium.com/latinxinai/discovering-descriptive-music-genres-using-k-means-clustering-d19bdea5e443), Medium, 2018-04-09.
 * [25 Open Datasets for Deep Learning Every Data Scientist Must Work With](https://www.analyticsvidhya.com/blog/2018/03/comprehensive-collection-deep-learning-datasets/), Analytics Vidhya, 2018-03-29.
+* [Learning Music Genres](https://medium.com/@diegoagher/learning-music-genres-5ab1cabadfed), Medium, 2017-12-13.
 * [music2vec: Generating Vector Embeddings for Genre-Classification Task](https://medium.com/@rajatheb/music2vec-generating-vector-embedding-for-genre-classification-task-411187a20820), Medium, 2017-11-28.
 * [A Music Information Retrieval Dataset, Made With FMA](https://web.archive.org/web/20190907182116/http://freemusicarchive.org/member/cheyenne_h/blog/A_Music_Information_Retrieval_Dataset_Made_With_FMA), freemusicarchive.org, 2017-05-22.
 * [Pre-publication release announced](https://twitter.com/m_deff/status/861985446116589569), twitter.com, 2017-05-09.
