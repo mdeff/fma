@@ -342,9 +342,15 @@ def build_sample_loader(audio_dir, Y, loader):
                 # print('queue', self.tids[batch_current], batch_size)
                 tids = np.array(self.tids[batch_current:batch_current+batch_size])
 
-            for i, tid in enumerate(tids):
-                self.X[i] = self.loader.load(get_audio_path(audio_dir, tid))
-                self.Y[i] = Y.loc[tid]
+            batch_size = 0
+            for tid in tids:
+                try:
+                    audio_path = get_audio_path(audio_dir, tid)
+                    self.X[batch_size] = self.loader.load(audio_path)
+                    self.Y[batch_size] = Y.loc[tid]
+                    batch_size += 1
+                except Exception as e:
+                    print("\nIgnoring " + audio_path +" (error: " + str(e) +").")
 
             with self.lock2:
                 while (batch_current - self.batch_rearmost.value) % self.tids.size > self.batch_size:
