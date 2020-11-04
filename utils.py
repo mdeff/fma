@@ -359,7 +359,7 @@ def build_sample_loader(audio_dir, Y, loader):
                 self.condition.notify_all()
                 # print('yield', indices[0], batch_current, self.batch_rearmost.value)
                 self.batch_rearmost.value = batch_current
-                
+
                 return self.X[:batch_size], self.Y[:batch_size]
 
     return SampleLoader
