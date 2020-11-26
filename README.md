@@ -39,7 +39,7 @@ See the [paper] or the [`usage.ipynb`] notebook for a description.
 * `echonest.csv`: audio features provided by [Echonest] (now [Spotify]) for a subset of 13,129 tracks.
 
 [pandas]:   https://pandas.pydata.org/
-[librosa]:  https://librosa.github.io/librosa/
+[librosa]:  https://librosa.org/
 [spotify]:  https://www.spotify.com/
 [echonest]: https://web.archive.org/web/20170519050040/http://the.echonest.com/
 
