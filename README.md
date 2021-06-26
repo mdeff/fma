@@ -151,7 +151,7 @@ The following notebooks, scripts, and modules have been developed for the datase
     Note: try [7zip](https://www.7-zip.org) if decompression errors.
     It might be an [unsupported compression issue](https://github.com/mdeff/fma/issues/5).
 
-1. Fill a `.env` configuration file (at repository's root) with the following content.
+1. Fill a `.env` configuration file (at repository's root) with the following content. Please do not add comments in `.env`.
     ```
     AUDIO_DIR=./data/fma_small/  # the path to a decompressed fma_*.zip
     FMA_KEY=MYKEY  # only if you want to query the freemusicarchive.org API
