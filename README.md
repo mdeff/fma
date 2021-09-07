@@ -227,6 +227,7 @@ Some picks below.
 * <https://github.com/ismir/mir-datasets>
 * <https://teachingmir.wikispaces.com/Datasets>
 * <https://en.wikipedia.org/wiki/List_of_datasets_for_machine_learning_research>
+* <https://loc.gov/item/2018655052>
 * <https://cloudlab.atlassian.net/wiki/display/datasets/FMA:+A+Dataset+For+Music+Analysis>
 * <https://www.datasetlist.com>
 * <https://data-flair.training/blogs/deep-learning-project-ideas>
